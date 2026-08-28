@@ -289,6 +289,51 @@ pub fn is_place_code(code: u32) -> bool {
     name_for_code(code).is_some() || state_name_for_code(code).is_some()
 }
 
+/// Corporate-form suffixes, as case-folded FNV-1a hashes.
+///
+/// `LLC`, `Inc` and `Ltd` are not entities; they are the legal form attached to
+/// one. Counting them as ground-truth entity mass means an answer that names
+/// the company correctly but drops the suffix leaves mass uncovered, and that
+/// uncovered mass is exactly what turns an answer's extra true detail into a
+/// charged substitution.
+///
+/// Measured against a truth of "... operated by Google LLC (AS15169)": the
+/// answer "8.8.8.8 is Google Public DNS, hosted in Mountain View, California,
+/// United States" — correct, and natural phrasing — scored **0.2459**, below
+/// the 0.3057 given to an answer naming the wrong city. Saying "operated by
+/// Google" with no suffix already scored 1.0000, so the penalty was not for
+/// omitting the company; it was for volunteering "Public DNS" while `LLC` sat
+/// unmatched.
+///
+/// Only unambiguous suffixes are listed. `Co`, `SA`, `AG` and `AS` are left out
+/// on purpose: they collide with Colorado, country codes and the autonomous
+/// system marker, and a wrong reading there would be worse than the omission.
+static CORP_SUFFIXES: [u32; 11] = [
+    hash_str("llc"),
+    hash_str("inc"),
+    hash_str("incorporated"),
+    hash_str("ltd"),
+    hash_str("limited"),
+    hash_str("corp"),
+    hash_str("corporation"),
+    hash_str("gmbh"),
+    hash_str("plc"),
+    hash_str("llp"),
+    hash_str("pty"),
+];
+
+/// Is this token a corporate-form suffix rather than an entity?
+pub fn is_corporate_suffix(token: u32) -> bool {
+    let mut i = 0usize;
+    while i < CORP_SUFFIXES.len() {
+        if CORP_SUFFIXES[i] == token {
+            return true;
+        }
+        i += 1;
+    }
+    false
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -344,6 +389,17 @@ mod tests {
         // SK is Slovakia as well as Saskatchewan; both readings stay available.
         assert_eq!(name_for_code(hash_str("sk")), Some(hash_str("slovakia")));
         assert_eq!(state_name_for_code(hash_str("sk")), Some(hash_str("saskatchewan")));
+    }
+
+    #[test]
+    fn corporate_suffixes_are_not_entities() {
+        for w in ["llc", "Inc", "LTD", "GmbH", "plc"] {
+            assert!(is_corporate_suffix(hash_str(w)), "{w} not recognised");
+        }
+        // Ambiguous forms stay out: Co is Colorado, AS is the ASN marker.
+        for w in ["co", "as", "sa", "ag", "google"] {
+            assert!(!is_corporate_suffix(hash_str(w)), "{w} wrongly treated as a suffix");
+        }
     }
 
     #[test]

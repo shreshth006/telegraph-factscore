@@ -15,7 +15,8 @@
 //!   7. smoothstep calibration for genuine spread, never a cliff (A3.7).
 
 use crate::aliases::{
-    code_for_name, is_place_code, name_for_code, state_code_for_name, state_name_for_code,
+    code_for_name, is_corporate_suffix, is_place_code, name_for_code, state_code_for_name,
+    state_name_for_code,
 };
 use crate::bytes::*;
 use crate::facts::{best_agreement, fact_multiplier};
@@ -333,7 +334,7 @@ fn gt_uncovered_mass(ta: &Toks, tg: &Toks, sa: &Set) -> f32 {
         // extra true entity the answer volunteered was paired against it and
         // charged as a substitution: a correct verbose answer scored 0.1872,
         // below the 0.3057 given to one naming the wrong city.
-        if tg.proper[k] && !abstains(tg, k) {
+        if tg.proper[k] && !abstains(tg, k) && !is_corporate_suffix(tg.hash[k]) {
             if !sa.contains_tok(tg, k) {
                 gt_uncovered += tg.w[k];
             } else {
