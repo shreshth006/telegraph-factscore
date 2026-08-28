@@ -282,7 +282,15 @@ pub fn fact_multiplier(ta: &Toks, tg: &Toks, sa: &Set, p: &Profile) -> (f32, f32
     let id_add = fmax(id_uns - id_sub, 0.0);
     let id_w = id_sup + id_sub + p.add_w * id_add;
     if id_w > 0.0 {
-        f *= clamp01(1.0 - p.id_channel_w * (1.0 - id_sup / id_w));
+        // Identifiers admit no tolerance, so the channel leans on its worst one
+        // exactly as the numeric and entity channels do. Without this a correct
+        // identifier averaged a wrong one away: quoting the right IP alongside a
+        // wrong AS number scored the channel 0.5, and the answer 0.5347 — above
+        // several genuinely correct answers.
+        let id_mean = id_sup / id_w;
+        let id_worst = if id_sub > 0.0 { 0.0 } else { 1.0 };
+        let id_agree = (1.0 - p.id_min_bias) * id_mean + p.id_min_bias * id_worst;
+        f *= clamp01(1.0 - p.id_channel_w * (1.0 - id_agree));
     }
     if num_w <= 0.0 && id_w <= 0.0 {
         // No typed facts on either side: the fact channel abstains entirely

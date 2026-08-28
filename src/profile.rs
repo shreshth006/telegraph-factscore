@@ -92,6 +92,9 @@ pub struct Profile {
     /// channel zero it, 0.0 disables the channel. Channels multiply.
     pub num_channel_w: f32,
     pub id_channel_w: f32,
+    /// How much the *worst* identifier decides the identifier channel rather
+    /// than the average one. Mirrors `num_min_bias` and `ent_min_bias`.
+    pub id_min_bias: f32,
     /// Multiplier on a figure whose unit we could not identify, when the ground
     /// truth named a real one. Calibrated so that asserting a category error
     /// ("47 bananas") scores no better than asserting an honest wrong value
@@ -195,6 +198,7 @@ pub const fn base() -> Profile {
         num_min_bias: 0.5,
         num_channel_w: 0.9,
         id_channel_w: 0.9,
+        id_min_bias: 0.6,
         m_foreign_unit: 0.05,
         m_bare_unit: 0.85,
         m_contra: 0.85,
