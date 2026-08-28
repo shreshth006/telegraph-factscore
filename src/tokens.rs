@@ -314,6 +314,7 @@ pub fn tokenize(src: &[u8], t: &mut Toks) {
         let start = i;
         let (mut has_alpha, mut has_digit, mut high) = (false, false, false);
         let mut seps = 0u8;
+        let mut digits = 0u8;
 
         while i < n {
             let b = src[i];
@@ -322,6 +323,7 @@ pub fn tokenize(src: &[u8], t: &mut Toks) {
                     has_alpha = true;
                 } else if is_digit(b) {
                     has_digit = true;
+                    digits = digits.saturating_add(1);
                 } else {
                     high = true;
                 }
@@ -361,7 +363,15 @@ pub fn tokenize(src: &[u8], t: &mut Toks) {
         let hemi = used > 0 && rest.len() == 1 && is_hemisphere(rest[0]);
         let kind = if used > 0 && (rest.is_empty() || suffix_unit != U_NONE || hemi) {
             K_NUMBER
-        } else if (has_alpha && has_digit) || (has_digit && seps >= 2) {
+        } else if (has_alpha && has_digit && (digits >= 2 || seps >= 1))
+            || (has_digit && seps >= 2)
+        {
+            // A lone digit embedded in a word is part of a name, not an
+            // identifier: `IPv4`, `IP2Location` and `S3` are vocabulary, while
+            // `AS15169`, `8.8.8.8` and `CVE-2024-1234` carry two or more digits
+            // or a separator. Treating the former as identifiers put them in a
+            // channel that admits no tolerance, so an answer citing IP2Location
+            // as its source was scored as asserting a wrong identifier.
             K_IDENT
         } else if has_digit {
             K_NUMBER
