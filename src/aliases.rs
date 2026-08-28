@@ -184,8 +184,8 @@ pub fn is_country_code(code: u32) -> bool {
     name_for_code(code).is_some()
 }
 
-/// `(alpha-2 subdivision code, single-token state name)` for US states, as
-/// case-folded FNV-1a hashes.
+/// `(alpha-2 subdivision code, single-token name)` for US states and Canadian
+/// provinces, as case-folded FNV-1a hashes.
 ///
 /// Why this is separate from `CODES`. The module's own limitation note said
 /// subdivision codes were "not modelled at all", and for IP geolocation that is
@@ -207,7 +207,7 @@ pub fn is_country_code(code: u32) -> bool {
 /// and only contradicts when the truth contains neither. A bare `DE` against a
 /// truth of Uruguay still costs, because Uruguay names neither Germany nor
 /// Delaware.
-static STATES: [(u32, u32); 40] = [
+static STATES: [(u32, u32); 47] = [
     (hash_str("al"), hash_str("alabama")),
     (hash_str("ak"), hash_str("alaska")),
     (hash_str("az"), hash_str("arizona")),
@@ -248,6 +248,15 @@ static STATES: [(u32, u32); 40] = [
     (hash_str("wa"), hash_str("washington")),
     (hash_str("wi"), hash_str("wisconsin")),
     (hash_str("wy"), hash_str("wyoming")),
+    // Canadian provinces, named in the same limitation note. SK is also
+    // Slovakia and NU also Niue, which the both-readings rule already handles.
+    (hash_str("ab"), hash_str("alberta")),
+    (hash_str("mb"), hash_str("manitoba")),
+    (hash_str("on"), hash_str("ontario")),
+    (hash_str("qc"), hash_str("quebec")),
+    (hash_str("sk"), hash_str("saskatchewan")),
+    (hash_str("yt"), hash_str("yukon")),
+    (hash_str("nu"), hash_str("nunavut")),
 ];
 
 /// The subdivision code for a US state name, if this token names one.
@@ -326,6 +335,15 @@ mod tests {
         for word in ["ip", "as", "xx", "qq"] {
             assert!(!is_place_code(hash_str(word)), "{word} read as a place");
         }
+    }
+
+    #[test]
+    fn canadian_provinces_resolve_too() {
+        assert_eq!(state_code_for_name(hash_str("ontario")), Some(hash_str("on")));
+        assert_eq!(state_name_for_code(hash_str("QC")), Some(hash_str("quebec")));
+        // SK is Slovakia as well as Saskatchewan; both readings stay available.
+        assert_eq!(name_for_code(hash_str("sk")), Some(hash_str("slovakia")));
+        assert_eq!(state_name_for_code(hash_str("sk")), Some(hash_str("saskatchewan")));
     }
 
     #[test]
