@@ -325,7 +325,15 @@ fn gt_uncovered_mass(ta: &Toks, tg: &Toks, sa: &Set) -> f32 {
     let mut gt_uncovered = 0.0f32;
     let mut k = 0usize;
     while k < tg.n {
-        if tg.proper[k] {
+        // Method vocabulary in the ground truth is not entity mass. `abstains`
+        // already refuses to charge the answer for writing `IP`, `AS` or `RIR`;
+        // the same tokens must not open a substitution budget from the truth's
+        // side either. Before this, a truth reading "The IP address ..." against
+        // an answer reading "The IPv4 address ..." left `IP` uncovered, so every
+        // extra true entity the answer volunteered was paired against it and
+        // charged as a substitution: a correct verbose answer scored 0.1872,
+        // below the 0.3057 given to one naming the wrong city.
+        if tg.proper[k] && !abstains(tg, k) {
             if !sa.contains_tok(tg, k) {
                 gt_uncovered += tg.w[k];
             } else {
