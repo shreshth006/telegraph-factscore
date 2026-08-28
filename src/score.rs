@@ -25,9 +25,6 @@ use crate::sets::{Set, EMPTY_SET};
 use crate::tokens::{mark_boilerplate, tokenize, Toks, EMPTY_TOKS, K_NUMBER};
 use crate::units::annotate_units;
 
-/// How much of the entity penalty survives when the ground truth hedges.
-const ENT_HEDGE_SCALE: f32 = 0.35;
-
 // Scratch state. The module is single-threaded and the host gives each call a
 // fresh logical invocation, so these are reset at the top of every score().
 static mut TQ: Toks = EMPTY_TOKS;
@@ -167,7 +164,7 @@ pub fn breakdown(q: &[u8], gt: &[u8], ma: &[u8]) -> Breakdown {
 
     // Computed once and read by three channels: entity, identifier, precision.
     let gt_uncovered = gt_uncovered_mass(ta, tg, sa);
-    let entity = entity_agreement(ta, gt_uncovered, &p, ground_truth_hedges(tg));
+    let entity = entity_agreement(ta, gt_uncovered, &p);
     let precision = precision_of(ta, gt_uncovered, &p);
     let answered = answeredness(ta, tg, sq, &p);
     let (fmul, fact_raw) = fact_multiplier(ta, tg, sa, &p);
@@ -369,46 +366,7 @@ fn gt_uncovered_mass(ta: &Toks, tg: &Toks, sa: &Set) -> f32 {
     gt_uncovered
 }
 
-
-/// Does the ground truth hedge its own claim?
-///
-/// A truth that says "Location: **Likely** Ashburn, Virginia (common for
-/// OpenDNS servers)" is not asserting Ashburn the way "is located in Mountain
-/// View" asserts Mountain View. Charging a different city against a hedge at
-/// full strength treats a guess as a fact.
-///
-/// This is measured on real scored traffic, not invented: for
-/// 208.67.222.222 the recorded ground truth hedges Ashburn while the answer
-/// says San Jose, and the live canonical score for that answer was 0.9920.
-/// Scoring it as a flat contradiction is what a strict entity channel does,
-/// and it is the one place where being stricter than the incumbent is not
-/// obviously being more correct — the truth itself declined to commit.
-///
-/// Only the entity channel is softened, and only when the hedge is present.
-/// Figures and identifiers are untouched: a hedge about a city says nothing
-/// about a CVSS score or an ASN.
-fn ground_truth_hedges(tg: &Toks) -> bool {
-    let mut i = 0usize;
-    while i < tg.n {
-        let h = tg.hash[i];
-        if h == hash_str("likely")
-            || h == hash_str("probably")
-            || h == hash_str("typically")
-            || h == hash_str("usually")
-            || h == hash_str("generally")
-            || h == hash_str("approximately")
-            || h == hash_str("estimated")
-            || h == hash_str("presumably")
-            || h == hash_str("apparently")
-        {
-            return true;
-        }
-        i += 1;
-    }
-    false
-}
-
-fn entity_agreement(ta: &Toks, gt_uncovered: f32, p: &Profile, hedged: bool) -> f32 {
+fn entity_agreement(ta: &Toks, gt_uncovered: f32, p: &Profile) -> f32 {
     let (mut supported, mut unsupported) = (0.0f32, 0.0f32);
     let mut i = 0usize;
     while i < ta.n {
@@ -439,10 +397,7 @@ fn entity_agreement(ta: &Toks, gt_uncovered: f32, p: &Profile, hedged: bool) -> 
     // must not hide behind five correct ones.
     let worst = if substituted > 0.0 { 0.0 } else { 1.0 };
     let agree = (1.0 - p.ent_min_bias) * mean + p.ent_min_bias * worst;
-    // A hedged truth is weaker evidence, so a disagreement with it is charged
-    // at a fraction of the usual weight rather than as a flat contradiction.
-    let w = if hedged { p.ent_channel_w * ENT_HEDGE_SCALE } else { p.ent_channel_w };
-    clamp01(1.0 - w * (1.0 - agree))
+    clamp01(1.0 - p.ent_channel_w * (1.0 - agree))
 }
 
 /// Penalty for asserting the opposite of what the ground truth says.
