@@ -14,7 +14,9 @@
 //!   6. **fmul** — typed fact agreement, multiplicative (A3.4);
 //!   7. smoothstep calibration for genuine spread, never a cliff (A3.7).
 
-use crate::aliases::{code_for_name, is_country_code, name_for_code};
+use crate::aliases::{
+    code_for_name, is_place_code, name_for_code, state_code_for_name, state_name_for_code,
+};
 use crate::bytes::*;
 use crate::facts::{best_agreement, fact_multiplier};
 use crate::profile::{profile, Profile};
@@ -206,7 +208,7 @@ fn fold<'a>(src: &'a [u8], buf: &'a mut [u8; FOLD_CAP]) -> &'a [u8] {
 /// (the alias table matched it), and `DE` against that truth is a wrong entity.
 /// Abstaining on those made an appended false country free.
 fn abstains(t: &Toks, i: usize) -> bool {
-    t.abbrev[i] && !is_country_code(t.hash[i])
+    t.abbrev[i] && !is_place_code(t.hash[i])
 }
 
 /// Index each token by its ISO 3166 counterpart, in both directions.
@@ -235,9 +237,18 @@ fn add_country_aliases(set: &mut Set, t: &Toks) {
                 if let Some(code) = code_for_name(t.hash[i]) {
                     set.insert_key(code, i);
                 }
+                if let Some(code) = state_code_for_name(t.hash[i]) {
+                    set.insert_key(code, i);
+                }
             }
             if t.abbrev[i] {
+                // A code that names both a country and a state indexes both
+                // readings, so it is support for whichever one the ground truth
+                // contains and contradicts only when it contains neither.
                 if let Some(name) = name_for_code(t.hash[i]) {
+                    set.insert_key(name, i);
+                }
+                if let Some(name) = state_name_for_code(t.hash[i]) {
                     set.insert_key(name, i);
                 }
             }

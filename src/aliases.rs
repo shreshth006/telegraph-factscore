@@ -184,6 +184,102 @@ pub fn is_country_code(code: u32) -> bool {
     name_for_code(code).is_some()
 }
 
+/// `(alpha-2 subdivision code, single-token state name)` for US states, as
+/// case-folded FNV-1a hashes.
+///
+/// Why this is separate from `CODES`. The module's own limitation note said
+/// subdivision codes were "not modelled at all", and for IP geolocation that is
+/// the most common abbreviation there is. Worse than missing: **`CA` is already
+/// a country code (Canada)**, so `Mountain View, CA, United States` read `CA` as
+/// a claim that the country is Canada and scored it as a contradiction against a
+/// truth of California. Measured before this table, that one substitution took a
+/// verbatim-correct answer from 1.0000 to **0.3297** — a heavier penalty than a
+/// genuinely wrong organisation (0.2980), which is an ordering inversion, not a
+/// harsh-but-defensible score.
+///
+/// Only single-token names are here, for the same reason as `CODES`: the initials
+/// rule already turns `New York` into `NY` and `North Carolina` into `NC`, so
+/// multi-word states need no table.
+///
+/// A code that names both a country and a state (`CA`, `DE`, `IN`, `LA`, `MT`)
+/// now indexes **both** readings. That is the correct semantics for an ambiguous
+/// token: it is support for whichever reading the ground truth actually contains,
+/// and only contradicts when the truth contains neither. A bare `DE` against a
+/// truth of Uruguay still costs, because Uruguay names neither Germany nor
+/// Delaware.
+static STATES: [(u32, u32); 40] = [
+    (hash_str("al"), hash_str("alabama")),
+    (hash_str("ak"), hash_str("alaska")),
+    (hash_str("az"), hash_str("arizona")),
+    (hash_str("ar"), hash_str("arkansas")),
+    (hash_str("ca"), hash_str("california")),
+    (hash_str("co"), hash_str("colorado")),
+    (hash_str("ct"), hash_str("connecticut")),
+    (hash_str("de"), hash_str("delaware")),
+    (hash_str("fl"), hash_str("florida")),
+    (hash_str("ga"), hash_str("georgia")),
+    (hash_str("hi"), hash_str("hawaii")),
+    (hash_str("id"), hash_str("idaho")),
+    (hash_str("il"), hash_str("illinois")),
+    (hash_str("in"), hash_str("indiana")),
+    (hash_str("ia"), hash_str("iowa")),
+    (hash_str("ks"), hash_str("kansas")),
+    (hash_str("ky"), hash_str("kentucky")),
+    (hash_str("la"), hash_str("louisiana")),
+    (hash_str("me"), hash_str("maine")),
+    (hash_str("md"), hash_str("maryland")),
+    (hash_str("ma"), hash_str("massachusetts")),
+    (hash_str("mi"), hash_str("michigan")),
+    (hash_str("mn"), hash_str("minnesota")),
+    (hash_str("ms"), hash_str("mississippi")),
+    (hash_str("mo"), hash_str("missouri")),
+    (hash_str("mt"), hash_str("montana")),
+    (hash_str("ne"), hash_str("nebraska")),
+    (hash_str("nv"), hash_str("nevada")),
+    (hash_str("oh"), hash_str("ohio")),
+    (hash_str("ok"), hash_str("oklahoma")),
+    (hash_str("or"), hash_str("oregon")),
+    (hash_str("pa"), hash_str("pennsylvania")),
+    (hash_str("tn"), hash_str("tennessee")),
+    (hash_str("tx"), hash_str("texas")),
+    (hash_str("ut"), hash_str("utah")),
+    (hash_str("vt"), hash_str("vermont")),
+    (hash_str("va"), hash_str("virginia")),
+    (hash_str("wa"), hash_str("washington")),
+    (hash_str("wi"), hash_str("wisconsin")),
+    (hash_str("wy"), hash_str("wyoming")),
+];
+
+/// The subdivision code for a US state name, if this token names one.
+pub fn state_code_for_name(name: u32) -> Option<u32> {
+    let mut i = 0usize;
+    while i < STATES.len() {
+        if STATES[i].1 == name {
+            return Some(STATES[i].0);
+        }
+        i += 1;
+    }
+    None
+}
+
+/// The US state name for a subdivision code, if this token is one.
+pub fn state_name_for_code(code: u32) -> Option<u32> {
+    let mut i = 0usize;
+    while i < STATES.len() {
+        if STATES[i].0 == code {
+            return Some(STATES[i].1);
+        }
+        i += 1;
+    }
+    None
+}
+
+/// Is this token a checkable place code — a country or a US state? Used by the
+/// abstention rule, so a wrong state code costs like a wrong country code.
+pub fn is_place_code(code: u32) -> bool {
+    name_for_code(code).is_some() || state_name_for_code(code).is_some()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -203,6 +299,33 @@ mod tests {
         // `id` really is Indonesia, and that is the correct reading: an answer
         // writing a bare `ID` where the truth says Indonesia should get credit.
         assert!(is_country_code(hash_str("id")));
+    }
+
+    #[test]
+    fn us_state_codes_resolve_in_both_directions() {
+        assert_eq!(state_code_for_name(hash_str("california")), Some(hash_str("ca")));
+        assert_eq!(state_name_for_code(hash_str("TX")), Some(hash_str("texas")));
+        // Multi-word states are reached by the initials rule, not this table.
+        assert_eq!(state_name_for_code(hash_str("ny")), None);
+    }
+
+    #[test]
+    fn a_code_naming_both_a_country_and_a_state_keeps_both_readings() {
+        // CA is Canada and California; DE is Germany and Delaware. Losing
+        // either reading is what made "Mountain View, CA" score as a claim
+        // that the country was Canada.
+        for (code, country, state) in [("ca", "canada", "california"), ("de", "germany", "delaware")] {
+            assert_eq!(name_for_code(hash_str(code)), Some(hash_str(country)));
+            assert_eq!(state_name_for_code(hash_str(code)), Some(hash_str(state)));
+            assert!(is_place_code(hash_str(code)));
+        }
+    }
+
+    #[test]
+    fn method_vocabulary_is_still_not_a_place_code() {
+        for word in ["ip", "as", "xx", "qq"] {
+            assert!(!is_place_code(hash_str(word)), "{word} read as a place");
+        }
     }
 
     #[test]
