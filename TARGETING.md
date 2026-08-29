@@ -126,3 +126,32 @@ shared scorer. On IP_GEOLOCATION, against champion 630, the same source now
 measures margin **0.8234** with **39/39** pairs ordered, against 0.7221 and
 786/791 before — no regression, and the whole suite passes under the generic,
 ip-geolocation and storm-alert profiles.
+
+## Registration 1820 — the fixture set is the opposite shape
+
+Rejected on ordering, **8 of 15**, margin 0.3286. The standalone fact scorer
+ordered *worse* than the hybrid it replaced (12/15), and the two results read
+together settle what this intent's hidden fixtures look like:
+
+| build | what decides the score | node ordering |
+| --- | --- | ---: |
+| 1815 hybrid | embeddings, floored by the fact channel | 12 / 15 |
+| 1820 standalone | the fact channel alone | 8 / 15 |
+| champion 850 | embeddings | 14 / 15 |
+
+More fact-precision, worse ordering. The bad answer in these pairs is
+semantically distant — the kind an embedding separates easily — while the fact
+channel's precision measure demotes the *good* answer for the content it leaves
+unrestated. The paraphrase corpus that exposed the two defects above is the
+opposite shape: one decisive field swapped inside an otherwise perfect answer,
+which embeddings cannot see and the fact channel catches. Both corpora are
+right about their own class, and the node is benchmarking the first one.
+
+So the next build inverts the division of labour: the embedding composite
+decides the calibration band, and the fact channel is demoted to a tie-break
+*inside* it, which is the same split the champion's own source documents at its
+`STEP_B = 0.004`. The band is a ramp rather than a step, on that source's
+reasoning: a step buys the most separation once the threshold is known to lie
+between the clusters, but this blend's scale has not been measured against these
+fixtures, and a ramp across the plateau loses little where a misplaced step
+loses everything.

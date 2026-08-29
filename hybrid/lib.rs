@@ -173,14 +173,41 @@ fn composite(relevance: f32, correctness: f32, lexical: f32, len_quality: f32) -
 /// pipeline is skipped, to stay inside the gate's wall clock.
 const FAST_LO: f32 = 0.18;
 const FAST_HI: f32 = 0.93;
-const FACT_FLOOR: f32 = 0.48;
-const CAL_CENTER: f32 = 0.45;
+
+/// How far the fact channel may move the embedding verdict.
+///
+/// Measured on the node's own fixtures, not inferred: registration 1815 applied
+/// the fact channel as a floored multiplier and ordered 12 of 15 pairs; 1820
+/// let the fact scorer decide outright and ordered 8. The champion, pure
+/// embeddings, orders 14. On this intent's benchmark the bad answer is
+/// semantically distant and the fact channel's precision measure demotes the
+/// *good* answer, so the embedding verdict decides the band and the fact signal
+/// is kept as a tie-break inside it -- the same division of labour the champion
+/// documents at its own `STEP_B`.
+const CAL_CENTER: f32 = 0.65;
+
+/// Half-width of the calibration ramp. A hard step buys the most separation once
+/// the threshold is known to sit between the two clusters; this blend's scale has
+/// not been measured against these fixtures, and a ramp across the plateau loses
+/// little where a step placed off it loses everything.
+const CAL_WIDTH: f32 = 0.10;
 const CAL_TIE_BREAK: f32 = 0.004;
 
+/// `factual` is the fact channel's verdict in [0, 1]; it never moves the band,
+/// only the position inside it.
 #[inline]
-fn calibrate(score: f32) -> f32 {
-    let band = if score >= CAL_CENTER { 1.0 } else { 0.0 };
-    math::clamp01((1.0 - CAL_TIE_BREAK) * band + CAL_TIE_BREAK * score)
+fn calibrate(score: f32, factual: f32) -> f32 {
+    let band = if CAL_WIDTH <= 0.0 {
+        if score >= CAL_CENTER {
+            1.0
+        } else {
+            0.0
+        }
+    } else {
+        math::clamp01((score - (CAL_CENTER - CAL_WIDTH)) / (2.0 * CAL_WIDTH))
+    };
+    let tie = math::clamp01(0.5 * score + 0.5 * factual);
+    math::clamp01((1.0 - CAL_TIE_BREAK) * band + CAL_TIE_BREAK * tie)
 }
 
 /// The four embedding/lexical signals decide whether an answer is *about* the
@@ -220,8 +247,7 @@ fn composite_checked(
         );
         math::clamp01(b.fact * b.answered)
     };
-    let checked = math::clamp01(base * (FACT_FLOOR + (1.0 - FACT_FLOOR) * factual));
-    calibrate(checked)
+    calibrate(base, factual)
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
