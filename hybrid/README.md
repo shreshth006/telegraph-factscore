@@ -82,8 +82,8 @@ PREFLIGHT now uses the same general calibration principle at its independently
 measured `0.45` centre, plus an exact-match fast path required by the self-match
 gate.
 
-On the cached-path IP geolocation synthetic corpus, the candidate artifact
-`a06a9f98...10be` measured:
+On the cached-path IP geolocation synthetic corpus, the current robust
+candidate artifact `f906081e...78de` measured:
 
 | measure | threshold candidate | incumbent reg 630 |
 |---|---:|---:|
@@ -97,6 +97,13 @@ was `0.8545`. The node skips that gate for IP geolocation while fewer than two
 distinct miners have history, so this is supporting evidence rather than a
 claim about a live promotion. The candidate has not been registered and no
 node score is claimed for it.
+
+The robust rebuild lossily decodes invalid UTF-8 instead of invoking unchecked
+string behavior and treats Unicode whitespace and zero-width formatting marks
+as empty input. Its gate-proxy scores are unchanged from the predecessor, while
+the harness's two advisory checks improve from warnings to passes: 20/20
+Unicode-empty probes return exactly zero, and invalid UTF-8 returns a finite
+score without trapping.
 
 ## Reproducing the current candidate
 
@@ -120,7 +127,11 @@ sha256sum target/wasm32-unknown-unknown/release/telegraph_scoring.wasm
 ```
 
 Reproduced on `rustc 1.98.0 (88d9e12ae 2026-08-18)` and Cargo 1.98.0. The
-current source emits 24,200,062 bytes with SHA-256
+current source emits 24,201,970 bytes with SHA-256
+`f906081e0df92f1e9c4e7ff318cc2cd25cd809815336e393491a4c6af07878de`
+and registry Keccak-256
+`3543fcb80073425d99eb4329135214361d466dbc0deeda02b5eedf7da7e83407`.
+The predecessor before invalid-input hardening emitted SHA-256
 `a06a9f98ee607e85e3b6922cc114407de01c647f24a1a122959651657beb10be`.
 To reproduce registration 1686 instead, check this repository out at commit
 `fde78bc` before applying the overlay; that source emits the registered

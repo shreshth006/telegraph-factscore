@@ -22,6 +22,8 @@
 
 extern crate alloc;
 
+use alloc::borrow::Cow;
+
 mod allocator;
 mod facts;
 mod fs;
@@ -68,9 +70,24 @@ const W_LENGTH:      f32 = 0.10; // sigmoid length-quality penalty
 /// `ptr` + `len` must point to valid, initialised memory written by the Go
 /// host before this call.
 #[inline]
-unsafe fn read_str<'a>(ptr: i32, len: i32) -> &'a str {
-    let slice = core::slice::from_raw_parts(ptr as *const u8, len as usize);
-    core::str::from_utf8_unchecked(slice)
+unsafe fn read_bytes<'a>(ptr: i32, len: i32) -> &'a [u8] {
+    core::slice::from_raw_parts(ptr as *const u8, len as usize)
+}
+
+#[inline]
+fn decode(bytes: &[u8]) -> Cow<'_, str> {
+    alloc::string::String::from_utf8_lossy(bytes)
+}
+
+#[inline]
+fn effectively_empty(text: &str) -> bool {
+    text.chars().all(|character| {
+        character.is_whitespace()
+            || matches!(
+                character,
+                '\u{200B}' | '\u{200C}' | '\u{200D}' | '\u{2060}' | '\u{FEFF}'
+            )
+    })
 }
 
 /// Read a float32 slice from WASM linear memory.
@@ -223,22 +240,33 @@ pub unsafe extern "C" fn rank_answer(
     gt_ptr: i32, gt_len: i32, // ground truth
     ma_ptr: i32, ma_len: i32, // miner answer
 ) -> f32 {
-    let question     = read_str(q_ptr,  q_len);
-    let ground_truth = read_str(gt_ptr, gt_len);
-    let miner_answer = read_str(ma_ptr, ma_len);
+    let question_bytes = read_bytes(q_ptr, q_len);
+    let ground_truth_bytes = read_bytes(gt_ptr, gt_len);
+    let miner_answer_bytes = read_bytes(ma_ptr, ma_len);
+    let question = decode(question_bytes);
+    let ground_truth = decode(ground_truth_bytes);
+    let miner_answer = decode(miner_answer_bytes);
 
     // Empty / whitespace-only answer → immediate 0
-    if miner_answer.trim().is_empty() {
+    if effectively_empty(miner_answer.as_ref()) {
         return 0.0;
     }
-    if miner_answer.as_bytes() == ground_truth.as_bytes() {
+    if miner_answer_bytes == ground_truth_bytes {
         return 1.0;
     }
 
     let (relevance, correctness, lexical, len_quality) =
-        compute_signals(question, ground_truth, miner_answer);
+        compute_signals(question.as_ref(), ground_truth.as_ref(), miner_answer.as_ref());
 
-    composite_checked(relevance, correctness, lexical, len_quality, question, ground_truth, miner_answer)
+    composite_checked(
+        relevance,
+        correctness,
+        lexical,
+        len_quality,
+        question.as_ref(),
+        ground_truth.as_ref(),
+        miner_answer.as_ref(),
+    )
 }
 
 /// Composite scorer variant for callers that already have `question` and
@@ -272,24 +300,32 @@ pub unsafe extern "C" fn rank_answer_cached(
     gt_ptr: i32, gt_len: i32, // ground truth TEXT (for BM25)
     ma_ptr: i32, ma_len: i32, // miner answer
 ) -> f32 {
-    let ground_truth = read_str(gt_ptr, gt_len);
-    let miner_answer = read_str(ma_ptr, ma_len);
+    let ground_truth_bytes = read_bytes(gt_ptr, gt_len);
+    let miner_answer_bytes = read_bytes(ma_ptr, ma_len);
+    let ground_truth = decode(ground_truth_bytes);
+    let miner_answer = decode(miner_answer_bytes);
 
-    if miner_answer.trim().is_empty() {
+    if effectively_empty(miner_answer.as_ref()) {
         return 0.0;
     }
-    if miner_answer.as_bytes() == ground_truth.as_bytes() {
+    if miner_answer_bytes == ground_truth_bytes {
         return 1.0;
     }
 
     let q_vec = read_f32s(q_vec_ptr, EMBED_DIM as i32);
     let gt_vec = read_f32s(gt_vec_ptr, EMBED_DIM as i32);
 
-    let ma_enc = tokenizer::tokenize(miner_answer);
+    let ma_enc = tokenizer::tokenize(miner_answer.as_ref());
     let ma_vec = embed::run(&ma_enc);
 
     let (relevance, correctness, lexical, len_quality) =
-        signals_from_vecs(q_vec, gt_vec, ground_truth, miner_answer, &ma_vec);
+        signals_from_vecs(
+            q_vec,
+            gt_vec,
+            ground_truth.as_ref(),
+            miner_answer.as_ref(),
+            &ma_vec,
+        );
 
     // This is the entry point Stage 2 replay evaluation actually calls, so the
     // fact channel and calibration must be applied here too. The question
@@ -301,8 +337,8 @@ pub unsafe extern "C" fn rank_answer_cached(
         lexical,
         len_quality,
         "",
-        ground_truth,
-        miner_answer,
+        ground_truth.as_ref(),
+        miner_answer.as_ref(),
     )
 }
 
@@ -326,17 +362,17 @@ pub unsafe extern "C" fn breakdown_answer(
     gt_ptr: i32, gt_len: i32, // ground truth
     ma_ptr: i32, ma_len: i32, // miner answer
 ) -> i32 {
-    let question     = read_str(q_ptr,  q_len);
-    let ground_truth = read_str(gt_ptr, gt_len);
-    let miner_answer = read_str(ma_ptr, ma_len);
+    let question = decode(read_bytes(q_ptr, q_len));
+    let ground_truth = decode(read_bytes(gt_ptr, gt_len));
+    let miner_answer = decode(read_bytes(ma_ptr, ma_len));
 
-    if miner_answer.trim().is_empty() {
+    if effectively_empty(miner_answer.as_ref()) {
         BREAKDOWN_BUF = [0f32; BREAKDOWN_DIM];
         return BREAKDOWN_BUF.as_ptr() as i32;
     }
 
     let (relevance, correctness, lexical, len_quality) =
-        compute_signals(question, ground_truth, miner_answer);
+        compute_signals(question.as_ref(), ground_truth.as_ref(), miner_answer.as_ref());
 
     let composite_score = composite(relevance, correctness, lexical, len_quality);
 
@@ -356,8 +392,8 @@ pub unsafe extern "C" fn breakdown_answer(
 /// 384 × 4 = 1 536 bytes from that address.
 #[no_mangle]
 pub unsafe extern "C" fn embed(text_ptr: i32, text_len: i32) -> i32 {
-    let text = read_str(text_ptr, text_len);
-    let enc  = tokenizer::tokenize(text);
+    let text = decode(read_bytes(text_ptr, text_len));
+    let enc  = tokenizer::tokenize(text.as_ref());
     let vec  = embed::run(&enc);
 
     EMBED_BUF.copy_from_slice(&vec);
@@ -377,9 +413,9 @@ pub unsafe extern "C" fn cosine_sim(ptr_a: i32, ptr_b: i32, dim: i32) -> f32 {
 /// BM25 lexical relevance of `doc` against `query`, normalised to [0, 1].
 #[no_mangle]
 pub unsafe extern "C" fn bm25_score(q_ptr: i32, q_len: i32, doc_ptr: i32, doc_len: i32) -> f32 {
-    let query = read_str(q_ptr, q_len);
-    let doc   = read_str(doc_ptr, doc_len);
-    bm25::score(query, doc)
+    let query = decode(read_bytes(q_ptr, q_len));
+    let doc = decode(read_bytes(doc_ptr, doc_len));
+    bm25::score(query.as_ref(), doc.as_ref())
 }
 
 /// Allocate `size` bytes on the WASM heap and return the pointer.
