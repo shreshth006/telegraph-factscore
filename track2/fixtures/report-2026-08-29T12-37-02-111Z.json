@@ -1,0 +1,618 @@
+{
+  "generated_at": "2026-08-29T12:37:02.111Z",
+  "command": "node /home/AeroChrome/Desktop/telegraph-factscore/harness/run-eval.mjs --scorer dist/ip_geolocation.wasm --against harness/champions/ipgeo_reg630.wasm --fixtures fixtures/real,fixtures/probe --intent IP_GEOLOCATION --quiet",
+  "thresholds": {
+    "self_match_floor": 0.75,
+    "stddev_floor": 0.05,
+    "spearman_floor": 0.6,
+    "spearman_min_miners": 2,
+    "margin_absolute_floor": 0.15,
+    "wall_clock_budget_s": 600,
+    "source": "2026-08-27 gate recon: restored telegraph-docs page from git history + 1,033 live rejection strings",
+    "status": "NOT independently verified by this harness — see track2/GAPS.md"
+  },
+  "candidate": {
+    "path": "dist/ip_geolocation.wasm",
+    "sha256": "a72d324fe9d9ffe4a8c1a412d6ae299151d5a16788d1487b055865ef7ad12e9b",
+    "bytes": 24184,
+    "timing": {
+      "wall_seconds": 0,
+      "worker_seconds_per_call": 0.007,
+      "projected_node_gate_seconds": 10,
+      "budget_seconds": 600,
+      "at_risk": false
+    }
+  },
+  "against": {
+    "path": "harness/champions/ipgeo_reg630.wasm",
+    "sha256": "84d6b1dc03453df236589f7cd538851f97f17110d1195d41729758e997332024",
+    "bytes": 23989222,
+    "timing": {
+      "wall_seconds": 64,
+      "worker_seconds_per_call": 6.998,
+      "projected_node_gate_seconds": 472,
+      "budget_seconds": 600,
+      "at_risk": true
+    }
+  },
+  "corpus": {
+    "dirs": [
+      "fixtures/real",
+      "fixtures/probe"
+    ],
+    "intent": "IP_GEOLOCATION",
+    "files": [
+      {
+        "path": "fixtures/real/ACADEMIC_SEARCH.json",
+        "count": 5
+      },
+      {
+        "path": "fixtures/real/CRYPTO_PRICE.json",
+        "count": 15
+      },
+      {
+        "path": "fixtures/real/CVE_LOOKUP.json",
+        "count": 13
+      },
+      {
+        "path": "fixtures/real/GAME_RESULT.json",
+        "count": 15
+      },
+      {
+        "path": "fixtures/real/IP_GEOLOCATION.json",
+        "count": 11
+      },
+      {
+        "path": "fixtures/real/SSL_VERIFICATION.json",
+        "count": 12
+      },
+      {
+        "path": "fixtures/real/STOCK_PRICE.json",
+        "count": 15
+      },
+      {
+        "path": "fixtures/real/STORM_ALERT.json",
+        "count": 13
+      },
+      {
+        "path": "fixtures/real/WEATHER_FORECAST.json",
+        "count": 15
+      },
+      {
+        "path": "fixtures/probe/CRYPTO_PRICE.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/CVE_LOOKUP.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/IP_GEOLOCATION.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/SSL_VERIFICATION.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/STOCK_PRICE.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/STORM_ALERT.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/WEATHER_FORECAST.json",
+        "count": 8
+      }
+    ],
+    "fixtures": 19,
+    "calls_per_module": 73,
+    "max_real_answers": 12,
+    "workers": 8
+  },
+  "stage1": {
+    "exports": [
+      "TELEGRAPH_INTENT",
+      "alloc",
+      "breakdown_answer",
+      "dealloc",
+      "memory",
+      "rank_answer"
+    ],
+    "checks": [
+      {
+        "name": "exports memory/alloc/rank_answer",
+        "pass": true,
+        "detail": "TELEGRAPH_INTENT, alloc, breakdown_answer, dealloc, memory, rank_answer"
+      },
+      {
+        "name": "exports dealloc (node requires it; this harness does not call it)",
+        "pass": true,
+        "detail": "present"
+      },
+      {
+        "name": "rank_answer takes exactly 6 i32 params",
+        "pass": true,
+        "detail": "rank_answer/6, alloc/1, dealloc/2"
+      },
+      {
+        "name": "empty answer returns exactly 0.0",
+        "advisory": false,
+        "pass": true,
+        "detail": "5 probes, all exactly 0"
+      },
+      {
+        "name": "ASCII whitespace-only answer returns exactly 0.0 (a 0.0007 was a recorded rejection)",
+        "advisory": false,
+        "pass": true,
+        "detail": "15 probes, all exactly 0"
+      },
+      {
+        "name": "Unicode whitespace-only answer returns exactly 0.0",
+        "advisory": true,
+        "pass": true,
+        "detail": "20 probes, all exactly 0"
+      },
+      {
+        "name": "self-match beats unrelated cross-match on every fixture",
+        "pass": true,
+        "detail": "19/19 fixtures, smallest gap 0.779379"
+      },
+      {
+        "name": "no crash on adversarial input",
+        "pass": true,
+        "detail": "54KB repeated text=0  100KB answer=0  emoji only=0  non-Latin=0  accents=0  invalid UTF-8[advisory]=0  NUL bytes=0.000005  one 50k token=0"
+      },
+      {
+        "name": "whole gate fits the 600s wall clock",
+        "pass": true,
+        "detail": "0s/call serial x ~66 calls + 10s load = ~10s of 600s"
+      },
+      {
+        "name": "worst adversarial input stays well inside the budget",
+        "pass": true,
+        "detail": "slowest \"54KB repeated text\" took 0s"
+      }
+    ],
+    "adversarial": [
+      {
+        "name": "54KB repeated text",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "100KB answer",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "emoji only",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "non-Latin",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "accents",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "invalid UTF-8",
+        "advisory": true,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "NUL bytes",
+        "advisory": false,
+        "ok": true,
+        "value": 0.000005,
+        "seconds": 0
+      },
+      {
+        "name": "one 50k token",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      }
+    ],
+    "serial_seconds_per_call": 0,
+    "projected_gate_seconds": 10,
+    "pass": true
+  },
+  "gate_proxy": {
+    "IP_GEOLOCATION": {
+      "candidate": {
+        "fixtures": 19,
+        "worst_self_match": 1,
+        "mean_self_match": 1,
+        "score_stddev": 0.033096,
+        "mean_score": 0.019551,
+        "mean_discrimination": 0.018384,
+        "separation": null,
+        "mean_good": null,
+        "mean_bad": 0.00708,
+        "labelled": {
+          "good": 0,
+          "bad": 8
+        },
+        "wins": 3,
+        "pairs": 8,
+        "accuracy": 0.375,
+        "mean_margin": 0.004888,
+        "per_class": {
+          "REAL-PARROT": {
+            "pairs": 8,
+            "wins": 3,
+            "accuracy": 0.375,
+            "mean_margin": 0.004888
+          }
+        },
+        "constraints": {}
+      },
+      "against": {
+        "fixtures": 19,
+        "worst_self_match": 1,
+        "mean_self_match": 1,
+        "score_stddev": 0.444776,
+        "mean_score": 0.290072,
+        "mean_discrimination": 0.370536,
+        "separation": null,
+        "mean_good": null,
+        "mean_bad": 0.132379,
+        "labelled": {
+          "good": 0,
+          "bad": 8
+        },
+        "wins": 4,
+        "pairs": 8,
+        "accuracy": 0.5,
+        "mean_margin": 0.121952,
+        "per_class": {
+          "REAL-PARROT": {
+            "pairs": 8,
+            "wins": 4,
+            "accuracy": 0.5,
+            "mean_margin": 0.121952
+          }
+        },
+        "constraints": {}
+      },
+      "spearman": {
+        "n": 11,
+        "rho": 0.7
+      },
+      "distinct_miners": 1,
+      "verdict": {
+        "checks": [
+          {
+            "name": "A  score_stddev > 0.05 (strict)",
+            "state": "FAIL",
+            "detail": "candidate 0.033096 | reference 0.444776"
+          },
+          {
+            "name": "B  worst_self_match >= max(0.75, incumbent)",
+            "state": "PASS",
+            "detail": "candidate 1 vs bar 1 (incumbent 1)"
+          },
+          {
+            "name": "C  Spearman >= 0.60 vs champion on real traffic",
+            "state": "SKIP",
+            "detail": "only 1 miner(s) with history in this intent"
+          },
+          {
+            "name": "D1 margin > champion_margin (strict)",
+            "state": "SKIP",
+            "detail": "no labelled good/bad answers in scope"
+          },
+          {
+            "name": "D2 margin >= 0.15 absolute",
+            "state": "SKIP",
+            "detail": "candidate null"
+          },
+          {
+            "name": "D3 candidate_wins >= champion_wins (tie allowed)",
+            "state": "FAIL",
+            "detail": "candidate 3/8 vs reference 4/8"
+          }
+        ],
+        "pass": false
+      }
+    },
+    "ALL": {
+      "candidate": {
+        "fixtures": 19,
+        "worst_self_match": 1,
+        "mean_self_match": 1,
+        "score_stddev": 0.033096,
+        "mean_score": 0.019551,
+        "mean_discrimination": 0.018384,
+        "separation": null,
+        "mean_good": null,
+        "mean_bad": 0.00708,
+        "labelled": {
+          "good": 0,
+          "bad": 8
+        },
+        "wins": 3,
+        "pairs": 8,
+        "accuracy": 0.375,
+        "mean_margin": 0.004888,
+        "per_class": {
+          "REAL-PARROT": {
+            "pairs": 8,
+            "wins": 3,
+            "accuracy": 0.375,
+            "mean_margin": 0.004888
+          }
+        },
+        "constraints": {}
+      },
+      "against": {
+        "fixtures": 19,
+        "worst_self_match": 1,
+        "mean_self_match": 1,
+        "score_stddev": 0.444776,
+        "mean_score": 0.290072,
+        "mean_discrimination": 0.370536,
+        "separation": null,
+        "mean_good": null,
+        "mean_bad": 0.132379,
+        "labelled": {
+          "good": 0,
+          "bad": 8
+        },
+        "wins": 4,
+        "pairs": 8,
+        "accuracy": 0.5,
+        "mean_margin": 0.121952,
+        "per_class": {
+          "REAL-PARROT": {
+            "pairs": 8,
+            "wins": 4,
+            "accuracy": 0.5,
+            "mean_margin": 0.121952
+          }
+        },
+        "constraints": {}
+      },
+      "spearman": {
+        "n": 11,
+        "rho": 0.7
+      },
+      "distinct_miners": 1,
+      "verdict": {
+        "checks": [
+          {
+            "name": "A  score_stddev > 0.05 (strict)",
+            "state": "FAIL",
+            "detail": "candidate 0.033096 | reference 0.444776"
+          },
+          {
+            "name": "B  worst_self_match >= max(0.75, incumbent)",
+            "state": "PASS",
+            "detail": "candidate 1 vs bar 1 (incumbent 1)"
+          },
+          {
+            "name": "C  Spearman >= 0.60 vs champion on real traffic",
+            "state": "SKIP",
+            "detail": "only 1 miner(s) with history in this intent"
+          },
+          {
+            "name": "D1 margin > champion_margin (strict)",
+            "state": "SKIP",
+            "detail": "no labelled good/bad answers in scope"
+          },
+          {
+            "name": "D2 margin >= 0.15 absolute",
+            "state": "SKIP",
+            "detail": "candidate null"
+          },
+          {
+            "name": "D3 candidate_wins >= champion_wins (tie allowed)",
+            "state": "FAIL",
+            "detail": "candidate 3/8 vs reference 4/8"
+          }
+        ],
+        "pass": false
+      }
+    }
+  },
+  "exhibits": [
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-01",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.007092,
+          "against": 0.010623
+        },
+        "parrot + real data": {
+          "candidate": 0.000001,
+          "against": 0.010302
+        },
+        "real-iplocate-e279 (real data)": {
+          "candidate": 0,
+          "against": 0.008464
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e279": 0.0084637785
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-02",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.00706,
+          "against": 0.991686
+        },
+        "parrot + real data": {
+          "candidate": 0.034238,
+          "against": 0.996234
+        },
+        "real-iplocate-e278 (real data)": {
+          "candidate": 0.021576,
+          "against": 0.995956
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e278": 0.99595594
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-03",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.007094,
+          "against": 0.008991
+        },
+        "parrot + real data": {
+          "candidate": 0.000001,
+          "against": 0.008624
+        },
+        "real-iplocate-e276 (real data)": {
+          "candidate": 0,
+          "against": 0.007792
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e276": 0.0077921003
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-04",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.007107,
+          "against": 0.008643
+        },
+        "parrot + real data": {
+          "candidate": 0.000034,
+          "against": 0.991412
+        },
+        "real-iplocate-e270 (real data)": {
+          "candidate": 0.000017,
+          "against": 0.009309
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e270": 0.009308951
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-05",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.007084,
+          "against": 0.010446
+        },
+        "parrot + real data": {
+          "candidate": 0,
+          "against": 0.009564
+        },
+        "real-iplocate-e269 (real data)": {
+          "candidate": 0,
+          "against": 0.007972
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e269": 0.045735113
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-06",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.007074,
+          "against": 0.010482
+        },
+        "parrot + real data": {
+          "candidate": 0.049374,
+          "against": 0.993645
+        },
+        "real-iplocate-e268 (real data)": {
+          "candidate": 0.037083,
+          "against": 0.99143
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e268": 0.29705068
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-07",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.007072,
+          "against": 0.007453
+        },
+        "parrot + real data": {
+          "candidate": 0.00706,
+          "against": 0.00742
+        },
+        "real-iplocate-e267 (real data)": {
+          "candidate": 0,
+          "against": 0.002389
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e267": 0.0047324067
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-08",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.007059,
+          "against": 0.010705
+        },
+        "parrot + real data": {
+          "candidate": 0.049221,
+          "against": 0.993621
+        },
+        "real-iplocate-e266 (real data)": {
+          "candidate": 0.037071,
+          "against": 0.011334
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e266": 0.30462903
+      }
+    }
+  ],
+  "runtime_seconds": 64
+}

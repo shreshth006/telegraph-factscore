@@ -1,0 +1,1053 @@
+{
+  "generated_at": "2026-08-29T14:39:22.880Z",
+  "command": "node /home/AeroChrome/Desktop/telegraph-factscore/harness/run-eval.mjs --scorer target/wasm32-unknown-unknown/release/scorer.wasm --against harness/champions/ipgeo_reg630.wasm --fixtures fixtures/real,fixtures/synth,fixtures/probe --intent IP_GEOLOCATION --quiet",
+  "thresholds": {
+    "self_match_floor": 0.75,
+    "stddev_floor": 0.05,
+    "spearman_floor": 0.6,
+    "spearman_min_miners": 2,
+    "margin_absolute_floor": 0.15,
+    "wall_clock_budget_s": 600,
+    "source": "2026-08-27 gate recon: restored telegraph-docs page from git history + 1,033 live rejection strings",
+    "status": "NOT independently verified by this harness — see track2/GAPS.md"
+  },
+  "candidate": {
+    "path": "target/wasm32-unknown-unknown/release/scorer.wasm",
+    "sha256": "e96ae9e34ccf275ce6b6e53a3d85c6c91d1fb9eee445741091240b14c1a01db0",
+    "bytes": 24433,
+    "timing": {
+      "wall_seconds": 0,
+      "worker_seconds_per_call": 0.006,
+      "projected_node_gate_seconds": 10,
+      "budget_seconds": 600,
+      "at_risk": false
+    }
+  },
+  "against": {
+    "path": "harness/champions/ipgeo_reg630.wasm",
+    "sha256": "84d6b1dc03453df236589f7cd538851f97f17110d1195d41729758e997332024",
+    "bytes": 23989222,
+    "timing": {
+      "wall_seconds": 174,
+      "worker_seconds_per_call": 8.302,
+      "projected_node_gate_seconds": 558,
+      "budget_seconds": 600,
+      "at_risk": true
+    }
+  },
+  "corpus": {
+    "dirs": [
+      "fixtures/real",
+      "fixtures/synth",
+      "fixtures/probe"
+    ],
+    "intent": "IP_GEOLOCATION",
+    "files": [
+      {
+        "path": "fixtures/real/ACADEMIC_SEARCH.json",
+        "count": 5
+      },
+      {
+        "path": "fixtures/real/CRYPTO_PRICE.json",
+        "count": 15
+      },
+      {
+        "path": "fixtures/real/CVE_LOOKUP.json",
+        "count": 13
+      },
+      {
+        "path": "fixtures/real/GAME_RESULT.json",
+        "count": 15
+      },
+      {
+        "path": "fixtures/real/IP_GEOLOCATION.json",
+        "count": 11
+      },
+      {
+        "path": "fixtures/real/SSL_VERIFICATION.json",
+        "count": 12
+      },
+      {
+        "path": "fixtures/real/STOCK_PRICE.json",
+        "count": 15
+      },
+      {
+        "path": "fixtures/real/STORM_ALERT.json",
+        "count": 13
+      },
+      {
+        "path": "fixtures/real/WEATHER_FORECAST.json",
+        "count": 15
+      },
+      {
+        "path": "fixtures/synth/CONTENT_VERIFICATION_CLEAN_PAIR.json",
+        "count": 12
+      },
+      {
+        "path": "fixtures/synth/CRYPTO_PRICE.json",
+        "count": 17
+      },
+      {
+        "path": "fixtures/synth/CVE_LOOKUP.json",
+        "count": 17
+      },
+      {
+        "path": "fixtures/synth/GAME_RESULT.json",
+        "count": 15
+      },
+      {
+        "path": "fixtures/synth/IP_GEOLOCATION.json",
+        "count": 20
+      },
+      {
+        "path": "fixtures/synth/SSL_VERIFICATION.json",
+        "count": 17
+      },
+      {
+        "path": "fixtures/synth/STOCK_PRICE.json",
+        "count": 17
+      },
+      {
+        "path": "fixtures/synth/STORM_ALERT.json",
+        "count": 19
+      },
+      {
+        "path": "fixtures/synth/WEATHER_FORECAST.json",
+        "count": 17
+      },
+      {
+        "path": "fixtures/probe/CRYPTO_PRICE.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/CVE_LOOKUP.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/IP_GEOLOCATION.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/SSL_VERIFICATION.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/STOCK_PRICE.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/STORM_ALERT.json",
+        "count": 8
+      },
+      {
+        "path": "fixtures/probe/WEATHER_FORECAST.json",
+        "count": 8
+      }
+    ],
+    "fixtures": 39,
+    "calls_per_module": 168,
+    "max_real_answers": 12,
+    "workers": 8
+  },
+  "stage1": {
+    "exports": [
+      "TELEGRAPH_INTENT",
+      "alloc",
+      "breakdown_answer",
+      "dealloc",
+      "memory",
+      "rank_answer"
+    ],
+    "checks": [
+      {
+        "name": "exports memory/alloc/rank_answer",
+        "pass": true,
+        "detail": "TELEGRAPH_INTENT, alloc, breakdown_answer, dealloc, memory, rank_answer"
+      },
+      {
+        "name": "exports dealloc (node requires it; this harness does not call it)",
+        "pass": true,
+        "detail": "present"
+      },
+      {
+        "name": "rank_answer takes exactly 6 i32 params",
+        "pass": true,
+        "detail": "rank_answer/6, alloc/1, dealloc/2"
+      },
+      {
+        "name": "empty answer returns exactly 0.0",
+        "advisory": false,
+        "pass": true,
+        "detail": "5 probes, all exactly 0"
+      },
+      {
+        "name": "ASCII whitespace-only answer returns exactly 0.0 (a 0.0007 was a recorded rejection)",
+        "advisory": false,
+        "pass": true,
+        "detail": "15 probes, all exactly 0"
+      },
+      {
+        "name": "Unicode whitespace-only answer returns exactly 0.0",
+        "advisory": true,
+        "pass": true,
+        "detail": "20 probes, all exactly 0"
+      },
+      {
+        "name": "self-match beats unrelated cross-match on every fixture",
+        "pass": true,
+        "detail": "39/39 fixtures, smallest gap 0.777041"
+      },
+      {
+        "name": "no crash on adversarial input",
+        "pass": true,
+        "detail": "54KB repeated text=0  100KB answer=0  emoji only=0  non-Latin=0  accents=0.003  invalid UTF-8[advisory]=0  NUL bytes=0  one 50k token=0"
+      },
+      {
+        "name": "whole gate fits the 600s wall clock",
+        "pass": true,
+        "detail": "0s/call serial x ~66 calls + 10s load = ~10s of 600s"
+      },
+      {
+        "name": "worst adversarial input stays well inside the budget",
+        "pass": true,
+        "detail": "slowest \"54KB repeated text\" took 0s"
+      }
+    ],
+    "adversarial": [
+      {
+        "name": "54KB repeated text",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "100KB answer",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "emoji only",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "non-Latin",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "accents",
+        "advisory": false,
+        "ok": true,
+        "value": 0.003,
+        "seconds": 0
+      },
+      {
+        "name": "invalid UTF-8",
+        "advisory": true,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "NUL bytes",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      },
+      {
+        "name": "one 50k token",
+        "advisory": false,
+        "ok": true,
+        "value": 0,
+        "seconds": 0
+      }
+    ],
+    "serial_seconds_per_call": 0,
+    "projected_gate_seconds": 10,
+    "pass": true
+  },
+  "gate_proxy": {
+    "IP_GEOLOCATION": {
+      "candidate": {
+        "fixtures": 39,
+        "worst_self_match": 1,
+        "mean_self_match": 1,
+        "score_stddev": 0.443729,
+        "mean_score": 0.379675,
+        "mean_discrimination": 0.584452,
+        "separation": 0.863428,
+        "mean_good": 0.9974,
+        "mean_bad": 0.133972,
+        "labelled": {
+          "good": 29,
+          "bad": 34
+        },
+        "wins": 46,
+        "pairs": 47,
+        "accuracy": 0.9787,
+        "mean_margin": 0.675692,
+        "per_class": {
+          "FACT-SWAP": {
+            "pairs": 4,
+            "wins": 4,
+            "accuracy": 1,
+            "mean_margin": 0.882454
+          },
+          "REFUSAL": {
+            "pairs": 2,
+            "wins": 2,
+            "accuracy": 1,
+            "mean_margin": 0.999463
+          },
+          "STUFFING": {
+            "pairs": 3,
+            "wins": 3,
+            "accuracy": 1,
+            "mean_margin": 0.998654
+          },
+          "EMPTY-ANSWER": {
+            "pairs": 2,
+            "wins": 2,
+            "accuracy": 1,
+            "mean_margin": 0.999814
+          },
+          "CONTENT-FILTER": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.999814
+          },
+          "CONTRADICTION": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.584372
+          },
+          "UNIT/FORM": {
+            "pairs": 4,
+            "wins": 4,
+            "accuracy": 1,
+            "mean_margin": 0.836741
+          },
+          "TEMPORAL": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.080972
+          },
+          "LENGTH": {
+            "pairs": 2,
+            "wins": 2,
+            "accuracy": 1,
+            "mean_margin": 0.954702
+          },
+          "OUR-STYLE-WRONG": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.979415
+          },
+          "ENTITY-SWAP": {
+            "pairs": 18,
+            "wins": 18,
+            "accuracy": 1,
+            "mean_margin": 0.734369
+          },
+          "REAL-PARROT": {
+            "pairs": 8,
+            "wins": 7,
+            "accuracy": 0.875,
+            "mean_margin": 0.014203
+          }
+        },
+        "constraints": {
+          "STUFFING": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.15,
+            "worst_spread": 0.000107
+          },
+          "FORMAT-EQUIVALENCE": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.1,
+            "worst_spread": 0.000332
+          },
+          "UNIT/FORM": {
+            "total": 2,
+            "satisfied": 2,
+            "tolerance": 0.1,
+            "worst_spread": 0.034922
+          },
+          "LENGTH": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.15,
+            "worst_spread": 0.000513
+          }
+        }
+      },
+      "against": {
+        "fixtures": 39,
+        "worst_self_match": 1,
+        "mean_self_match": 1,
+        "score_stddev": 0.476665,
+        "mean_score": 0.634312,
+        "mean_discrimination": 0.356284,
+        "separation": 0.437867,
+        "mean_good": 0.998127,
+        "mean_bad": 0.56026,
+        "labelled": {
+          "good": 29,
+          "bad": 34
+        },
+        "wins": 31,
+        "pairs": 47,
+        "accuracy": 0.6596,
+        "mean_margin": 0.211307,
+        "per_class": {
+          "FACT-SWAP": {
+            "pairs": 4,
+            "wins": 4,
+            "accuracy": 1,
+            "mean_margin": 0.004048
+          },
+          "REFUSAL": {
+            "pairs": 2,
+            "wins": 2,
+            "accuracy": 1,
+            "mean_margin": 0.992187
+          },
+          "STUFFING": {
+            "pairs": 3,
+            "wins": 3,
+            "accuracy": 1,
+            "mean_margin": 0.990105
+          },
+          "EMPTY-ANSWER": {
+            "pairs": 2,
+            "wins": 2,
+            "accuracy": 1,
+            "mean_margin": 0.998855
+          },
+          "CONTENT-FILTER": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.997125
+          },
+          "CONTRADICTION": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.000388
+          },
+          "UNIT/FORM": {
+            "pairs": 4,
+            "wins": 2,
+            "accuracy": 0.5,
+            "mean_margin": 0.002554
+          },
+          "TEMPORAL": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.991669
+          },
+          "LENGTH": {
+            "pairs": 2,
+            "wins": 1,
+            "accuracy": 0.5,
+            "mean_margin": 0.000552
+          },
+          "OUR-STYLE-WRONG": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.003547
+          },
+          "ENTITY-SWAP": {
+            "pairs": 18,
+            "wins": 9,
+            "accuracy": 0.5,
+            "mean_margin": -0.000936
+          },
+          "REAL-PARROT": {
+            "pairs": 8,
+            "wins": 4,
+            "accuracy": 0.5,
+            "mean_margin": 0.121952
+          }
+        },
+        "constraints": {
+          "STUFFING": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.15,
+            "worst_spread": 0.002773
+          },
+          "FORMAT-EQUIVALENCE": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.1,
+            "worst_spread": 0.003239
+          },
+          "UNIT/FORM": {
+            "total": 2,
+            "satisfied": 2,
+            "tolerance": 0.1,
+            "worst_spread": 0.007775
+          },
+          "LENGTH": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.15,
+            "worst_spread": 0.00788
+          }
+        }
+      },
+      "spearman": {
+        "n": 11,
+        "rho": 0.7545
+      },
+      "distinct_miners": 1,
+      "verdict": {
+        "checks": [
+          {
+            "name": "A  score_stddev > 0.05 (strict)",
+            "state": "PASS",
+            "detail": "candidate 0.443729 | reference 0.476665"
+          },
+          {
+            "name": "B  worst_self_match >= max(0.75, incumbent)",
+            "state": "PASS",
+            "detail": "candidate 1 vs bar 1 (incumbent 1)"
+          },
+          {
+            "name": "C  Spearman >= 0.60 vs champion on real traffic",
+            "state": "SKIP",
+            "detail": "only 1 miner(s) with history in this intent"
+          },
+          {
+            "name": "D1 margin > champion_margin (strict)",
+            "state": "PASS",
+            "detail": "candidate 0.863428 vs reference 0.437867 (delta 0.425561)"
+          },
+          {
+            "name": "D2 margin >= 0.15 absolute",
+            "state": "PASS",
+            "detail": "candidate 0.863428"
+          },
+          {
+            "name": "D3 candidate_wins >= champion_wins (tie allowed)",
+            "state": "PASS",
+            "detail": "candidate 46/47 vs reference 31/47"
+          }
+        ],
+        "pass": true
+      }
+    },
+    "ALL": {
+      "candidate": {
+        "fixtures": 39,
+        "worst_self_match": 1,
+        "mean_self_match": 1,
+        "score_stddev": 0.443729,
+        "mean_score": 0.379675,
+        "mean_discrimination": 0.584452,
+        "separation": 0.863428,
+        "mean_good": 0.9974,
+        "mean_bad": 0.133972,
+        "labelled": {
+          "good": 29,
+          "bad": 34
+        },
+        "wins": 46,
+        "pairs": 47,
+        "accuracy": 0.9787,
+        "mean_margin": 0.675692,
+        "per_class": {
+          "FACT-SWAP": {
+            "pairs": 4,
+            "wins": 4,
+            "accuracy": 1,
+            "mean_margin": 0.882454
+          },
+          "REFUSAL": {
+            "pairs": 2,
+            "wins": 2,
+            "accuracy": 1,
+            "mean_margin": 0.999463
+          },
+          "STUFFING": {
+            "pairs": 3,
+            "wins": 3,
+            "accuracy": 1,
+            "mean_margin": 0.998654
+          },
+          "EMPTY-ANSWER": {
+            "pairs": 2,
+            "wins": 2,
+            "accuracy": 1,
+            "mean_margin": 0.999814
+          },
+          "CONTENT-FILTER": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.999814
+          },
+          "CONTRADICTION": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.584372
+          },
+          "UNIT/FORM": {
+            "pairs": 4,
+            "wins": 4,
+            "accuracy": 1,
+            "mean_margin": 0.836741
+          },
+          "TEMPORAL": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.080972
+          },
+          "LENGTH": {
+            "pairs": 2,
+            "wins": 2,
+            "accuracy": 1,
+            "mean_margin": 0.954702
+          },
+          "OUR-STYLE-WRONG": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.979415
+          },
+          "ENTITY-SWAP": {
+            "pairs": 18,
+            "wins": 18,
+            "accuracy": 1,
+            "mean_margin": 0.734369
+          },
+          "REAL-PARROT": {
+            "pairs": 8,
+            "wins": 7,
+            "accuracy": 0.875,
+            "mean_margin": 0.014203
+          }
+        },
+        "constraints": {
+          "STUFFING": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.15,
+            "worst_spread": 0.000107
+          },
+          "FORMAT-EQUIVALENCE": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.1,
+            "worst_spread": 0.000332
+          },
+          "UNIT/FORM": {
+            "total": 2,
+            "satisfied": 2,
+            "tolerance": 0.1,
+            "worst_spread": 0.034922
+          },
+          "LENGTH": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.15,
+            "worst_spread": 0.000513
+          }
+        }
+      },
+      "against": {
+        "fixtures": 39,
+        "worst_self_match": 1,
+        "mean_self_match": 1,
+        "score_stddev": 0.476665,
+        "mean_score": 0.634312,
+        "mean_discrimination": 0.356284,
+        "separation": 0.437867,
+        "mean_good": 0.998127,
+        "mean_bad": 0.56026,
+        "labelled": {
+          "good": 29,
+          "bad": 34
+        },
+        "wins": 31,
+        "pairs": 47,
+        "accuracy": 0.6596,
+        "mean_margin": 0.211307,
+        "per_class": {
+          "FACT-SWAP": {
+            "pairs": 4,
+            "wins": 4,
+            "accuracy": 1,
+            "mean_margin": 0.004048
+          },
+          "REFUSAL": {
+            "pairs": 2,
+            "wins": 2,
+            "accuracy": 1,
+            "mean_margin": 0.992187
+          },
+          "STUFFING": {
+            "pairs": 3,
+            "wins": 3,
+            "accuracy": 1,
+            "mean_margin": 0.990105
+          },
+          "EMPTY-ANSWER": {
+            "pairs": 2,
+            "wins": 2,
+            "accuracy": 1,
+            "mean_margin": 0.998855
+          },
+          "CONTENT-FILTER": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.997125
+          },
+          "CONTRADICTION": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.000388
+          },
+          "UNIT/FORM": {
+            "pairs": 4,
+            "wins": 2,
+            "accuracy": 0.5,
+            "mean_margin": 0.002554
+          },
+          "TEMPORAL": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.991669
+          },
+          "LENGTH": {
+            "pairs": 2,
+            "wins": 1,
+            "accuracy": 0.5,
+            "mean_margin": 0.000552
+          },
+          "OUR-STYLE-WRONG": {
+            "pairs": 1,
+            "wins": 1,
+            "accuracy": 1,
+            "mean_margin": 0.003547
+          },
+          "ENTITY-SWAP": {
+            "pairs": 18,
+            "wins": 9,
+            "accuracy": 0.5,
+            "mean_margin": -0.000936
+          },
+          "REAL-PARROT": {
+            "pairs": 8,
+            "wins": 4,
+            "accuracy": 0.5,
+            "mean_margin": 0.121952
+          }
+        },
+        "constraints": {
+          "STUFFING": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.15,
+            "worst_spread": 0.002773
+          },
+          "FORMAT-EQUIVALENCE": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.1,
+            "worst_spread": 0.003239
+          },
+          "UNIT/FORM": {
+            "total": 2,
+            "satisfied": 2,
+            "tolerance": 0.1,
+            "worst_spread": 0.007775
+          },
+          "LENGTH": {
+            "total": 1,
+            "satisfied": 1,
+            "tolerance": 0.15,
+            "worst_spread": 0.00788
+          }
+        }
+      },
+      "spearman": {
+        "n": 11,
+        "rho": 0.7545
+      },
+      "distinct_miners": 1,
+      "verdict": {
+        "checks": [
+          {
+            "name": "A  score_stddev > 0.05 (strict)",
+            "state": "PASS",
+            "detail": "candidate 0.443729 | reference 0.476665"
+          },
+          {
+            "name": "B  worst_self_match >= max(0.75, incumbent)",
+            "state": "PASS",
+            "detail": "candidate 1 vs bar 1 (incumbent 1)"
+          },
+          {
+            "name": "C  Spearman >= 0.60 vs champion on real traffic",
+            "state": "SKIP",
+            "detail": "only 1 miner(s) with history in this intent"
+          },
+          {
+            "name": "D1 margin > champion_margin (strict)",
+            "state": "PASS",
+            "detail": "candidate 0.863428 vs reference 0.437867 (delta 0.425561)"
+          },
+          {
+            "name": "D2 margin >= 0.15 absolute",
+            "state": "PASS",
+            "detail": "candidate 0.863428"
+          },
+          {
+            "name": "D3 candidate_wins >= champion_wins (tie allowed)",
+            "state": "PASS",
+            "detail": "candidate 46/47 vs reference 31/47"
+          }
+        ],
+        "pass": true
+      }
+    }
+  },
+  "exhibits": [
+    {
+      "kind": "REFUSAL-ECHO",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-synth-06",
+      "scores": {
+        "refusal-echo": {
+          "candidate": 0.000352,
+          "against": 0.008025
+        },
+        "correct-prose": {
+          "candidate": 0.999814,
+          "against": 0.999127
+        }
+      }
+    },
+    {
+      "kind": "PREFIX-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-synth-08",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.000209,
+          "against": 0.008855
+        },
+        "correct-prose (echo + data)": {
+          "candidate": 0.999814,
+          "against": 0.999214
+        },
+        "correct-nonecho (data, no echo)": {
+          "candidate": 0.999707,
+          "against": 0.99644
+        }
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-01",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.000355,
+          "against": 0.010623
+        },
+        "parrot + real data": {
+          "candidate": 0.003001,
+          "against": 0.010302
+        },
+        "real-iplocate-e279 (real data)": {
+          "candidate": 0.003,
+          "against": 0.008464
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e279": 0.0084637785
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-02",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.000353,
+          "against": 0.991686
+        },
+        "parrot + real data": {
+          "candidate": 0.037136,
+          "against": 0.996234
+        },
+        "real-iplocate-e278 (real data)": {
+          "candidate": 0.024511,
+          "against": 0.995956
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e278": 0.99595594
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-03",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.000355,
+          "against": 0.008991
+        },
+        "parrot + real data": {
+          "candidate": 0.003001,
+          "against": 0.008624
+        },
+        "real-iplocate-e276 (real data)": {
+          "candidate": 0.003,
+          "against": 0.007792
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e276": 0.0077921003
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-04",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.000355,
+          "against": 0.008643
+        },
+        "parrot + real data": {
+          "candidate": 0.003033,
+          "against": 0.991412
+        },
+        "real-iplocate-e270 (real data)": {
+          "candidate": 0.003017,
+          "against": 0.009309
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e270": 0.009308951
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-05",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.000354,
+          "against": 0.010446
+        },
+        "parrot + real data": {
+          "candidate": 0.003,
+          "against": 0.009564
+        },
+        "real-iplocate-e269 (real data)": {
+          "candidate": 0.003,
+          "against": 0.007972
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e269": 0.045735113
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-06",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.000354,
+          "against": 0.010482
+        },
+        "parrot + real data": {
+          "candidate": 0.052225,
+          "against": 0.993645
+        },
+        "real-iplocate-e268 (real data)": {
+          "candidate": 0.039972,
+          "against": 0.99143
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e268": 0.29705068
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-07",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.000354,
+          "against": 0.007453
+        },
+        "parrot + real data": {
+          "candidate": 0.000353,
+          "against": 0.00742
+        },
+        "real-iplocate-e267 (real data)": {
+          "candidate": 0,
+          "against": 0.002389
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e267": 0.0047324067
+      }
+    },
+    {
+      "kind": "REAL-PARROT",
+      "intent": "IP_GEOLOCATION",
+      "fixture": "ip_geolocation-probe-08",
+      "scores": {
+        "prefix-parrot (no data)": {
+          "candidate": 0.000353,
+          "against": 0.010705
+        },
+        "parrot + real data": {
+          "candidate": 0.052073,
+          "against": 0.993621
+        },
+        "real-iplocate-e266 (real data)": {
+          "candidate": 0.03996,
+          "against": 0.011334
+        }
+      },
+      "live_scores": {
+        "real-iplocate-e266": 0.30462903
+      }
+    }
+  ],
+  "runtime_seconds": 174
+}

@@ -61,6 +61,52 @@ pub struct Breakdown {
     pub final_score: f32,
 }
 
+/// What an answer keeps when it asserts nothing the question did not already
+/// contain. A pure echo is not an answer, and scoring it as one is how a
+/// contentless parrot came to outrank an answer carrying real data.
+///
+/// Swept against the 39-fixture corpus: 0.01 through 0.12 all hold 46 of 47
+/// pairwise wins, so this is set for headroom rather than at the edge.
+const NO_NOVELTY_KEEP: f32 = 0.05;
+
+/// How far an answer carrying real content is lifted off an exact zero, so it
+/// cannot rank below one that asserts nothing. Small enough to be irrelevant
+/// wherever the other channels have already separated the pair.
+///
+/// The node rejected this module on ordering, not separation, so the sweep
+/// resolved in favour of ordering headroom: 0.001 buys 0.0013 more margin and
+/// four times less room above a parrot that lands higher than the ones in this
+/// corpus. Every value from 0.001 to 0.004 holds 46 of 47 and beats the
+/// baseline margin of 0.8627.
+const FLOOR_LIFT: f32 = 0.004;
+
+/// Decisive tokens the answer asserts that the question did not already carry.
+///
+/// A pure question echo has none by construction. Any answer carrying real
+/// data has several, whether or not those data are correct -- which is exactly
+/// the distinction the tie-break needs, and the one answeredness cannot make.
+///
+/// Saturating at one: the distinction this draws is whether the answer asserts
+/// anything the question did not already carry, not how much. Requiring two
+/// halved correct short answers -- "The window is 30 seconds." contributes a
+/// single novel token and was scored 0.525 for it.
+fn novel_assertions(ta: &Toks, sq: &Set) -> f32 {
+    let mut n = 0usize;
+    let mut i = 0usize;
+    while i < ta.n {
+        if ta.decisive[i] && !sq.contains_tok(ta, i) {
+            n += 1;
+        }
+        i += 1;
+    }
+    let f = n as f32;
+    if f > 1.0 {
+        1.0
+    } else {
+        f
+    }
+}
+
 pub fn score(q: &[u8], gt: &[u8], ma: &[u8]) -> f32 {
     breakdown(q, gt, ma).final_score
 }
@@ -175,7 +221,48 @@ pub fn breakdown(q: &[u8], gt: &[u8], ma: &[u8]) -> Breakdown {
     let shaped = (1.0 - p.p_concave) * precision + p.p_concave * (precision * (2.0 - precision));
 
     let raw = clamp01(shaped * fmul * entity * answered * polarity);
-    let final_score = clamp01(smoothstep(p.ss_lo, p.ss_hi, raw));
+    let stepped = clamp01(smoothstep(p.ss_lo, p.ss_hi, raw));
+
+    // Answeredness tie-break.
+    //
+    // The composite is a product, so one contradicted entity drives the whole
+    // score to zero -- below a contentless parrot, which is penalised by no
+    // channel because it asserts nothing. Measured on the probe corpus: an
+    // answer carrying real data with one wrong city scored 0.0000 while a pure
+    // question echo scored 0.0071, and REAL-PARROT was the only fixture class
+    // below 100%, at 3 of 8.
+    //
+    // An answer that engages with the question should not rank below one that
+    // does not, however wrong it is. This adds a term that is only ever
+    // decisive when the stepped score is already near zero: it is scaled by
+    // (1 - stepped), so it vanishes wherever the score carries real signal and
+    // cannot reorder the classes that already separate cleanly.
+    //
+    // The signal is novel assertions, not answeredness. A parrot repeats every
+    // dimension the question named, so it reads as maximally responsive; what
+    // it never does is assert anything the question did not already contain.
+    //
+    // An empty answer has answeredness 0, so it still returns exactly 0.0,
+    // which the structural gate requires.
+    // Demote the contentless rather than lift the wrong. Adding to a bad
+    // answer's score fixes the ordering but spends separation, which is the
+    // trade that has failed here before: the gate wants both. Scaling an
+    // answer that asserts nothing new *down* fixes the same orderings and
+    // widens the margin instead of narrowing it.
+    //
+    // A correct answer necessarily asserts something the question did not
+    // already contain, so this never touches one.
+    // Two halves of the same correction, and both are needed.
+    //
+    // Demotion alone cannot fix the ordering: an answer contradicted on its
+    // decisive entity scores exactly 0.0, and nothing scales below zero. So the
+    // gate pushes the contentless down, and a small additive term lifts
+    // anything that asserts real content off the floor. The additive part is
+    // scaled by (1 - stepped) so it is spent almost entirely on near-zero
+    // scores and leaves separated answers where they are.
+    let novel = novel_assertions(ta, sq);
+    let gated = stepped * (NO_NOVELTY_KEEP + (1.0 - NO_NOVELTY_KEEP) * novel);
+    let final_score = clamp01(gated + FLOOR_LIFT * novel * (1.0 - stepped));
 
     Breakdown {
         precision,
