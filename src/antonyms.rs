@@ -58,6 +58,45 @@ static AXES: [(u32, u32); 28] = [
     (hash_str("synthetic"), hash_str("human")),
 ];
 
+/// Words that introduce a *classification*: the verdict a text commits to is
+/// the term it attaches to one of these, not any polar word appearing anywhere.
+///
+/// Why this exists. On an authenticity or verification intent the ground truth
+/// routinely names **both** poles — "classified as AI-generated ... the
+/// human-written proportion is 7%" — so the presence test below resolves
+/// backwards: the correct answer's "machine-generated" was charged as a
+/// contradiction (its "machine" opposing the truth's "human"), while a genuinely
+/// flipped "human-written" found its own token in the truth and abstained.
+/// Measured on that shape: correct 0.0046, flipped 0.9999.
+static ANCHORS: [u32; 14] = [
+    hash_str("classified"),
+    hash_str("classification"),
+    hash_str("classifies"),
+    hash_str("identified"),
+    hash_str("detected"),
+    hash_str("determined"),
+    hash_str("assessed"),
+    hash_str("flagged"),
+    hash_str("labeled"),
+    hash_str("labelled"),
+    hash_str("judged"),
+    hash_str("rated"),
+    hash_str("verdict"),
+    hash_str("appears"),
+];
+
+/// True when `h` introduces a classification whose object is the verdict.
+pub fn is_anchor(h: u32) -> bool {
+    let mut i = 0usize;
+    while i < ANCHORS.len() {
+        if ANCHORS[i] == h {
+            return true;
+        }
+        i += 1;
+    }
+    false
+}
+
 /// True when `a` and `b` are opposite verdicts on the same axis.
 pub fn opposes(a: u32, b: u32) -> bool {
     let mut i = 0usize;
@@ -101,6 +140,14 @@ mod tests {
         assert!(!opposes(hash_str("plagiarised"), hash_str("tokyo")));
         assert!(!opposes(hash_str("original"), hash_str("original")));
         assert!(!opposes(hash_str("google"), hash_str("cloudflare")));
+    }
+
+    #[test]
+    fn anchors_name_the_classification_slot() {
+        assert!(is_anchor(hash_str("classified")));
+        assert!(is_anchor(hash_str("detected")));
+        assert!(!is_anchor(hash_str("proportion")));
+        assert!(!is_anchor(hash_str("tokyo")));
     }
 
     #[test]

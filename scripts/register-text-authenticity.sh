@@ -11,9 +11,9 @@ set -euo pipefail
 DIAMOND='0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8'
 RPC_URL="${RPC_URL:-https://sepolia.base.org}"
 INTENT='TEXT_AUTHENTICITY_CHECK'
-WASM_URL="${WASM_URL:?set WASM_URL to the immutable raw.githubusercontent URL of dist/hybrid_ta_7db601278524.wasm}"
-EXPECTED_SHA256='7db6012785244e0f8eea39781b2d93cb7a3735159c6990f9e496a25634ec0b21'
-EXPECTED_KECCAK='0xb2c9b60664c259a66cc4b628702720c5cd0d74a817344b31f0be3ce1ba4ca109'
+WASM_URL="${WASM_URL:?set WASM_URL to the immutable raw.githubusercontent URL of dist/text_authenticity_slot_d01ad85d11d8.wasm}"
+EXPECTED_SHA256='d01ad85d11d8fb756ab5d0c7ad35b1e939e611494e4e8a368620e0f746de7bc2'
+EXPECTED_KECCAK='0x9958269b323cf62cd1c489a201113e6c80d76bd708a52274bbd861e4a5a572af'
 CAST_BIN="${CAST_BIN:-${HOME}/.foundry/bin/cast}"
 
 if [[ ! -x "$CAST_BIN" ]]; then
@@ -60,8 +60,10 @@ if [[ -z "$key" ]]; then
   fi
   key="$(tr -d '[:space:]' < "$key_file")"
 fi
+# The key file may hold the 32 bytes with or without the 0x prefix; normalise.
+if [[ "$key" =~ ^[0-9a-fA-F]{64}$ ]]; then key="0x${key}"; fi
 if [[ ! "$key" =~ ^0x[0-9a-fA-F]{64}$ ]]; then
-  echo 'Private key is not a 0x-prefixed 32-byte hex value' >&2
+  echo 'Private key is not a 32-byte hex value' >&2
   exit 1
 fi
 

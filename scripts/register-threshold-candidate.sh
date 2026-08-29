@@ -53,8 +53,10 @@ if [[ -z "$key" ]]; then
   fi
   key="$(tr -d '[:space:]' < "$key_file")"
 fi
+# The key file may hold the 32 bytes with or without the 0x prefix; normalise.
+if [[ "$key" =~ ^[0-9a-fA-F]{64}$ ]]; then key="0x${key}"; fi
 if [[ ! "$key" =~ ^0x[0-9a-fA-F]{64}$ ]]; then
-  echo 'Private key is not a 0x-prefixed 32-byte hex value' >&2
+  echo 'Private key is not a 32-byte hex value' >&2
   exit 1
 fi
 

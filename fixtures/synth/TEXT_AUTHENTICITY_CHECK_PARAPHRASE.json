@@ -1,0 +1,890 @@
+{
+ "intent": "TEXT_AUTHENTICITY_CHECK",
+ "provenance": {
+  "source": "synthetic",
+  "generator": "session-authored 2026-08-29 v2",
+  "note": "good answers paraphrase rather than restate, to expose calibration-band placement"
+ },
+ "fixtures": [
+  {
+   "id": "text_authenticity-v2-01",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "good answers paraphrase the truth instead of restating it; bad answers change exactly one decisive field",
+   "question": "Is the 480-word product review in the moderation queue AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (the 480-word product review in the moderation queue) is classified as AI-generated with a confidence of 0.93 by GPTZero. The estimated human-written proportion is 7% and the attributed generator is GPT-4 class.",
+   "answers": [
+    {
+     "id": "correct-paraphrase",
+     "text": "The data indicates the 480-word product review in the moderation queue was machine-generated. GPTZero reported roughly 93 percent confidence in that call, and attributed the writing to GPT-4 class.",
+     "quality": 1,
+     "note": "reworded, one field omitted"
+    },
+    {
+     "id": "correct-terse",
+     "text": "The data covers the 480-word product review in the moderation queue. GPTZero classifies it as AI-generated at 0.93 confidence.",
+     "quality": 1,
+     "note": "terse but right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data indicates the 480-word product review in the moderation queue was written by a person. GPTZero reported roughly 93 percent confidence in that call, and attributed the writing to GPT-4 class.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "detector-swap",
+     "text": "The data indicates the 480-word product review in the moderation queue was machine-generated. Winston AI reported roughly 93 percent confidence in that call, and attributed the writing to GPT-4 class.",
+     "quality": 0,
+     "note": "wrong detector named"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data indicates the 480-word product review in the moderation queue was machine-generated. GPTZero reported roughly 6 percent confidence in that call, and attributed the writing to GPT-4 class.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers whether the 480-word product review in the moderation queue is AI-generated or human-written, at what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. The authenticity of the submitted text cannot be determined from the information available.",
+     "quality": 0,
+     "note": "declines"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-paraphrase",
+     "verdict-flip"
+    ],
+    [
+     "correct-paraphrase",
+     "detector-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "confidence-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "question-echo"
+    ],
+    [
+     "correct-paraphrase",
+     "refusal"
+    ],
+    [
+     "correct-terse",
+     "verdict-flip"
+    ],
+    [
+     "correct-terse",
+     "question-echo"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored v2",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-v2-02",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "good answers paraphrase the truth instead of restating it; bad answers change exactly one decisive field",
+   "question": "Is the 1,200-word admissions essay AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (the 1,200-word admissions essay) is classified as human-written with a confidence of 0.88 by Originality.ai. The estimated human-written proportion is 88% and the attributed generator is none detected.",
+   "answers": [
+    {
+     "id": "correct-paraphrase",
+     "text": "The data indicates the 1,200-word admissions essay was written by a person. Originality.ai reported roughly 88 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 1,
+     "note": "reworded, one field omitted"
+    },
+    {
+     "id": "correct-terse",
+     "text": "The data covers the 1,200-word admissions essay. Originality.ai classifies it as human-written at 0.88 confidence.",
+     "quality": 1,
+     "note": "terse but right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data indicates the 1,200-word admissions essay was machine-generated. Originality.ai reported roughly 88 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "detector-swap",
+     "text": "The data indicates the 1,200-word admissions essay was written by a person. Winston AI reported roughly 88 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "wrong detector named"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data indicates the 1,200-word admissions essay was written by a person. Originality.ai reported roughly 12 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers whether the 1,200-word admissions essay is AI-generated or human-written, at what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. The authenticity of the submitted text cannot be determined from the information available.",
+     "quality": 0,
+     "note": "declines"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-paraphrase",
+     "verdict-flip"
+    ],
+    [
+     "correct-paraphrase",
+     "detector-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "confidence-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "question-echo"
+    ],
+    [
+     "correct-paraphrase",
+     "refusal"
+    ],
+    [
+     "correct-terse",
+     "verdict-flip"
+    ],
+    [
+     "correct-terse",
+     "question-echo"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored v2",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-v2-03",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "good answers paraphrase the truth instead of restating it; bad answers change exactly one decisive field",
+   "question": "Is the 620-word battery plant press release AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (the 620-word battery plant press release) is classified as AI-generated with a confidence of 0.76 by Copyleaks. The estimated human-written proportion is 24% and the attributed generator is Claude class.",
+   "answers": [
+    {
+     "id": "correct-paraphrase",
+     "text": "The data indicates the 620-word battery plant press release was machine-generated. Copyleaks reported roughly 76 percent confidence in that call, and attributed the writing to Claude class.",
+     "quality": 1,
+     "note": "reworded, one field omitted"
+    },
+    {
+     "id": "correct-terse",
+     "text": "The data covers the 620-word battery plant press release. Copyleaks classifies it as AI-generated at 0.76 confidence.",
+     "quality": 1,
+     "note": "terse but right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data indicates the 620-word battery plant press release was written by a person. Copyleaks reported roughly 76 percent confidence in that call, and attributed the writing to Claude class.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "detector-swap",
+     "text": "The data indicates the 620-word battery plant press release was machine-generated. Winston AI reported roughly 76 percent confidence in that call, and attributed the writing to Claude class.",
+     "quality": 0,
+     "note": "wrong detector named"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data indicates the 620-word battery plant press release was machine-generated. Copyleaks reported roughly 24 percent confidence in that call, and attributed the writing to Claude class.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers whether the 620-word battery plant press release is AI-generated or human-written, at what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. The authenticity of the submitted text cannot be determined from the information available.",
+     "quality": 0,
+     "note": "declines"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-paraphrase",
+     "verdict-flip"
+    ],
+    [
+     "correct-paraphrase",
+     "detector-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "confidence-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "question-echo"
+    ],
+    [
+     "correct-paraphrase",
+     "refusal"
+    ],
+    [
+     "correct-terse",
+     "verdict-flip"
+    ],
+    [
+     "correct-terse",
+     "question-echo"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored v2",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-v2-04",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "good answers paraphrase the truth instead of restating it; bad answers change exactly one decisive field",
+   "question": "Is the 300-word customer support email AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (the 300-word customer support email) is classified as human-written with a confidence of 0.95 by Turnitin. The estimated human-written proportion is 95% and the attributed generator is none detected.",
+   "answers": [
+    {
+     "id": "correct-paraphrase",
+     "text": "The data indicates the 300-word customer support email was written by a person. Turnitin reported roughly 95 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 1,
+     "note": "reworded, one field omitted"
+    },
+    {
+     "id": "correct-terse",
+     "text": "The data covers the 300-word customer support email. Turnitin classifies it as human-written at 0.95 confidence.",
+     "quality": 1,
+     "note": "terse but right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data indicates the 300-word customer support email was machine-generated. Turnitin reported roughly 95 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "detector-swap",
+     "text": "The data indicates the 300-word customer support email was written by a person. Winston AI reported roughly 95 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "wrong detector named"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data indicates the 300-word customer support email was written by a person. Turnitin reported roughly 5 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers whether the 300-word customer support email is AI-generated or human-written, at what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. The authenticity of the submitted text cannot be determined from the information available.",
+     "quality": 0,
+     "note": "declines"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-paraphrase",
+     "verdict-flip"
+    ],
+    [
+     "correct-paraphrase",
+     "detector-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "confidence-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "question-echo"
+    ],
+    [
+     "correct-paraphrase",
+     "refusal"
+    ],
+    [
+     "correct-terse",
+     "verdict-flip"
+    ],
+    [
+     "correct-terse",
+     "question-echo"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored v2",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-v2-05",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "good answers paraphrase the truth instead of restating it; bad answers change exactly one decisive field",
+   "question": "Is the 900-word Kubernetes autoscaling post AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (the 900-word Kubernetes autoscaling post) is classified as AI-generated with a confidence of 0.81 by Sapling. The estimated human-written proportion is 19% and the attributed generator is GPT-3.5 class.",
+   "answers": [
+    {
+     "id": "correct-paraphrase",
+     "text": "The data indicates the 900-word Kubernetes autoscaling post was machine-generated. Sapling reported roughly 81 percent confidence in that call, and attributed the writing to GPT-3.5 class.",
+     "quality": 1,
+     "note": "reworded, one field omitted"
+    },
+    {
+     "id": "correct-terse",
+     "text": "The data covers the 900-word Kubernetes autoscaling post. Sapling classifies it as AI-generated at 0.81 confidence.",
+     "quality": 1,
+     "note": "terse but right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data indicates the 900-word Kubernetes autoscaling post was written by a person. Sapling reported roughly 81 percent confidence in that call, and attributed the writing to GPT-3.5 class.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "detector-swap",
+     "text": "The data indicates the 900-word Kubernetes autoscaling post was machine-generated. Winston AI reported roughly 81 percent confidence in that call, and attributed the writing to GPT-3.5 class.",
+     "quality": 0,
+     "note": "wrong detector named"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data indicates the 900-word Kubernetes autoscaling post was machine-generated. Sapling reported roughly 18 percent confidence in that call, and attributed the writing to GPT-3.5 class.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers whether the 900-word Kubernetes autoscaling post is AI-generated or human-written, at what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. The authenticity of the submitted text cannot be determined from the information available.",
+     "quality": 0,
+     "note": "declines"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-paraphrase",
+     "verdict-flip"
+    ],
+    [
+     "correct-paraphrase",
+     "detector-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "confidence-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "question-echo"
+    ],
+    [
+     "correct-paraphrase",
+     "refusal"
+    ],
+    [
+     "correct-terse",
+     "verdict-flip"
+    ],
+    [
+     "correct-terse",
+     "question-echo"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored v2",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-v2-06",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "good answers paraphrase the truth instead of restating it; bad answers change exactly one decisive field",
+   "question": "Is the 250-word restaurant review AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (the 250-word restaurant review) is classified as human-written with a confidence of 0.71 by GPTZero. The estimated human-written proportion is 71% and the attributed generator is none detected.",
+   "answers": [
+    {
+     "id": "correct-paraphrase",
+     "text": "The data indicates the 250-word restaurant review was written by a person. GPTZero reported roughly 71 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 1,
+     "note": "reworded, one field omitted"
+    },
+    {
+     "id": "correct-terse",
+     "text": "The data covers the 250-word restaurant review. GPTZero classifies it as human-written at 0.71 confidence.",
+     "quality": 1,
+     "note": "terse but right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data indicates the 250-word restaurant review was machine-generated. GPTZero reported roughly 71 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "detector-swap",
+     "text": "The data indicates the 250-word restaurant review was written by a person. Winston AI reported roughly 71 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "wrong detector named"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data indicates the 250-word restaurant review was written by a person. GPTZero reported roughly 29 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers whether the 250-word restaurant review is AI-generated or human-written, at what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. The authenticity of the submitted text cannot be determined from the information available.",
+     "quality": 0,
+     "note": "declines"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-paraphrase",
+     "verdict-flip"
+    ],
+    [
+     "correct-paraphrase",
+     "detector-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "confidence-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "question-echo"
+    ],
+    [
+     "correct-paraphrase",
+     "refusal"
+    ],
+    [
+     "correct-terse",
+     "verdict-flip"
+    ],
+    [
+     "correct-terse",
+     "question-echo"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored v2",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-v2-07",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "good answers paraphrase the truth instead of restating it; bad answers change exactly one decisive field",
+   "question": "Is the 2,400-word investigative article AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (the 2,400-word investigative article) is classified as human-written with a confidence of 0.97 by Originality.ai. The estimated human-written proportion is 97% and the attributed generator is none detected.",
+   "answers": [
+    {
+     "id": "correct-paraphrase",
+     "text": "The data indicates the 2,400-word investigative article was written by a person. Originality.ai reported roughly 97 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 1,
+     "note": "reworded, one field omitted"
+    },
+    {
+     "id": "correct-terse",
+     "text": "The data covers the 2,400-word investigative article. Originality.ai classifies it as human-written at 0.97 confidence.",
+     "quality": 1,
+     "note": "terse but right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data indicates the 2,400-word investigative article was machine-generated. Originality.ai reported roughly 97 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "detector-swap",
+     "text": "The data indicates the 2,400-word investigative article was written by a person. Winston AI reported roughly 97 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "wrong detector named"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data indicates the 2,400-word investigative article was written by a person. Originality.ai reported roughly 3 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers whether the 2,400-word investigative article is AI-generated or human-written, at what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. The authenticity of the submitted text cannot be determined from the information available.",
+     "quality": 0,
+     "note": "declines"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-paraphrase",
+     "verdict-flip"
+    ],
+    [
+     "correct-paraphrase",
+     "detector-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "confidence-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "question-echo"
+    ],
+    [
+     "correct-paraphrase",
+     "refusal"
+    ],
+    [
+     "correct-terse",
+     "verdict-flip"
+    ],
+    [
+     "correct-terse",
+     "question-echo"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored v2",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-v2-08",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "good answers paraphrase the truth instead of restating it; bad answers change exactly one decisive field",
+   "question": "Is the 140-word product launch thread AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (the 140-word product launch thread) is classified as AI-generated with a confidence of 0.68 by Copyleaks. The estimated human-written proportion is 32% and the attributed generator is Gemini class.",
+   "answers": [
+    {
+     "id": "correct-paraphrase",
+     "text": "The data indicates the 140-word product launch thread was machine-generated. Copyleaks reported roughly 68 percent confidence in that call, and attributed the writing to Gemini class.",
+     "quality": 1,
+     "note": "reworded, one field omitted"
+    },
+    {
+     "id": "correct-terse",
+     "text": "The data covers the 140-word product launch thread. Copyleaks classifies it as AI-generated at 0.68 confidence.",
+     "quality": 1,
+     "note": "terse but right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data indicates the 140-word product launch thread was written by a person. Copyleaks reported roughly 68 percent confidence in that call, and attributed the writing to Gemini class.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "detector-swap",
+     "text": "The data indicates the 140-word product launch thread was machine-generated. Winston AI reported roughly 68 percent confidence in that call, and attributed the writing to Gemini class.",
+     "quality": 0,
+     "note": "wrong detector named"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data indicates the 140-word product launch thread was machine-generated. Copyleaks reported roughly 31 percent confidence in that call, and attributed the writing to Gemini class.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers whether the 140-word product launch thread is AI-generated or human-written, at what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. The authenticity of the submitted text cannot be determined from the information available.",
+     "quality": 0,
+     "note": "declines"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-paraphrase",
+     "verdict-flip"
+    ],
+    [
+     "correct-paraphrase",
+     "detector-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "confidence-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "question-echo"
+    ],
+    [
+     "correct-paraphrase",
+     "refusal"
+    ],
+    [
+     "correct-terse",
+     "verdict-flip"
+    ],
+    [
+     "correct-terse",
+     "question-echo"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored v2",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-v2-09",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "good answers paraphrase the truth instead of restating it; bad answers change exactly one decisive field",
+   "question": "Is the 750-word protein folding abstract AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (the 750-word protein folding abstract) is classified as AI-generated with a confidence of 0.99 by Turnitin. The estimated human-written proportion is 1% and the attributed generator is GPT-4 class.",
+   "answers": [
+    {
+     "id": "correct-paraphrase",
+     "text": "The data indicates the 750-word protein folding abstract was machine-generated. Turnitin reported roughly 99 percent confidence in that call, and attributed the writing to GPT-4 class.",
+     "quality": 1,
+     "note": "reworded, one field omitted"
+    },
+    {
+     "id": "correct-terse",
+     "text": "The data covers the 750-word protein folding abstract. Turnitin classifies it as AI-generated at 0.99 confidence.",
+     "quality": 1,
+     "note": "terse but right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data indicates the 750-word protein folding abstract was written by a person. Turnitin reported roughly 99 percent confidence in that call, and attributed the writing to GPT-4 class.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "detector-swap",
+     "text": "The data indicates the 750-word protein folding abstract was machine-generated. Winston AI reported roughly 99 percent confidence in that call, and attributed the writing to GPT-4 class.",
+     "quality": 0,
+     "note": "wrong detector named"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data indicates the 750-word protein folding abstract was machine-generated. Turnitin reported roughly 1 percent confidence in that call, and attributed the writing to GPT-4 class.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers whether the 750-word protein folding abstract is AI-generated or human-written, at what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. The authenticity of the submitted text cannot be determined from the information available.",
+     "quality": 0,
+     "note": "declines"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-paraphrase",
+     "verdict-flip"
+    ],
+    [
+     "correct-paraphrase",
+     "detector-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "confidence-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "question-echo"
+    ],
+    [
+     "correct-paraphrase",
+     "refusal"
+    ],
+    [
+     "correct-terse",
+     "verdict-flip"
+    ],
+    [
+     "correct-terse",
+     "question-echo"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored v2",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-v2-10",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "good answers paraphrase the truth instead of restating it; bad answers change exactly one decisive field",
+   "question": "Is the 410-word cover letter AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (the 410-word cover letter) is classified as human-written with a confidence of 0.83 by Sapling. The estimated human-written proportion is 83% and the attributed generator is none detected.",
+   "answers": [
+    {
+     "id": "correct-paraphrase",
+     "text": "The data indicates the 410-word cover letter was written by a person. Sapling reported roughly 83 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 1,
+     "note": "reworded, one field omitted"
+    },
+    {
+     "id": "correct-terse",
+     "text": "The data covers the 410-word cover letter. Sapling classifies it as human-written at 0.83 confidence.",
+     "quality": 1,
+     "note": "terse but right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data indicates the 410-word cover letter was machine-generated. Sapling reported roughly 83 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "detector-swap",
+     "text": "The data indicates the 410-word cover letter was written by a person. Winston AI reported roughly 83 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "wrong detector named"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data indicates the 410-word cover letter was written by a person. Sapling reported roughly 17 percent confidence in that call, and attributed the writing to none detected.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers whether the 410-word cover letter is AI-generated or human-written, at what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. The authenticity of the submitted text cannot be determined from the information available.",
+     "quality": 0,
+     "note": "declines"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-paraphrase",
+     "verdict-flip"
+    ],
+    [
+     "correct-paraphrase",
+     "detector-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "confidence-swap"
+    ],
+    [
+     "correct-paraphrase",
+     "question-echo"
+    ],
+    [
+     "correct-paraphrase",
+     "refusal"
+    ],
+    [
+     "correct-terse",
+     "verdict-flip"
+    ],
+    [
+     "correct-terse",
+     "question-echo"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored v2",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  }
+ ]
+}

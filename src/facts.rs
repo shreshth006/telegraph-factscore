@@ -187,10 +187,22 @@ pub fn best_agreement(ta: &Toks, i: usize, tg: &Toks, p: &Profile) -> Option<f32
         }
     }
 
+    // A percentage is the one dimension whose figures are routinely written
+    // without their unit: a ground truth states `0.93` where the answer says
+    // `93 percent`, and the dimension restriction then compared that 93% against
+    // the *other* percentage in the truth (`7%`), scoring a correct answer 0.018.
+    // A bare figure asserts no dimension, and `value_agreement` already holds the
+    // percentage to its converted reading alone, so `93 percent` matches a bare
+    // 0.93 and still does not match a bare 93.
+    let bare_ok = ad == D_FRAC;
+
     let mut best: Option<f32> = None;
     let mut k = 0usize;
     while k < tg.n {
-        if tg.kind[k] == K_NUMBER && (!restrict || dimension(tg.unit[k]) == ad) {
+        let comparable = !restrict
+            || dimension(tg.unit[k]) == ad
+            || (bare_ok && dimension(tg.unit[k]) == D_NONE);
+        if tg.kind[k] == K_NUMBER && comparable {
             if let Some(a) = value_agreement(Fig::of(ta, i), Fig::of(tg, k), p) {
                 best = Some(match best {
                     Some(b) if b >= a => b,

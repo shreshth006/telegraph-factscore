@@ -78,3 +78,51 @@ The corpus is authored here, not recovered from the node, so the absolute
 0.8481 is this corpus's number. What transfers is the comparison against the
 exact champion binary the node loads, and the size of the gap: +0.353 of
 separation on the class the node's fixtures belong to.
+
+## Registration 1815 — what the node actually measured
+
+Rejected on ordering: **12 of 15**, champion 14 of 15, margin **0.2665** against
+the bar of 0.6586. The hybrid was the wrong module for this intent, and the
+proxy corpus that endorsed it was the reason: its good answers restated the
+ground truth almost verbatim, so every scorer looked good on them.
+
+Rebuilt as a paraphrase corpus — good answers reword, drop a field, and write
+the confidence as a percentage — the failure reproduced offline, and it was two
+defects in the standalone fact scorer, both of which punish *correct* answers:
+
+1. **A percentage never matched a bare figure.** `best_agreement` restricts an
+   answer's figure to ground-truth figures of the same dimension, so an answer
+   saying `93 percent` was compared against the truth's *other* percentage
+   (`7%`, the human-written proportion) and never against the bare `0.93` it
+   was actually restating. A correct answer scored **0.0184**. A percentage is
+   the one dimension routinely written without its unit, and `value_agreement`
+   already holds it to its converted reading, so bare ground-truth figures are
+   now comparable to it: `93 percent` matches `0.93` and still does not match a
+   bare `93`.
+
+2. **Polarity resolved backwards on any truth that names both poles.** These
+   ground truths say "classified as AI-generated ... the human-written
+   proportion is 7%". The antonym pass tested mere presence, so the correct
+   answer's "machine-generated" was charged as a contradiction (its `machine`
+   opposing the truth's `human`) while a genuinely flipped "human-written"
+   found its own token in the truth and abstained: correct **0.0046**, flipped
+   **0.9999**. The verdict is now read out of the classification slot — the
+   polar terms attached to "classified as", "detected as" and their kin — on
+   both sides, and an echoed verdict counts as a claim when the question itself
+   offers the choice ("AI-generated or human-written"), which had marked every
+   verdict token as an echo and suppressed the check entirely.
+
+Measured after both fixes, same corpus, same champion binary:
+
+| | before | after |
+| --- | ---: | ---: |
+| pairs ordered correctly | 45 / 70 | **65 / 70** (champion 58 / 70) |
+| mean separation | 0.6492 | **0.6930** (champion 0.3952) |
+| correct answer, percentage phrasing | 0.0184 | **0.9999** |
+| flipped verdict | 0.9999 | **0.0046** |
+
+Neither fix is intent-specific: both are notation-and-slot corrections in the
+shared scorer. On IP_GEOLOCATION, against champion 630, the same source now
+measures margin **0.8234** with **39/39** pairs ordered, against 0.7221 and
+786/791 before — no regression, and the whole suite passes under the generic,
+ip-geolocation and storm-alert profiles.

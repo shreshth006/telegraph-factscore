@@ -402,6 +402,28 @@ fn entity_agreement(ta: &Toks, gt_uncovered: f32, p: &Profile) -> f32 {
 
 /// Penalty for asserting the opposite of what the ground truth says.
 ///
+/// The verdict a text commits to: the polar terms it attaches to its first
+/// classification anchor. Returns how many were written into `out`.
+fn anchored_verdict(t: &Toks, out: &mut [u32; 4]) -> usize {
+    let mut n = 0usize;
+    let mut i = 0usize;
+    while i < t.n && n == 0 {
+        if crate::antonyms::is_anchor(t.hash[i]) {
+            let end = if i + 5 < t.n { i + 5 } else { t.n };
+            let mut j = i + 1;
+            while j < end {
+                if crate::antonyms::is_verdict(t.hash[j]) && n < out.len() {
+                    out[n] = t.hash[j];
+                    n += 1;
+                }
+                j += 1;
+            }
+        }
+        i += 1;
+    }
+    n
+}
+
 /// Support is a set-membership test, so it cannot see polarity: before this, "is
 /// located in Germany" and "is **not** located in Germany" differed by one
 /// 0.05-weight stopword out of a ~15-token pool and tied at 1.0000 (adversarial
@@ -416,12 +438,73 @@ fn polarity_of(ta: &Toks, tg: &Toks, p: &Profile) -> f32 {
     // charged at `prose_w`. Measured before this: a flipped verdict scored
     // 0.9999 against a verbatim-correct 1.0000 on CONTENT_VERIFICATION clean
     // pairs. Treat it as what it is -- a contradiction of a stated finding.
-    {
+    // The ground truth's own verdict, read out of its classification slot: the
+    // terms it attaches to "classified as", "detected as" and their kin. A truth
+    // that reports a classification *and* the share of the opposite class names
+    // both poles, and the presence test below then resolves backwards — see the
+    // note on `antonyms::ANCHORS`. When the slot is found, the answer's verdict
+    // is compared against it alone.
+    let mut gt_verdict = [0u32; 4];
+    let gt_nv = anchored_verdict(tg, &mut gt_verdict);
+    // The answer's own slot, read the same way. An answer that states its
+    // verdict and *also* reports the share of the opposite class — "classified
+    // as AI-generated ... the human-written proportion is 7%" — is not
+    // contradicting itself, and reading every verdict token it contains charged
+    // that faithful answer as a flip.
+    let mut ans_verdict = [0u32; 4];
+    let ans_nv = if gt_nv > 0 {
+        anchored_verdict(ta, &mut ans_verdict)
+    } else {
+        0
+    };
+    if gt_nv > 0 && ans_nv > 0 {
+        let mut i = 0usize;
+        while i < ans_nv {
+            let (mut same, mut opposite) = (false, false);
+            let mut k = 0usize;
+            while k < gt_nv {
+                if gt_verdict[k] == ans_verdict[i] {
+                    same = true;
+                } else if crate::antonyms::opposes(ans_verdict[i], gt_verdict[k]) {
+                    opposite = true;
+                }
+                k += 1;
+            }
+            if opposite && !same {
+                verdict_flip = true;
+            }
+            i += 1;
+        }
+    }
+    if !(gt_nv > 0 && ans_nv > 0) {
         let mut a = 0usize;
         while a < ta.n {
-            if !ta.boiler[a] && !ta.echo[a] && crate::antonyms::is_verdict(ta.hash[a]) {
+            // Echoed tokens are normally excluded — repeating the question's
+            // subject is not a claim. A verdict is the exception when the
+            // ground truth commits to one in its classification slot: a question
+            // that offers the choice ("AI-generated or human-written") marks both
+            // verdicts as echoes, and the flip then passed unread while the
+            // correct answer was charged for it.
+            let claimable = !ta.boiler[a] && (!ta.echo[a] || gt_nv > 0);
+            if claimable && crate::antonyms::is_verdict(ta.hash[a]) {
                 let mut g = 0usize;
                 let (mut stated_same, mut stated_opposite) = (false, false);
+                if gt_nv > 0 {
+                    let mut k = 0usize;
+                    while k < gt_nv {
+                        if gt_verdict[k] == ta.hash[a] {
+                            stated_same = true;
+                        } else if crate::antonyms::opposes(ta.hash[a], gt_verdict[k]) {
+                            stated_opposite = true;
+                        }
+                        k += 1;
+                    }
+                    if stated_opposite && !stated_same {
+                        verdict_flip = true;
+                    }
+                    a += 1;
+                    continue;
+                }
                 while g < tg.n {
                     if tg.hash[g] == ta.hash[a] {
                         stated_same = true;
