@@ -1,0 +1,982 @@
+{
+  "generator": "gen-game-pairs.mjs",
+  "generated_from": "fixtures/real/GAME_RESULT.json",
+  "corpus_version": "08a70b4c0ef5a068",
+  "fixtures": [
+    {
+      "id": "game_result-cleanpair-01",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final. The decisive goal was scored by Ferran Torres in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final. The decisive goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Argentina won the 2026 FIFA World Cup with a 1-0 victory over Spain in the final. The decisive goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Spain won the 2026 FIFA World Cup with a 0-1 victory over Argentina in the final. The decisive goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Spain won the 2024 FIFA World Cup with a 1-0 victory over Argentina in the final. The decisive goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-01",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-02",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Argentina won the 2026 FIFA World Cup with a 1-0 victory over Spain in the final. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Spain won the 2026 FIFA World Cup with a 0-1 victory over Argentina in the final. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Spain won the 2024 FIFA World Cup with a 1-0 victory over Argentina in the final. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-02",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-03",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final after extra time. The winning goal was scored by Ferran Torres in the 106th minute.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final after extra time. The winning goal was scored by Ferran Torres in the 106th minute.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Argentina won the 2026 FIFA World Cup with a 1-0 victory over Spain in the final after extra time. The winning goal was scored by Ferran Torres in the 106th minute.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Spain won the 2026 FIFA World Cup with a 0-1 victory over Argentina in the final after extra time. The winning goal was scored by Ferran Torres in the 106th minute.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Spain won the 2024 FIFA World Cup with a 1-0 victory over Argentina in the final after extra time. The winning goal was scored by Ferran Torres in the 106th minute.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-03",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-04",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final match?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final match, decided by Ferran Torres' goal in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final match, decided by Ferran Torres' goal in the 106th minute of extra time.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Argentina won the 2026 FIFA World Cup with a 1-0 victory over Spain in the final match, decided by Ferran Torres' goal in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Spain won the 2026 FIFA World Cup with a 0-1 victory over Argentina in the final match, decided by Ferran Torres' goal in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Spain won the 2024 FIFA World Cup with a 1-0 victory over Argentina in the final match, decided by Ferran Torres' goal in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-04",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-05",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "What was the final outcome and winner of the Argentina vs Brazil World Cup qualifying match on June 20, 2026?",
+      "ground_truth": "The Argentina vs Brazil World Cup qualifying match on June 20, 2026, ended in a **1-0 victory for Argentina**, with **Nicolas Otamendi** scoring the winning goal. The match took place at the Maracana Stadium in Rio de Janeiro and was marked by a physical and intense contest, with Brazil player Joelinton receiving a red card late in the game.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "The Argentina vs Brazil World Cup qualifying match on June 20, 2026, ended in a **1-0 victory for Argentina**, with **Nicolas Otamendi** scoring the winning goal. The match took place at the Maracana Stadium in Rio de Janeiro and was marked by a physical and intense contest, with Brazil player Joelinton receiving a red card late in the game.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "The Brazil vs Argentina World Cup qualifying match on June 20, 2026, ended in a **1-0 victory for Brazil**, with **Nicolas Otamendi** scoring the winning goal. The match took place at the Maracana Stadium in Rio de Janeiro and was marked by a physical and intense contest, with Argentina player Joelinton receiving a red card late in the game.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "The Argentina vs Brazil World Cup qualifying match on June 20, 2026, ended in a **0-1 victory for Argentina**, with **Nicolas Otamendi** scoring the winning goal. The match took place at the Maracana Stadium in Rio de Janeiro and was marked by a physical and intense contest, with Brazil player Joelinton receiving a red card late in the game.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "The Argentina vs Brazil World Cup qualifying match on June 20, 2024, ended in a **1-0 victory for Argentina**, with **Nicolas Otamendi** scoring the winning goal. The match took place at the Maracana Stadium in Rio de Janeiro and was marked by a physical and intense contest, with Brazil player Joelinton receiving a red card late in the game.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-05",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-06",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "Who won the 2026 FIFA World Cup?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in extra time.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in extra time.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Argentina won the 2026 FIFA World Cup with a 1-0 victory over Spain in extra time.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Spain won the 2026 FIFA World Cup with a 0-1 victory over Argentina in extra time.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Spain won the 2024 FIFA World Cup with a 1-0 victory over Argentina in extra time.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-06",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-07",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "Who won the 2025 FIFA Club World Cup and what was the score of the final?",
+      "ground_truth": "Chelsea won the 2025 FIFA Club World Cup, defeating Paris Saint-Germain 3–0 in the final.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Chelsea won the 2025 FIFA Club World Cup, defeating Paris Saint-Germain 3–0 in the final.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Paris Saint-Germain won the 2025 FIFA Club World Cup, defeating Chelsea 3–0 in the final.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Chelsea won the 2025 FIFA Club World Cup, defeating Paris Saint-Germain 0–3 in the final.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Chelsea won the 2024 FIFA Club World Cup, defeating Paris Saint-Germain 3–0 in the final.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-07",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-08",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final match?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final match. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final match. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Argentina won the 2026 FIFA World Cup with a 1-0 victory over Spain in the final match. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Spain won the 2026 FIFA World Cup with a 0-1 victory over Argentina in the final match. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Spain won the 2024 FIFA World Cup with a 1-0 victory over Argentina in the final match. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-08",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-09",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final match?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final match.  The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final match.  The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Argentina won the 2026 FIFA World Cup with a 1-0 victory over Spain in the final match.  The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Spain won the 2026 FIFA World Cup with a 0-1 victory over Argentina in the final match.  The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Spain won the 2024 FIFA World Cup with a 1-0 victory over Argentina in the final match.  The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-09",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-10",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "Who won the 2026 FIFA World Cup?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup, defeating Argentina 1-0 in extra time. The final took place on July 19, 2026, at New York New Jersey Stadium, with Ferran Torres scoring the winning goal in the 106th minute. This victory marked Spain's second World Cup title, making them the first nation to hold both the men's and women's World Cup trophies simultaneously.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Spain won the 2026 FIFA World Cup, defeating Argentina 1-0 in extra time. The final took place on July 19, 2026, at New York New Jersey Stadium, with Ferran Torres scoring the winning goal in the 106th minute. This victory marked Spain's second World Cup title, making them the first nation to hold both the men's and women's World Cup trophies simultaneously.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Argentina won the 2026 FIFA World Cup, defeating Spain 1-0 in extra time. The final took place on July 19, 2026, at New York New Jersey Stadium, with Ferran Torres scoring the winning goal in the 106th minute. This victory marked Argentina's second World Cup title, making them the first nation to hold both the men's and women's World Cup trophies simultaneously.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Spain won the 2026 FIFA World Cup, defeating Argentina 0-1 in extra time. The final took place on July 19, 2026, at New York New Jersey Stadium, with Ferran Torres scoring the winning goal in the 106th minute. This victory marked Spain's second World Cup title, making them the first nation to hold both the men's and women's World Cup trophies simultaneously.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Spain won the 2024 FIFA World Cup, defeating Argentina 1-0 in extra time. The final took place on July 19, 2024, at New York New Jersey Stadium, with Ferran Torres scoring the winning goal in the 106th minute. This victory marked Spain's second World Cup title, making them the first nation to hold both the men's and women's World Cup trophies simultaneously.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-10",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-11",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "What team won the UEFA Champions League final held on May 30, 2026?",
+      "ground_truth": "Paris Saint-Germain won the UEFA Champions League final held on May 30, 2026. The final was played against Arsenal at the Puskás Aréna in Budapest, Hungary. The match ended in a 1-1 draw after extra time, with Paris Saint-Germain winning 4-3 on penalties. This victory marked their second consecutive UEFA Champions League title.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Paris Saint-Germain won the UEFA Champions League final held on May 30, 2026. The final was played against Arsenal at the Puskás Aréna in Budapest, Hungary. The match ended in a 1-1 draw after extra time, with Paris Saint-Germain winning 4-3 on penalties. This victory marked their second consecutive UEFA Champions League title.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Arsenal won the UEFA Champions League final held on May 30, 2026. The final was played against Paris Saint-Germain at the Puskás Aréna in Budapest, Hungary. The match ended in a 1-1 draw after extra time, with Arsenal winning 4-3 on penalties. This victory marked their second consecutive UEFA Champions League title.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Paris Saint-Germain won the UEFA Champions League final held on May 30, 2026. The final was played against Arsenal at the Puskás Aréna in Budapest, Hungary. The match ended in a 1-1 draw after extra time, with Paris Saint-Germain winning 3-4 on penalties. This victory marked their second consecutive UEFA Champions League title.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Paris Saint-Germain won the UEFA Champions League final held on May 30, 2024. The final was played against Arsenal at the Puskás Aréna in Budapest, Hungary. The match ended in a 1-1 draw after extra time, with Paris Saint-Germain winning 4-3 on penalties. This victory marked their second consecutive UEFA Champions League title.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-11",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-12",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Argentina won the 2026 FIFA World Cup with a 1-0 victory over Spain. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Spain won the 2026 FIFA World Cup with a 0-1 victory over Argentina. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Spain won the 2024 FIFA World Cup with a 1-0 victory over Argentina. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-12",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-13",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "What was the final outcome and winner of the 2025 UEFA Champions League final held on May 31, 2025, at the Allianz Arena in Munich, Germany?",
+      "ground_truth": "The **2025 UEFA Champions League final** was held on **May 31, 2025**, at the **Allianz Arena in Munich, Germany**. The match featured **Paris Saint-Germain (PSG)** from France and **Inter Milan** from Italy.\n\n- **Winner**: **Paris Saint-Germain** won the final with a **record-breaking 5-0 victory** over Inter Milan.\n- **Goalscorers for PSG**: Achraf Hakimi, Désiré Doué (2 goals), Khvicha Kvaratskhelia, and Senny Mayulu.\n- **Historical Significance**: This was PSG's **first-ever UEFA Champions League title** and marked the **largest margin of victory** in a Champions League/European Cup final.\n\nPSG's dominant performance secured their place in European football history, while Inter Milan finished as runners-up.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "The **2025 UEFA Champions League final** was held on **May 31, 2025**, at the **Allianz Arena in Munich, Germany**. The match featured **Paris Saint-Germain (PSG)** from France and **Inter Milan** from Italy.\n\n- **Winner**: **Paris Saint-Germain** won the final with a **record-breaking 5-0 victory** over Inter Milan.\n- **Goalscorers for PSG**: Achraf Hakimi, Désiré Doué (2 goals), Khvicha Kvaratskhelia, and Senny Mayulu.\n- **Historical Significance**: This was PSG's **first-ever UEFA Champions League title** and marked the **largest margin of victory** in a Champions League/European Cup final.\n\nPSG's dominant performance secured their place in European football history, while Inter Milan finished as runners-up.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "The **2025 UEFA Champions League final** was held on **May 31, 2025**, at the **Allianz Arena in Munich, Germany**. The match featured **Inter Milan (PSG)** from France and **Paris Saint-Germain** from Italy.\n\n- **Winner**: **Inter Milan** won the final with a **record-breaking 5-0 victory** over Paris Saint-Germain.\n- **Goalscorers for PSG**: Achraf Hakimi, Désiré Doué (2 goals), Khvicha Kvaratskhelia, and Senny Mayulu.\n- **Historical Significance**: This was PSG's **first-ever UEFA Champions League title** and marked the **largest margin of victory** in a Champions League/European Cup final.\n\nPSG's dominant performance secured their place in European football history, while Paris Saint-Germain finished as runners-up.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "The **2025 UEFA Champions League final** was held on **May 31, 2025**, at the **Allianz Arena in Munich, Germany**. The match featured **Paris Saint-Germain (PSG)** from France and **Inter Milan** from Italy.\n\n- **Winner**: **Paris Saint-Germain** won the final with a **record-breaking 0-5 victory** over Inter Milan.\n- **Goalscorers for PSG**: Achraf Hakimi, Désiré Doué (2 goals), Khvicha Kvaratskhelia, and Senny Mayulu.\n- **Historical Significance**: This was PSG's **first-ever UEFA Champions League title** and marked the **largest margin of victory** in a Champions League/European Cup final.\n\nPSG's dominant performance secured their place in European football history, while Inter Milan finished as runners-up.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "The **2024 UEFA Champions League final** was held on **May 31, 2024**, at the **Allianz Arena in Munich, Germany**. The match featured **Paris Saint-Germain (PSG)** from France and **Inter Milan** from Italy.\n\n- **Winner**: **Paris Saint-Germain** won the final with a **record-breaking 5-0 victory** over Inter Milan.\n- **Goalscorers for PSG**: Achraf Hakimi, Désiré Doué (2 goals), Khvicha Kvaratskhelia, and Senny Mayulu.\n- **Historical Significance**: This was PSG's **first-ever UEFA Champions League title** and marked the **largest margin of victory** in a Champions League/European Cup final.\n\nPSG's dominant performance secured their place in European football history, while Inter Milan finished as runners-up.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-13",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-14",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "On July 15, 2026, Argentina faced Brazil in a FIFA World Cup 2026 qualification match. Who won the match and by what scoreline was it decided?",
+      "ground_truth": "Argentina won the match against Brazil on July 15, 2026, in a FIFA World Cup 2026 qualification match with a scoreline of 4-1.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "Argentina won the match against Brazil on July 15, 2026, in a FIFA World Cup 2026 qualification match with a scoreline of 4-1.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "Brazil won the match against Argentina on July 15, 2026, in a FIFA World Cup 2026 qualification match with a scoreline of 4-1.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "Argentina won the match against Brazil on July 15, 2026, in a FIFA World Cup 2026 qualification match with a scoreline of 1-4.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "Argentina won the match against Brazil on July 15, 2024, in a FIFA World Cup 2024 qualification match with a scoreline of 4-1.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-14",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    },
+    {
+      "id": "game_result-cleanpair-15",
+      "intent": "GAME_RESULT",
+      "class": "CLEAN-PAIR",
+      "rationale": "Fluent one-slot counterfactuals test whether the scorer reads the winner, scoreline, and date.",
+      "question": "What was the final outcome and winner of the 2026 FIFA World Cup?",
+      "ground_truth": "The 2026 FIFA World Cup concluded on July 19, 2026, with Spain emerging as the champion, defeating Argentina 1-0 in extra time. \n\nThe final was held at MetLife Stadium in East Rutherford, New Jersey, and was attended by 80,663 spectators. The match remained goalless through 90 minutes of regular play and went into extra time. Spain scored the winning goal in the 106th minute, scored by Ferran Torres.\n\nSpain's victory marked their second World Cup title, their first being in 2010. Spain also became the first nation to hold both the men's and women's World Cup titles simultaneously, as the Spanish women's team had won the FIFA Women's World Cup in 2023.\n\nArgentina, the defending champions, were unable to secure a second consecutive title. They struggled throughout the match, particularly after Enzo Fernández was sent off in the 93rd minute, leaving them with ten players for the remainder of the match, including extra time. Argentina did not manage a single shot on target during the entire match, and goalkeeper Emiliano Martínez set a World Cup final record with 11 saves.\n\nSpain's defensive performance was outstanding, conceding only one goal during the entire tournament, which was also the only goal in the final. Goalkeeper Unai Simón recorded seven clean sheets, the most by any goalkeeper in a single World Cup. Spain outshot Argentina 20-2 over the course of the 120 minutes. \n\nThe final also featured the first-ever World Cup halftime show, which included performances by notable artists.",
+      "answers": [
+        {
+          "id": "correct",
+          "text": "The 2026 FIFA World Cup concluded on July 19, 2026, with Spain emerging as the champion, defeating Argentina 1-0 in extra time. \n\nThe final was held at MetLife Stadium in East Rutherford, New Jersey, and was attended by 80,663 spectators. The match remained goalless through 90 minutes of regular play and went into extra time. Spain scored the winning goal in the 106th minute, scored by Ferran Torres.\n\nSpain's victory marked their second World Cup title, their first being in 2010. Spain also became the first nation to hold both the men's and women's World Cup titles simultaneously, as the Spanish women's team had won the FIFA Women's World Cup in 2023.\n\nArgentina, the defending champions, were unable to secure a second consecutive title. They struggled throughout the match, particularly after Enzo Fernández was sent off in the 93rd minute, leaving them with ten players for the remainder of the match, including extra time. Argentina did not manage a single shot on target during the entire match, and goalkeeper Emiliano Martínez set a World Cup final record with 11 saves.\n\nSpain's defensive performance was outstanding, conceding only one goal during the entire tournament, which was also the only goal in the final. Goalkeeper Unai Simón recorded seven clean sheets, the most by any goalkeeper in a single World Cup. Spain outshot Argentina 20-2 over the course of the 120 minutes. \n\nThe final also featured the first-ever World Cup halftime show, which included performances by notable artists.",
+          "quality": 1,
+          "note": "captured ground truth"
+        },
+        {
+          "id": "wrong-winner",
+          "text": "The 2026 FIFA World Cup concluded on July 19, 2026, with Argentina emerging as the champion, defeating Spain 1-0 in extra time. \n\nThe final was held at MetLife Stadium in East Rutherford, New Jersey, and was attended by 80,663 spectators. The match remained goalless through 90 minutes of regular play and went into extra time. Argentina scored the winning goal in the 106th minute, scored by Ferran Torres.\n\nArgentina's victory marked their second World Cup title, their first being in 2010. Argentina also became the first nation to hold both the men's and women's World Cup titles simultaneously, as the Spanish women's team had won the FIFA Women's World Cup in 2023.\n\nSpain, the defending champions, were unable to secure a second consecutive title. They struggled throughout the match, particularly after Enzo Fernández was sent off in the 93rd minute, leaving them with ten players for the remainder of the match, including extra time. Spain did not manage a single shot on target during the entire match, and goalkeeper Emiliano Martínez set a World Cup final record with 11 saves.\n\nArgentina's defensive performance was outstanding, conceding only one goal during the entire tournament, which was also the only goal in the final. Goalkeeper Unai Simón recorded seven clean sheets, the most by any goalkeeper in a single World Cup. Argentina outshot Spain 20-2 over the course of the 120 minutes. \n\nThe final also featured the first-ever World Cup halftime show, which included performances by notable artists.",
+          "quality": 0,
+          "note": "winner and opponent swapped; all other facts retained"
+        },
+        {
+          "id": "wrong-score",
+          "text": "The 2026 FIFA World Cup concluded on July 19, 2026, with Spain emerging as the champion, defeating Argentina 1-0 in extra time. \n\nThe final was held at MetLife Stadium in East Rutherford, New Jersey, and was attended by 80,663 spectators. The match remained goalless through 90 minutes of regular play and went into extra time. Spain scored the winning goal in the 106th minute, scored by Ferran Torres.\n\nSpain's victory marked their second World Cup title, their first being in 2010. Spain also became the first nation to hold both the men's and women's World Cup titles simultaneously, as the Spanish women's team had won the FIFA Women's World Cup in 2023.\n\nArgentina, the defending champions, were unable to secure a second consecutive title. They struggled throughout the match, particularly after Enzo Fernández was sent off in the 93rd minute, leaving them with ten players for the remainder of the match, including extra time. Argentina did not manage a single shot on target during the entire match, and goalkeeper Emiliano Martínez set a World Cup final record with 11 saves.\n\nSpain's defensive performance was outstanding, conceding only one goal during the entire tournament, which was also the only goal in the final. Goalkeeper Unai Simón recorded seven clean sheets, the most by any goalkeeper in a single World Cup. Spain outshot Argentina 2-20 over the course of the 120 minutes. \n\nThe final also featured the first-ever World Cup halftime show, which included performances by notable artists.",
+          "quality": 0,
+          "note": "scoreline reversed; all other facts retained"
+        },
+        {
+          "id": "wrong-year",
+          "text": "The 2024 FIFA World Cup concluded on July 19, 2024, with Spain emerging as the champion, defeating Argentina 1-0 in extra time. \n\nThe final was held at MetLife Stadium in East Rutherford, New Jersey, and was attended by 80,663 spectators. The match remained goalless through 90 minutes of regular play and went into extra time. Spain scored the winning goal in the 106th minute, scored by Ferran Torres.\n\nSpain's victory marked their second World Cup title, their first being in 2010. Spain also became the first nation to hold both the men's and women's World Cup titles simultaneously, as the Spanish women's team had won the FIFA Women's World Cup in 2023.\n\nArgentina, the defending champions, were unable to secure a second consecutive title. They struggled throughout the match, particularly after Enzo Fernández was sent off in the 93rd minute, leaving them with ten players for the remainder of the match, including extra time. Argentina did not manage a single shot on target during the entire match, and goalkeeper Emiliano Martínez set a World Cup final record with 11 saves.\n\nSpain's defensive performance was outstanding, conceding only one goal during the entire tournament, which was also the only goal in the final. Goalkeeper Unai Simón recorded seven clean sheets, the most by any goalkeeper in a single World Cup. Spain outshot Argentina 20-2 over the course of the 120 minutes. \n\nThe final also featured the first-ever World Cup halftime show, which included performances by notable artists.",
+          "quality": 0,
+          "note": "event year shifted; all other facts retained"
+        },
+        {
+          "id": "refusal",
+          "text": "I cannot determine the winner or final score from the information available.",
+          "quality": 0,
+          "note": "content-free refusal control"
+        }
+      ],
+      "pairs": [
+        [
+          "correct",
+          "wrong-winner"
+        ],
+        [
+          "correct",
+          "wrong-score"
+        ],
+        [
+          "correct",
+          "wrong-year"
+        ],
+        [
+          "correct",
+          "refusal"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api-derived",
+        "source_fixture": "game_result-real-15",
+        "generator": "gen-game-pairs.mjs",
+        "created": "2026-08-29"
+      }
+    }
+  ]
+}

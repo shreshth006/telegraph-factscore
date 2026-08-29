@@ -73,7 +73,32 @@ change preserves strict ordering mathematically, but can still reduce margin by
 saturating two answers on the same side of its centre. Do not register another
 constant change without measuring it against the corpus first.
 
-## Reproducing the exact binary
+## Threshold candidate after registration 1686
+
+Inspection of the [current open-source champion implementation](https://github.com/zkasuran/telegraph-salience-scorer/blob/7d7b7cc8c072723495c6b8b0ab7774b19528a77f/module/src/lib.rs)
+showed why the sharp logistic plateaued: its calibration uses a hard band for
+separation and keeps `0.004` of the raw score as an order-preserving tie-break.
+PREFLIGHT now uses the same general calibration principle at its independently
+measured `0.45` centre, plus an exact-match fast path required by the self-match
+gate.
+
+On the cached-path IP geolocation synthetic corpus, the candidate artifact
+`a06a9f98...10be` measured:
+
+| measure | threshold candidate | incumbent reg 630 |
+|---|---:|---:|
+| ordered pairs won | **39 / 39** | 27 / 39 |
+| mean separation | **0.460993** | 0.306211 |
+| worst self-match | **1.000000** | 1.000000 |
+| score standard deviation | **0.411990** | 0.350015 |
+
+On 33 recorded real-traffic calls, its Spearman correlation with the incumbent
+was `0.8545`. The node skips that gate for IP geolocation while fewer than two
+distinct miners have history, so this is supporting evidence rather than a
+claim about a live promotion. The candidate has not been registered and no
+node score is claimed for it.
+
+## Reproducing the current candidate
 
 The hybrid is an overlay on the official baseline rather than a standalone
 crate. Use the pinned upstream commit and the compiler recorded below:
@@ -95,4 +120,8 @@ sha256sum target/wasm32-unknown-unknown/release/telegraph_scoring.wasm
 ```
 
 Reproduced on `rustc 1.98.0 (88d9e12ae 2026-08-18)` and Cargo 1.98.0. The
-command above emits the same 24,199,967 bytes and SHA-256 as registration 1686.
+current source emits 24,200,062 bytes with SHA-256
+`a06a9f98ee607e85e3b6922cc114407de01c647f24a1a122959651657beb10be`.
+To reproduce registration 1686 instead, check this repository out at commit
+`fde78bc` before applying the overlay; that source emits the registered
+`805708d8...e881979` artifact documented above.

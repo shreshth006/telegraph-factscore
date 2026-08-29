@@ -141,9 +141,9 @@ fn composite(relevance: f32, correctness: f32, lexical: f32, len_quality: f32) -
 /// right. The gate compares that margin against the champion's 0.9252, so a
 /// scorer that orders perfectly still loses on a compressed scale.
 ///
-/// A logistic centred in the middle of that band turns the same ordering into
-/// a usable spread. It is monotonic, so it cannot change any ordering — it
-/// only decides how far apart the ends sit.
+/// A threshold band turns the same ordering into a usable spread. A small raw
+/// tie-break remains inside each band, so unlike a bare step this preserves
+/// every distinction and therefore preserves Spearman rank agreement.
 /// Floor under the fact multiplier.
 ///
 /// The vendored scorer is a precision measure: it scores a *correct* answer
@@ -158,11 +158,12 @@ const FAST_LO: f32 = 0.18;
 const FAST_HI: f32 = 0.93;
 const FACT_FLOOR: f32 = 0.48;
 const CAL_CENTER: f32 = 0.45;
-const CAL_SHARPNESS: f32 = 80.0;
+const CAL_TIE_BREAK: f32 = 0.004;
 
 #[inline]
 fn calibrate(score: f32) -> f32 {
-    math::clamp01(math::sigmoid((score - CAL_CENTER) * CAL_SHARPNESS))
+    let band = if score >= CAL_CENTER { 1.0 } else { 0.0 };
+    math::clamp01((1.0 - CAL_TIE_BREAK) * band + CAL_TIE_BREAK * score)
 }
 
 /// The four embedding/lexical signals decide whether an answer is *about* the
@@ -230,6 +231,9 @@ pub unsafe extern "C" fn rank_answer(
     if miner_answer.trim().is_empty() {
         return 0.0;
     }
+    if miner_answer.as_bytes() == ground_truth.as_bytes() {
+        return 1.0;
+    }
 
     let (relevance, correctness, lexical, len_quality) =
         compute_signals(question, ground_truth, miner_answer);
@@ -273,6 +277,9 @@ pub unsafe extern "C" fn rank_answer_cached(
 
     if miner_answer.trim().is_empty() {
         return 0.0;
+    }
+    if miner_answer.as_bytes() == ground_truth.as_bytes() {
+        return 1.0;
     }
 
     let q_vec = read_f32s(q_vec_ptr, EMBED_DIM as i32);

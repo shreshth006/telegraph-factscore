@@ -127,6 +127,22 @@ usually a tenth of a millisecond, and the difference is the reason the pool exis
 It prints a plain-text report and writes the full JSON beside it
 (`track2/fixtures/report-<timestamp>.json` by default; `--out DIR` to move it).
 
+For a hybrid artifact whose last operation is logistic calibration, inspect
+alternative centres and sharpness values without rebuilding it:
+
+```bash
+node track2/harness/calibration-sweep.mjs \
+  --scorer path/to/hybrid.wasm \
+  --intent IP_GEOLOCATION \
+  --fixtures track2/fixtures/synth \
+  --current-center 0.45 \
+  --current-sharpness 80
+```
+
+The tool inverts the current logistic, reports saturated values explicitly,
+and ranks candidate constants by ordered-pair wins before mean margin. It is a
+diagnostic for that calibration family, not a predictor of hidden fixtures.
+
 ### 3. Read the verdict
 
 ```

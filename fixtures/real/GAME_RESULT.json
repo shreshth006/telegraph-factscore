@@ -1,0 +1,863 @@
+{
+  "intent": "GAME_RESULT",
+  "class": "REAL",
+  "provenance": {
+    "source": "scores-api",
+    "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+    "captured": "2026-08-29T08:36:13.483Z",
+    "rows_returned": 56,
+    "rows_available": 56,
+    "epoch_min": 260,
+    "epoch_max": 290,
+    "scored_text_field": "converted_answer",
+    "selection": "top 15 (question, ground_truth) groups by distinct scored answers",
+    "empty_converted_answers": 24,
+    "empty_converted_answer_share": 0.4286,
+    "empty_converted_answer_max_live_score": 0.024612222,
+    "ground_truth_refusal_shaped": 0
+  },
+  "fixtures": [
+    {
+      "id": "game_result-real-01",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final. The decisive goal was scored by Ferran Torres in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "real-scorewire-oracle-e262",
+          "text": "The data shows a finished football match where Real Madrid won against Barcelona with a score of 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "353e98f7-ad91-4e1c-a553-aceb5bfd7442",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 262,
+            "live_score": 0.032013323,
+            "live_rank": 1,
+            "scored_at": "2026-08-21T14:56:55.308105Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        },
+        {
+          "id": "real-fourcast-sports-intelligence-e262",
+          "text": "The data indicates that no completed match was found for the specified team and competition, resulting in an error with no score or winner determined.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "611c5961-830e-4f65-8f36-4e5457e3ee4c",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 262,
+            "live_score": 0.024500627,
+            "live_rank": 2,
+            "scored_at": "2026-08-21T14:56:55.308105Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":659,\"message\":\"No completed match found for: team=2026 FIFA World Cup and, competition=2026 FIFA World Cup, date=undefined\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-21T14:56:54.068Z\",\"total_fixtures\":463,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-fourcast-sports-intelligence-e282",
+          "text": "The AI service returned an intent indicating a game result, but no match details were found for the 2026 FIFA World Cup, as there are no completed matches available.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "d88806a8-95f3-4322-ab89-0eaa29e6c27c",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 282,
+            "live_score": 0.09005605,
+            "live_rank": 1,
+            "scored_at": "2026-08-26T12:28:33.464554Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":717,\"message\":\"No completed match found for: team=2026 FIFA World Cup, competition=undefined, date=undefined\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-26T12:28:32.734Z\",\"total_fixtures\":652,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-scorewire-oracle-e282",
+          "text": "The match between Barcelona and Real Madrid ended with a score of 2-1, with Real Madrid winning.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "693dfed8-4da0-49f5-9c5d-211f8ca67854",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 282,
+            "live_score": 0.025180224,
+            "live_rank": 2,
+            "scored_at": "2026-08-26T12:28:33.464554Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        },
+        {
+          "id": "real-fourcast-sports-intelligence-e288",
+          "text": "The AI service indicates that no completed match was found for the 2026 FIFA World Cup, with no specific date or competition details provided.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "c1b97ba1-1576-428b-b650-cb886dd70b83",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 288,
+            "live_score": 0.0056022047,
+            "live_rank": 1,
+            "scored_at": "2026-08-28T03:41:34.681043Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":772,\"message\":\"No completed match found for: team=2026 FIFA World Cup, competition=undefined, date=undefined\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-28T03:41:33.922Z\",\"total_fixtures\":659,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-scorewire-oracle-e288",
+          "text": "The match between Barcelona and Real Madrid ended with Real Madrid winning 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "8e42fd4e-7048-4388-9435-3e1f94a53e54",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 288,
+            "live_score": 0.00037591532,
+            "live_rank": 2,
+            "scored_at": "2026-08-28T03:41:34.681043Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 262,
+        "epoch_max": 288,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 6,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-02",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "real-scorewire-oracle-e269",
+          "text": "The data shows a completed football match where Real Madrid defeated Barcelona with a score of 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "1e646149-6252-450b-bc51-5a17e9e27a00",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 269,
+            "live_score": 0.023895364,
+            "live_rank": 1,
+            "scored_at": "2026-08-23T15:57:01.969946Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        },
+        {
+          "id": "real-fourcast-sports-intelligence-e269",
+          "text": "The data indicates that the status of a sports fixture (ID: 18035812) is currently unknown and not finalized, with an error message suggesting to use SPORTS_SCORE for live updates.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "6f02b536-1c2d-488e-b973-12c0b0b10149",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 269,
+            "live_score": 0.009112712,
+            "live_rank": 2,
+            "scored_at": "2026-08-23T15:57:01.969946Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"current_status\":\"unknown\",\"error\":\"not_final\",\"latency_ms\":1919,\"message\":\"Fixture 18035812 has not finalised yet. Use SPORTS_SCORE for live data.\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-23T15:57:00.568Z\",\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-fourcast-sports-intelligence-e277",
+          "text": "The data indicates that no completed match was found for team \"2026 FIFA World Cup\" due to missing or undefined competition and date details, resulting in a \"No matching fixture\" response.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "e759e4c6-b064-47ed-a644-53a132d2c3c5",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 277,
+            "live_score": 0.099780045,
+            "live_rank": 1,
+            "scored_at": "2026-08-26T06:47:08.516352Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":896,\"message\":\"No completed match found for: team=2026 FIFA World Cup, competition=undefined, date=undefined\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-26T06:46:32.945Z\",\"total_fixtures\":649,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 269,
+        "epoch_max": 277,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 3,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-03",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final after extra time. The winning goal was scored by Ferran Torres in the 106th minute.",
+      "answers": [
+        {
+          "id": "real-fourcast-sports-intelligence-e290",
+          "text": "The AI service returned an intent indicating a game result, but no match details were found for the 2026 FIFA World Cup, as it was not completed yet.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "bce47c46-fb63-40f8-b174-075fd6a6f238",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 290,
+            "live_score": 0.0042065117,
+            "live_rank": 1,
+            "scored_at": "2026-08-29T06:35:12.429747Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":952,\"message\":\"No completed match found for: team=2026 FIFA World Cup, competition=undefined, date=undefined\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-29T06:33:56.719Z\",\"total_fixtures\":683,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-scorewire-oracle-e290",
+          "text": "The match between Barcelona and Real Madrid ended with Real Madrid winning 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "f3b4f761-d014-4c05-a270-c3b406e118ec",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 290,
+            "live_score": 0.00061816873,
+            "live_rank": 2,
+            "scored_at": "2026-08-29T06:35:12.429747Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 290,
+        "epoch_max": 290,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 2,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-04",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final match?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final match, decided by Ferran Torres' goal in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "real-fourcast-sports-intelligence-e289",
+          "text": "The AI service indicates that no completed match was found for the 2026 FIFA World Cup, with no specific date or competition details provided.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "ffdea090-d6d8-4a89-8277-b010d23d457d",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 289,
+            "live_score": 0.0048802975,
+            "live_rank": 1,
+            "scored_at": "2026-08-28T12:51:30.734151Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":950,\"message\":\"No completed match found for: team=2026 FIFA World Cup, competition=undefined, date=undefined\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-28T12:51:29.932Z\",\"total_fixtures\":691,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-scorewire-oracle-e289",
+          "text": "The match between Barcelona and Real Madrid ended with Real Madrid winning 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "bb429f53-4514-4fea-b62b-da0362f53821",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 289,
+            "live_score": 0.0009109061,
+            "live_rank": 2,
+            "scored_at": "2026-08-28T12:51:30.734151Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 289,
+        "epoch_max": 289,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 2,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-05",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "What was the final outcome and winner of the Argentina vs Brazil World Cup qualifying match on June 20, 2026?",
+      "ground_truth": "The Argentina vs Brazil World Cup qualifying match on June 20, 2026, ended in a **1-0 victory for Argentina**, with **Nicolas Otamendi** scoring the winning goal. The match took place at the Maracana Stadium in Rio de Janeiro and was marked by a physical and intense contest, with Brazil player Joelinton receiving a red card late in the game.",
+      "answers": [
+        {
+          "id": "real-fourcast-sports-intelligence-e287",
+          "text": "The AI service returned an intent indicating a game result, but no match was found for the specified criteria: team Argentina, competition undefined, and date undefined.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "3b62993f-15d6-4645-b0b8-77a130437e0f",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 287,
+            "live_score": 0.001153095,
+            "live_rank": 1,
+            "scored_at": "2026-08-27T18:43:42.177324Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":908,\"message\":\"No completed match found for: team=outcome Argentina, competition=undefined, date=undefined\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-27T18:43:41.287Z\",\"total_fixtures\":660,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-scorewire-oracle-e287",
+          "text": "The match between Barcelona and Real Madrid ended with Real Madrid winning 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "18ff0763-d359-4581-89e8-e2eef1f4ee0d",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 287,
+            "live_score": 0.0009803519,
+            "live_rank": 2,
+            "scored_at": "2026-08-27T18:43:42.177324Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 287,
+        "epoch_max": 287,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 2,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-06",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "Who won the 2026 FIFA World Cup?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in extra time.",
+      "answers": [
+        {
+          "id": "real-fourcast-sports-intelligence-e286",
+          "text": "The AI service returned an intent indicating a game result, but it couldn't find any completed matches for the 2026 FIFA World Cup, as no fixtures were found.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "7636356f-5744-44be-bb86-a84ca09e14af",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 286,
+            "live_score": 0.012576538,
+            "live_rank": 1,
+            "scored_at": "2026-08-27T09:37:17.49197Z",
+            "failure_reason": "",
+            "looks_like_refusal": true,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":895,\"message\":\"No completed match found for: team=2026 FIFA World Cup, competition=undefined, date=undefined\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-27T09:37:16.673Z\",\"total_fixtures\":660,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-scorewire-oracle-e286",
+          "text": "The match between Barcelona and Real Madrid ended with Real Madrid winning 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "f3aa1fc3-c05b-4e85-bac4-936ec466aca2",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 286,
+            "live_score": 0.0011185296,
+            "live_rank": 2,
+            "scored_at": "2026-08-27T09:37:17.49197Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 286,
+        "epoch_max": 286,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 2,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-07",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "Who won the 2025 FIFA Club World Cup and what was the score of the final?",
+      "ground_truth": "Chelsea won the 2025 FIFA Club World Cup, defeating Paris Saint-Germain 3–0 in the final.",
+      "answers": [
+        {
+          "id": "real-fourcast-sports-intelligence-e285",
+          "text": "The AI service returned an intent indicating a game result, but no match details were found for the specified team and competition in the given date range.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "010d7027-3893-42d3-a6fe-c3acb0aafb1a",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 285,
+            "live_score": 0.016916836,
+            "live_rank": 1,
+            "scored_at": "2026-08-27T00:47:40.339924Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":783,\"message\":\"No completed match found for: team=2025 FIFA Club World Cup, competition=undefined, date=undefined\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-27T00:47:35.090Z\",\"total_fixtures\":659,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-scorewire-oracle-e285",
+          "text": "The match between Barcelona and Real Madrid ended with Real Madrid winning 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "adb7c2f7-9928-4b02-9dac-a96bd8be1abd",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 285,
+            "live_score": 0.0034461136,
+            "live_rank": 2,
+            "scored_at": "2026-08-27T00:47:40.339924Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 285,
+        "epoch_max": 285,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 2,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-08",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final match?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final match. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "real-fourcast-sports-intelligence-e284",
+          "text": "The AI service returned an intent indicating a game result, but no match details were found for the 2026 FIFA World Cup, as there are no completed matches available.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "bdb30e40-2206-448a-97e8-1986d97e3a00",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 284,
+            "live_score": 0.09681783,
+            "live_rank": 1,
+            "scored_at": "2026-08-26T15:37:52.190248Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":727,\"message\":\"No completed match found for: team=2026 FIFA World Cup, competition=undefined, date=undefined\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-26T15:36:56.577Z\",\"total_fixtures\":659,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-scorewire-oracle-e284",
+          "text": "The match between Barcelona and Real Madrid ended with a score of 2-1, with Real Madrid winning.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "e56bdd85-9c9d-4e2c-ba58-6430ab3dcefc",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 284,
+            "live_score": 0.038624376,
+            "live_rank": 2,
+            "scored_at": "2026-08-26T15:37:52.190248Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 284,
+        "epoch_max": 284,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 2,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-09",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final match?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina in the final match.  The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "real-scorewire-oracle-e263",
+          "text": "The data shows a completed football match where Real Madrid won against Barcelona with a score of 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "cef7b1cb-27ce-489e-9e84-30fe0dd4c7f4",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 263,
+            "live_score": 0.03975281,
+            "live_rank": 1,
+            "scored_at": "2026-08-21T17:33:08.681271Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        },
+        {
+          "id": "real-fourcast-sports-intelligence-e263",
+          "text": "The data indicates that no completed match was found for the specified parameters (team undefined, competition 2026 FIFA World Cup, date 2026-08-21), resulting in no score or winner being provided.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "16f84b4a-65ba-4544-afb6-24d324f7d053",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 263,
+            "live_score": 0.034877393,
+            "live_rank": 2,
+            "scored_at": "2026-08-21T17:33:08.681271Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":716,\"message\":\"No completed match found for: team=undefined, competition=2026 FIFA World Cup, date=2026-08-21\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-21T17:33:07.633Z\",\"total_fixtures\":463,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 263,
+        "epoch_max": 263,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 2,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-10",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "Who won the 2026 FIFA World Cup?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup, defeating Argentina 1-0 in extra time. The final took place on July 19, 2026, at New York New Jersey Stadium, with Ferran Torres scoring the winning goal in the 106th minute. This victory marked Spain's second World Cup title, making them the first nation to hold both the men's and women's World Cup trophies simultaneously.",
+      "answers": [
+        {
+          "id": "real-fourcast-sports-intelligence-e261",
+          "text": "The data indicates that no completed match was found for the specified team and competition in the 2026 FIFA World Cup, resulting in an error with no score or winner determined.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "406ff919-6546-4c06-a856-6be443e3bac1",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 261,
+            "live_score": 0.12087646,
+            "live_rank": 1,
+            "scored_at": "2026-08-21T14:41:54.075547Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":702,\"message\":\"No completed match found for: team=2026 FIFA World Cup, competition=2026 FIFA World Cup, date=undefined\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-21T14:41:51.948Z\",\"total_fixtures\":463,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-scorewire-oracle-e261",
+          "text": "The data shows a completed football match where Real Madrid won against Barcelona with a score of 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "b940d3f7-ddfe-4729-8f00-2d1455580ed2",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 261,
+            "live_score": 0.014161888,
+            "live_rank": 2,
+            "scored_at": "2026-08-21T14:41:54.075547Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 261,
+        "epoch_max": 261,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 2,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-11",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "What team won the UEFA Champions League final held on May 30, 2026?",
+      "ground_truth": "Paris Saint-Germain won the UEFA Champions League final held on May 30, 2026. The final was played against Arsenal at the Puskás Aréna in Budapest, Hungary. The match ended in a 1-1 draw after extra time, with Paris Saint-Germain winning 4-3 on penalties. This victory marked their second consecutive UEFA Champions League title.",
+      "answers": [
+        {
+          "id": "real-fourcast-sports-intelligence-e260",
+          "text": "The data indicates that no completed match was found for an undefined team in the UEFA Champions League on May 30, 2026, resulting in no score or winner being provided.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "95ffdad6-b6c1-4b43-b7f3-ada24e1ffe92",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 260,
+            "live_score": 0.13123569,
+            "live_rank": 1,
+            "scored_at": "2026-08-21T14:26:56.767729Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":784,\"message\":\"No completed match found for: team=undefined, competition=UEFA Champions League, date=2026-05-30\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-21T14:26:55.487Z\",\"total_fixtures\":463,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        },
+        {
+          "id": "real-scorewire-oracle-e260",
+          "text": "The data shows a completed football match where Real Madrid won against Barcelona with a score of 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "d0212801-c2b3-495e-8124-27a9b4d5626f",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 260,
+            "live_score": 0.03666333,
+            "live_rank": 2,
+            "scored_at": "2026-08-21T14:26:56.767729Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 260,
+        "epoch_max": 260,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 2,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-12",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "Who won the 2026 FIFA World Cup and what was the score of the final?",
+      "ground_truth": "Spain won the 2026 FIFA World Cup with a 1-0 victory over Argentina. The winning goal was scored by Ferran Torres in the 106th minute of extra time.",
+      "answers": [
+        {
+          "id": "real-scorewire-oracle-e283",
+          "text": "The match between Barcelona and Real Madrid ended with Real Madrid winning 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "ee947556-d1ae-4511-9c83-b905a84145f1",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 283,
+            "live_score": 0.026066909,
+            "live_rank": 1,
+            "scored_at": "2026-08-26T13:10:49.300853Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 283,
+        "epoch_max": 283,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 1,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-13",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "What was the final outcome and winner of the 2025 UEFA Champions League final held on May 31, 2025, at the Allianz Arena in Munich, Germany?",
+      "ground_truth": "The **2025 UEFA Champions League final** was held on **May 31, 2025**, at the **Allianz Arena in Munich, Germany**. The match featured **Paris Saint-Germain (PSG)** from France and **Inter Milan** from Italy.\n\n- **Winner**: **Paris Saint-Germain** won the final with a **record-breaking 5-0 victory** over Inter Milan.\n- **Goalscorers for PSG**: Achraf Hakimi, Désiré Doué (2 goals), Khvicha Kvaratskhelia, and Senny Mayulu.\n- **Historical Significance**: This was PSG's **first-ever UEFA Champions League title** and marked the **largest margin of victory** in a Champions League/European Cup final.\n\nPSG's dominant performance secured their place in European football history, while Inter Milan finished as runners-up.",
+      "answers": [
+        {
+          "id": "real-scorewire-oracle-e280",
+          "text": "The match between Barcelona and Real Madrid ended with Real Madrid winning 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "5faa5c69-d647-4318-8e36-9e58f8c466e9",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 280,
+            "live_score": 0.012392073,
+            "live_rank": 1,
+            "scored_at": "2026-08-26T09:25:29.358199Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 280,
+        "epoch_max": 280,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 1,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-14",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "On July 15, 2026, Argentina faced Brazil in a FIFA World Cup 2026 qualification match. Who won the match and by what scoreline was it decided?",
+      "ground_truth": "Argentina won the match against Brazil on July 15, 2026, in a FIFA World Cup 2026 qualification match with a scoreline of 4-1.",
+      "answers": [
+        {
+          "id": "real-fourcast-sports-intelligence-e275",
+          "text": "The data indicates that no completed match was found for the Argentina team in the FIFA World Cup 2026 qualification on July 15, 2026, with an error message specifying \"no_completed_match.\"",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "7520f47b-43c2-4df9-8363-7b0189581162",
+            "miner_slug": "fourcast-sports-intelligence",
+            "epoch_id": 275,
+            "live_score": 0.1661135,
+            "live_rank": 1,
+            "scored_at": "2026-08-25T11:46:46.840186Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"answer\":null,\"intent\":\"GAME_RESULT\",\"label\":\"unknown\",\"metadata\":{\"error\":\"no_completed_match\",\"latency_ms\":695,\"message\":\"No completed match found for: team=Argentina, competition=FIFA World Cup 2026 qualification, date=2026-07-15\",\"provider\":\"fourcast-txline\",\"source\":\"txline\",\"timestamp\":\"2026-08-25T11:45:20.974Z\",\"total_fixtures\":648,\"verification\":\"solana-merkle-proof\"},\"reason\":\"No matching fixture\",\"request_id\":null,\"score\":\"\",\"winner\":\"\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 275,
+        "epoch_max": 275,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 1,
+        "ground_truth_looks_like_refusal": false
+      }
+    },
+    {
+      "id": "game_result-real-15",
+      "intent": "GAME_RESULT",
+      "class": "REAL",
+      "rationale": "recorded traffic: verifies the harness on the answers the node actually scored",
+      "question": "What was the final outcome and winner of the 2026 FIFA World Cup?",
+      "ground_truth": "The 2026 FIFA World Cup concluded on July 19, 2026, with Spain emerging as the champion, defeating Argentina 1-0 in extra time. \n\nThe final was held at MetLife Stadium in East Rutherford, New Jersey, and was attended by 80,663 spectators. The match remained goalless through 90 minutes of regular play and went into extra time. Spain scored the winning goal in the 106th minute, scored by Ferran Torres.\n\nSpain's victory marked their second World Cup title, their first being in 2010. Spain also became the first nation to hold both the men's and women's World Cup titles simultaneously, as the Spanish women's team had won the FIFA Women's World Cup in 2023.\n\nArgentina, the defending champions, were unable to secure a second consecutive title. They struggled throughout the match, particularly after Enzo Fernández was sent off in the 93rd minute, leaving them with ten players for the remainder of the match, including extra time. Argentina did not manage a single shot on target during the entire match, and goalkeeper Emiliano Martínez set a World Cup final record with 11 saves.\n\nSpain's defensive performance was outstanding, conceding only one goal during the entire tournament, which was also the only goal in the final. Goalkeeper Unai Simón recorded seven clean sheets, the most by any goalkeeper in a single World Cup. Spain outshot Argentina 20-2 over the course of the 120 minutes. \n\nThe final also featured the first-ever World Cup halftime show, which included performances by notable artists.",
+      "answers": [
+        {
+          "id": "real-scorewire-oracle-e267",
+          "text": "The data shows a completed football match where Real Madrid won against Barcelona with a score of 2-1.",
+          "quality": null,
+          "note": "recorded answer; live score is metadata, not truth",
+          "meta": {
+            "record_id": "8673f089-5216-4602-b616-beba70eec6ee",
+            "miner_slug": "scorewire-oracle",
+            "epoch_id": 267,
+            "live_score": 0.39587677,
+            "live_rank": 1,
+            "scored_at": "2026-08-23T03:46:41.594996Z",
+            "failure_reason": "",
+            "looks_like_refusal": false,
+            "raw_miner_answer": "{\"away_score\":1,\"away_team\":\"Barcelona\",\"example\":true,\"finished\":true,\"home_score\":2,\"home_team\":\"Real Madrid\",\"score\":\"2-1\",\"status\":\"Ended\",\"winner\":\"Real Madrid\"}"
+          }
+        }
+      ],
+      "pairs": [],
+      "constraints": [],
+      "provenance": {
+        "source": "scores-api",
+        "url": "https://devnode.telegraphprotocol.com/scores?intent=GAME_RESULT&limit=300",
+        "epoch_min": 267,
+        "epoch_max": 267,
+        "captured": "2026-08-29T08:36:13.483Z",
+        "distinct_answers": 1,
+        "ground_truth_looks_like_refusal": false
+      }
+    }
+  ]
+}

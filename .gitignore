@@ -1,1 +1,3 @@
 target/
+harness/champions/
+fixtures/bar-history.log
