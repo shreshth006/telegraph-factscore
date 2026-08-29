@@ -236,3 +236,25 @@ alone, while the composite that ordered 14 of 15 also weighs question relevance,
 BM25 and length. A pair where the good answer wins on those but loses on
 ground-truth cosine would invert here, and ordering is at exactly the champion's
 14, so one inversion is fatal. The next result settles it either way.
+
+## Registration 1826 — preserve the champion's signal and stretch it
+
+The predicted risk materialised: novelty banding fell to **12/15 ordering** and
+margin **0.4132**. Ground-truth cosine alone inverted two pairs that the full
+blend ordered correctly. The successful ranking coordinate is therefore the
+incumbent's own blend, not an approximation assembled from its component ideas.
+
+Registration 850's MIT-licensed binary has a hard step at `0.70` and reserves
+`0.02` of the output for a strictly increasing in-band tie-break. The tie-break
+preserves ranking but gives back separation. `TEXT_AUTHENTICITY_CHECK` has no
+historical rows, so there is no Spearman stage to protect; fixture ordering is
+the only reason to retain it. The next candidate is an exact fork with the model,
+threshold, intent marker, and scoring logic unchanged, and only the tie-break
+reduced from `0.02` to `0.004` at both compiled call sites.
+
+The byte-level change is deliberately auditable: 14 bytes differ from
+`tn_t70.wasm`, comprising the two `0.02 -> 0.004` and two
+`0.98 -> 0.996` constants. On the 20-fixture local gate proxy it keeps ordering
+identical at **98/110** while increasing margin from **0.4391 to 0.4434**
+(+0.00424), increases score standard deviation from 0.4655 to 0.4702, and
+projects to 206 seconds of the node's 600-second budget.

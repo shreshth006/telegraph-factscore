@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Registers the text-authenticity hybrid scorer as a candidate Canonical Script
+# Registers the text-authenticity scorer as a candidate Canonical Script
 # for TEXT_AUTHENTICITY_CHECK. Dry run unless EXECUTE_ONCHAIN=YES.
 #
 # Why this intent: it is the only intent with a low champion separation bar
@@ -11,9 +11,9 @@ set -euo pipefail
 DIAMOND='0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8'
 RPC_URL="${RPC_URL:-https://sepolia.base.org}"
 INTENT='TEXT_AUTHENTICITY_CHECK'
-WASM_URL="${WASM_URL:?set WASM_URL to the immutable raw.githubusercontent URL of dist/text_authenticity_slot_d01ad85d11d8.wasm}"
-EXPECTED_SHA256='af9d975263ded496d571300e85c8b4c845eb6a2650844f3412e31ef8c3eaa33c'
-EXPECTED_KECCAK='0x2acef3fa03cc1a60d3704cc6f55fc756534d34a8c1fbcee43b7142fa707e49b3'
+WASM_URL="${WASM_URL:?set WASM_URL to the immutable raw.githubusercontent URL of dist/fork_ta_b004_2dbf8097e14b.wasm}"
+EXPECTED_SHA256='2dbf8097e14b65b126a9583679149f460de8c3000cee68a4d44ebfc321d2c5aa'
+EXPECTED_KECCAK='0x2c7a5efb074634c2d29e298ea3a91f4e38bf3770500b0e9932df924c35fb2fdd'
 CAST_BIN="${CAST_BIN:-${HOME}/.foundry/bin/cast}"
 
 if [[ ! -x "$CAST_BIN" ]]; then
