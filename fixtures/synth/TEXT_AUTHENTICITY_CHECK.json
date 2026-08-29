@@ -1,0 +1,650 @@
+{
+ "intent": "TEXT_AUTHENTICITY_CHECK",
+ "provenance": {
+  "source": "synthetic",
+  "generator": "session-authored 2026-08-29",
+  "note": "clean good/bad pairs in the node's converted-answer style; authored without reference to any hidden fixture"
+ },
+ "fixtures": [
+  {
+   "id": "text_authenticity-synth-01",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "polar verdict plus a confidence figure; a flipped verdict must lose to the correct one",
+   "question": "Is a 480-word product review submitted to an e-commerce moderation queue AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (a 480-word product review submitted to an e-commerce moderation queue) is classified as AI-generated with a confidence of 0.93 by GPTZero. The estimated human-written proportion is 7% and the attributed generator is GPT-4 class.",
+   "answers": [
+    {
+     "id": "correct-prose",
+     "text": "The data covers a 480-word product review submitted to an e-commerce moderation queue. The classification is AI-generated. The confidence is 0.93. The detector is GPTZero. The human-written proportion is 7%. The attributed generator is GPT-4 class.",
+     "quality": 1,
+     "note": "all decisive facts right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data covers a 480-word product review submitted to an e-commerce moderation queue. The classification is human-written. The confidence is 0.93. The detector is GPTZero. The human-written proportion is 93%. The attributed generator is GPT-4 class.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data covers a 480-word product review submitted to an e-commerce moderation queue. The classification is AI-generated. The confidence is 0.07. The detector is GPTZero. The human-written proportion is 93%. The attributed generator is GPT-4 class.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers the question of whether a 480-word product review submitted to an e-commerce moderation queue is AI-generated or human-written, with what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "restates the question, asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. I am unable to determine whether the submitted text is AI-generated or human-written from the information available.",
+     "quality": 0,
+     "note": "declines to answer"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-prose",
+     "verdict-flip"
+    ],
+    [
+     "correct-prose",
+     "confidence-swap"
+    ],
+    [
+     "correct-prose",
+     "question-echo"
+    ],
+    [
+     "correct-prose",
+     "refusal"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-synth-02",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "polar verdict plus a confidence figure; a flipped verdict must lose to the correct one",
+   "question": "Is a 1,200-word college admissions essay AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (a 1,200-word college admissions essay) is classified as human-written with a confidence of 0.88 by Originality.ai. The estimated human-written proportion is 88% and the attributed generator is none detected.",
+   "answers": [
+    {
+     "id": "correct-prose",
+     "text": "The data covers a 1,200-word college admissions essay. The classification is human-written. The confidence is 0.88. The detector is Originality.ai. The human-written proportion is 88%. The attributed generator is none detected.",
+     "quality": 1,
+     "note": "all decisive facts right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data covers a 1,200-word college admissions essay. The classification is AI-generated. The confidence is 0.88. The detector is Originality.ai. The human-written proportion is 12%. The attributed generator is none detected.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data covers a 1,200-word college admissions essay. The classification is human-written. The confidence is 0.12. The detector is Originality.ai. The human-written proportion is 12%. The attributed generator is none detected.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers the question of whether a 1,200-word college admissions essay is AI-generated or human-written, with what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "restates the question, asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. I am unable to determine whether the submitted text is AI-generated or human-written from the information available.",
+     "quality": 0,
+     "note": "declines to answer"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-prose",
+     "verdict-flip"
+    ],
+    [
+     "correct-prose",
+     "confidence-swap"
+    ],
+    [
+     "correct-prose",
+     "question-echo"
+    ],
+    [
+     "correct-prose",
+     "refusal"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-synth-03",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "polar verdict plus a confidence figure; a flipped verdict must lose to the correct one",
+   "question": "Is a 620-word press release about a battery plant AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (a 620-word press release about a battery plant) is classified as AI-generated with a confidence of 0.76 by Copyleaks. The estimated human-written proportion is 24% and the attributed generator is Claude class.",
+   "answers": [
+    {
+     "id": "correct-prose",
+     "text": "The data covers a 620-word press release about a battery plant. The classification is AI-generated. The confidence is 0.76. The detector is Copyleaks. The human-written proportion is 24%. The attributed generator is Claude class.",
+     "quality": 1,
+     "note": "all decisive facts right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data covers a 620-word press release about a battery plant. The classification is human-written. The confidence is 0.76. The detector is Copyleaks. The human-written proportion is 76%. The attributed generator is Claude class.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data covers a 620-word press release about a battery plant. The classification is AI-generated. The confidence is 0.24. The detector is Copyleaks. The human-written proportion is 76%. The attributed generator is Claude class.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers the question of whether a 620-word press release about a battery plant is AI-generated or human-written, with what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "restates the question, asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. I am unable to determine whether the submitted text is AI-generated or human-written from the information available.",
+     "quality": 0,
+     "note": "declines to answer"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-prose",
+     "verdict-flip"
+    ],
+    [
+     "correct-prose",
+     "confidence-swap"
+    ],
+    [
+     "correct-prose",
+     "question-echo"
+    ],
+    [
+     "correct-prose",
+     "refusal"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-synth-04",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "polar verdict plus a confidence figure; a flipped verdict must lose to the correct one",
+   "question": "Is a 300-word customer support email AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (a 300-word customer support email) is classified as human-written with a confidence of 0.95 by Turnitin. The estimated human-written proportion is 95% and the attributed generator is none detected.",
+   "answers": [
+    {
+     "id": "correct-prose",
+     "text": "The data covers a 300-word customer support email. The classification is human-written. The confidence is 0.95. The detector is Turnitin. The human-written proportion is 95%. The attributed generator is none detected.",
+     "quality": 1,
+     "note": "all decisive facts right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data covers a 300-word customer support email. The classification is AI-generated. The confidence is 0.95. The detector is Turnitin. The human-written proportion is 5%. The attributed generator is none detected.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data covers a 300-word customer support email. The classification is human-written. The confidence is 0.05. The detector is Turnitin. The human-written proportion is 5%. The attributed generator is none detected.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers the question of whether a 300-word customer support email is AI-generated or human-written, with what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "restates the question, asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. I am unable to determine whether the submitted text is AI-generated or human-written from the information available.",
+     "quality": 0,
+     "note": "declines to answer"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-prose",
+     "verdict-flip"
+    ],
+    [
+     "correct-prose",
+     "confidence-swap"
+    ],
+    [
+     "correct-prose",
+     "question-echo"
+    ],
+    [
+     "correct-prose",
+     "refusal"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-synth-05",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "polar verdict plus a confidence figure; a flipped verdict must lose to the correct one",
+   "question": "Is a 900-word technical blog post on Kubernetes autoscaling AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (a 900-word technical blog post on Kubernetes autoscaling) is classified as AI-generated with a confidence of 0.81 by Sapling. The estimated human-written proportion is 19% and the attributed generator is GPT-3.5 class.",
+   "answers": [
+    {
+     "id": "correct-prose",
+     "text": "The data covers a 900-word technical blog post on Kubernetes autoscaling. The classification is AI-generated. The confidence is 0.81. The detector is Sapling. The human-written proportion is 19%. The attributed generator is GPT-3.5 class.",
+     "quality": 1,
+     "note": "all decisive facts right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data covers a 900-word technical blog post on Kubernetes autoscaling. The classification is human-written. The confidence is 0.81. The detector is Sapling. The human-written proportion is 81%. The attributed generator is GPT-3.5 class.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data covers a 900-word technical blog post on Kubernetes autoscaling. The classification is AI-generated. The confidence is 0.19. The detector is Sapling. The human-written proportion is 81%. The attributed generator is GPT-3.5 class.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers the question of whether a 900-word technical blog post on Kubernetes autoscaling is AI-generated or human-written, with what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "restates the question, asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. I am unable to determine whether the submitted text is AI-generated or human-written from the information available.",
+     "quality": 0,
+     "note": "declines to answer"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-prose",
+     "verdict-flip"
+    ],
+    [
+     "correct-prose",
+     "confidence-swap"
+    ],
+    [
+     "correct-prose",
+     "question-echo"
+    ],
+    [
+     "correct-prose",
+     "refusal"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-synth-06",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "polar verdict plus a confidence figure; a flipped verdict must lose to the correct one",
+   "question": "Is a 250-word restaurant review posted to a travel site AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (a 250-word restaurant review posted to a travel site) is classified as human-written with a confidence of 0.71 by GPTZero. The estimated human-written proportion is 71% and the attributed generator is none detected.",
+   "answers": [
+    {
+     "id": "correct-prose",
+     "text": "The data covers a 250-word restaurant review posted to a travel site. The classification is human-written. The confidence is 0.71. The detector is GPTZero. The human-written proportion is 71%. The attributed generator is none detected.",
+     "quality": 1,
+     "note": "all decisive facts right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data covers a 250-word restaurant review posted to a travel site. The classification is AI-generated. The confidence is 0.71. The detector is GPTZero. The human-written proportion is 29%. The attributed generator is none detected.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data covers a 250-word restaurant review posted to a travel site. The classification is human-written. The confidence is 0.29. The detector is GPTZero. The human-written proportion is 29%. The attributed generator is none detected.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers the question of whether a 250-word restaurant review posted to a travel site is AI-generated or human-written, with what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "restates the question, asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. I am unable to determine whether the submitted text is AI-generated or human-written from the information available.",
+     "quality": 0,
+     "note": "declines to answer"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-prose",
+     "verdict-flip"
+    ],
+    [
+     "correct-prose",
+     "confidence-swap"
+    ],
+    [
+     "correct-prose",
+     "question-echo"
+    ],
+    [
+     "correct-prose",
+     "refusal"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-synth-07",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "polar verdict plus a confidence figure; a flipped verdict must lose to the correct one",
+   "question": "Is a 2,400-word investigative news article AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (a 2,400-word investigative news article) is classified as human-written with a confidence of 0.97 by Originality.ai. The estimated human-written proportion is 97% and the attributed generator is none detected.",
+   "answers": [
+    {
+     "id": "correct-prose",
+     "text": "The data covers a 2,400-word investigative news article. The classification is human-written. The confidence is 0.97. The detector is Originality.ai. The human-written proportion is 97%. The attributed generator is none detected.",
+     "quality": 1,
+     "note": "all decisive facts right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data covers a 2,400-word investigative news article. The classification is AI-generated. The confidence is 0.97. The detector is Originality.ai. The human-written proportion is 3%. The attributed generator is none detected.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data covers a 2,400-word investigative news article. The classification is human-written. The confidence is 0.03. The detector is Originality.ai. The human-written proportion is 3%. The attributed generator is none detected.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers the question of whether a 2,400-word investigative news article is AI-generated or human-written, with what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "restates the question, asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. I am unable to determine whether the submitted text is AI-generated or human-written from the information available.",
+     "quality": 0,
+     "note": "declines to answer"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-prose",
+     "verdict-flip"
+    ],
+    [
+     "correct-prose",
+     "confidence-swap"
+    ],
+    [
+     "correct-prose",
+     "question-echo"
+    ],
+    [
+     "correct-prose",
+     "refusal"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-synth-08",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "polar verdict plus a confidence figure; a flipped verdict must lose to the correct one",
+   "question": "Is a 140-word social media thread about a product launch AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (a 140-word social media thread about a product launch) is classified as AI-generated with a confidence of 0.68 by Copyleaks. The estimated human-written proportion is 32% and the attributed generator is Gemini class.",
+   "answers": [
+    {
+     "id": "correct-prose",
+     "text": "The data covers a 140-word social media thread about a product launch. The classification is AI-generated. The confidence is 0.68. The detector is Copyleaks. The human-written proportion is 32%. The attributed generator is Gemini class.",
+     "quality": 1,
+     "note": "all decisive facts right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data covers a 140-word social media thread about a product launch. The classification is human-written. The confidence is 0.68. The detector is Copyleaks. The human-written proportion is 68%. The attributed generator is Gemini class.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data covers a 140-word social media thread about a product launch. The classification is AI-generated. The confidence is 0.32. The detector is Copyleaks. The human-written proportion is 68%. The attributed generator is Gemini class.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers the question of whether a 140-word social media thread about a product launch is AI-generated or human-written, with what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "restates the question, asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. I am unable to determine whether the submitted text is AI-generated or human-written from the information available.",
+     "quality": 0,
+     "note": "declines to answer"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-prose",
+     "verdict-flip"
+    ],
+    [
+     "correct-prose",
+     "confidence-swap"
+    ],
+    [
+     "correct-prose",
+     "question-echo"
+    ],
+    [
+     "correct-prose",
+     "refusal"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-synth-09",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "polar verdict plus a confidence figure; a flipped verdict must lose to the correct one",
+   "question": "Is a 750-word academic abstract on protein folding AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (a 750-word academic abstract on protein folding) is classified as AI-generated with a confidence of 0.99 by Turnitin. The estimated human-written proportion is 1% and the attributed generator is GPT-4 class.",
+   "answers": [
+    {
+     "id": "correct-prose",
+     "text": "The data covers a 750-word academic abstract on protein folding. The classification is AI-generated. The confidence is 0.99. The detector is Turnitin. The human-written proportion is 1%. The attributed generator is GPT-4 class.",
+     "quality": 1,
+     "note": "all decisive facts right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data covers a 750-word academic abstract on protein folding. The classification is human-written. The confidence is 0.99. The detector is Turnitin. The human-written proportion is 99%. The attributed generator is GPT-4 class.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data covers a 750-word academic abstract on protein folding. The classification is AI-generated. The confidence is 0.01. The detector is Turnitin. The human-written proportion is 99%. The attributed generator is GPT-4 class.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers the question of whether a 750-word academic abstract on protein folding is AI-generated or human-written, with what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "restates the question, asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. I am unable to determine whether the submitted text is AI-generated or human-written from the information available.",
+     "quality": 0,
+     "note": "declines to answer"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-prose",
+     "verdict-flip"
+    ],
+    [
+     "correct-prose",
+     "confidence-swap"
+    ],
+    [
+     "correct-prose",
+     "question-echo"
+    ],
+    [
+     "correct-prose",
+     "refusal"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  },
+  {
+   "id": "text_authenticity-synth-10",
+   "intent": "TEXT_AUTHENTICITY_CHECK",
+   "class": "CLEAN-PAIR",
+   "rationale": "polar verdict plus a confidence figure; a flipped verdict must lose to the correct one",
+   "question": "Is a 410-word cover letter AI-generated or human-written, with what confidence, and which detector produced the classification?",
+   "ground_truth": "The submitted text (a 410-word cover letter) is classified as human-written with a confidence of 0.83 by Sapling. The estimated human-written proportion is 83% and the attributed generator is none detected.",
+   "answers": [
+    {
+     "id": "correct-prose",
+     "text": "The data covers a 410-word cover letter. The classification is human-written. The confidence is 0.83. The detector is Sapling. The human-written proportion is 83%. The attributed generator is none detected.",
+     "quality": 1,
+     "note": "all decisive facts right"
+    },
+    {
+     "id": "verdict-flip",
+     "text": "The data covers a 410-word cover letter. The classification is AI-generated. The confidence is 0.83. The detector is Sapling. The human-written proportion is 17%. The attributed generator is none detected.",
+     "quality": 0,
+     "note": "polar verdict inverted"
+    },
+    {
+     "id": "confidence-swap",
+     "text": "The data covers a 410-word cover letter. The classification is human-written. The confidence is 0.17. The detector is Sapling. The human-written proportion is 17%. The attributed generator is none detected.",
+     "quality": 0,
+     "note": "confidence figure wrong"
+    },
+    {
+     "id": "question-echo",
+     "text": "The data covers the question of whether a 410-word cover letter is AI-generated or human-written, with what confidence, and which detector produced the classification.",
+     "quality": 0,
+     "note": "restates the question, asserts nothing"
+    },
+    {
+     "id": "refusal",
+     "text": "The data cannot be provided. I am unable to determine whether the submitted text is AI-generated or human-written from the information available.",
+     "quality": 0,
+     "note": "declines to answer"
+    }
+   ],
+   "pairs": [
+    [
+     "correct-prose",
+     "verdict-flip"
+    ],
+    [
+     "correct-prose",
+     "confidence-swap"
+    ],
+    [
+     "correct-prose",
+     "question-echo"
+    ],
+    [
+     "correct-prose",
+     "refusal"
+    ]
+   ],
+   "constraints": [],
+   "provenance": {
+    "source": "synthetic",
+    "generator": "session-authored",
+    "schema": "TEXT_AUTHENTICITY_CHECK"
+   }
+  }
+ ]
+}
