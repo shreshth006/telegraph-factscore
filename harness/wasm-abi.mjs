@@ -76,6 +76,11 @@ class Scorer {
     };
   }
 
+  /** Start with clean linear memory; used to isolate adversarial probes. */
+  reset() {
+    this._instantiate();
+  }
+
   _put(bytes) {
     // The host passes ptr=0, len=0 for an empty string and never calls alloc for
     // it. Mirror that exactly: a module may only look at len, and calling alloc(0)
@@ -119,6 +124,40 @@ class Scorer {
 
   score(question, groundTruth, answer) {
     return this.scoreBytes(utf8(question), utf8(groundTruth), utf8(answer));
+  }
+
+  /**
+   * Score through the node's Stage-2 replay path when the module supports it.
+   *
+   * The node pre-embeds question and ground truth, then calls
+   * `rank_answer_cached`. That path can contain different code from
+   * `rank_answer` (registrations 1653/1656 proved this live), so a promotion
+   * proxy must exercise it. A fresh instance per call keeps the copied vectors
+   * and text buffers valid without making assumptions about allocator size.
+   * Small standalone scorers do not export the cached ABI and fall back to the
+   * ordinary six-string-parameter entry point.
+   */
+  scoreStage2(question, groundTruth, answer) {
+    if (!this._instance) this._instantiate();
+    const exports = this._instance.exports;
+    if (typeof exports.rank_answer_cached !== "function" || typeof exports.embed !== "function") {
+      return this.score(question, groundTruth, answer);
+    }
+
+    this._instantiate();
+    const { memory, embed, rank_answer_cached: rankAnswerCached } = this._instance.exports;
+    const q = this._put(utf8(question));
+    const qVectorPtr = Number(embed(...q));
+    const qVector = new Uint8Array(memory.buffer, qVectorPtr, 384 * 4).slice();
+    const gt = this._put(utf8(groundTruth));
+    const gtVectorPtr = Number(embed(...gt));
+    const gtVector = new Uint8Array(memory.buffer, gtVectorPtr, 384 * 4).slice();
+    const qVectorCopy = this._put(qVector);
+    const gtVectorCopy = this._put(gtVector);
+    const a = this._put(utf8(answer));
+
+    this.calls += 1;
+    return Number(rankAnswerCached(qVectorCopy[0], gtVectorCopy[0], ...gt, ...a));
   }
 }
 

@@ -29,7 +29,7 @@ if (!isMainThread && workerData?.wasmPath) {
     const scores = new Array(message.jobs.length);
     for (let i = 0; i < message.jobs.length; i += 1) {
       const [question, groundTruth, answer] = message.jobs[i];
-      scores[i] = scorer.score(question, groundTruth, answer);
+      scores[i] = scorer.scoreStage2(question, groundTruth, answer);
     }
     parentPort.postMessage({ type: "done", indices: message.indices, scores });
   });

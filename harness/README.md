@@ -23,13 +23,21 @@ built for.
 **Stage 1 — structural, candidate only.** Reproduces every rejection class recorded in live
 registrations: missing exports, wrong `rank_answer` arity, an empty or whitespace-only answer that
 does not return *exactly* `0.0`, self-match failing to beat an unrelated cross-match, a trap or a
-non-finite return on adversarial input (100 KB text, emoji, CJK/Arabic/Cyrillic, invalid UTF-8,
-embedded NULs, a single 50 000-character token), and the whole-gate wall clock.
+non-finite return on adversarial input (100 KB text, emoji, CJK/Arabic/Cyrillic, embedded NULs, a
+single 50 000-character token), and the whole-gate wall clock. Invalid UTF-8 is reported as
+advisory: registration 1686 reached Stage 2 despite trapping on that local probe, so it is not
+treated as a live Stage-1 requirement.
 
 **Stage 2 — separation, candidate vs incumbent.** The node's promotion conditions (A, B, C, D1,
 D2, D3 below) computed over the same corpus for both modules, plus per-fixture-class pairwise
 ranking accuracy, near-equality constraints, a Spearman agreement proxy on real recorded traffic,
 and a set of headline exhibits pulled out verbatim.
+
+Stage 2 calls `rank_answer_cached` when a module exports it, matching the node's
+replay evaluator: question and ground truth are embedded, copied into module
+memory, and passed with the ground-truth and answer text. Modules without the
+cached ABI fall back to `rank_answer`. Stage 1 still probes `rank_answer`
+directly because that is the structural entry point the validator checks.
 
 ### Is the reproduction real?
 
