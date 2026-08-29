@@ -1,0 +1,67 @@
+name: Scorer CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+          components: rustfmt, clippy
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Format
+        run: cargo fmt --check
+
+      - name: Clippy
+        run: cargo clippy --locked --all-targets -- -D warnings
+
+      - name: Test generic profile
+        run: cargo test --locked
+
+      - name: Test IP profile
+        run: cargo test --locked --no-default-features --features ip-geolocation
+
+      - name: Test storm profile
+        run: cargo test --locked --no-default-features --features storm-alert
+
+      - name: Build freestanding WASM
+        run: cargo build --locked --release --target wasm32-unknown-unknown --no-default-features --features ip-geolocation
+
+      - name: Verify immutable hybrid artifact
+        run: |
+          echo 'f906081e0df92f1e9c4e7ff318cc2cd25cd809815336e393491a4c6af07878de  dist/hybrid_threshold_robust_f906081e0df9.wasm' | sha256sum --check
+          node verify.mjs dist/hybrid_threshold_robust_f906081e0df9.wasm
+
+      - name: Run public IP fixture gate
+        run: |
+          node harness/run-eval.mjs \
+            --scorer dist/hybrid_threshold_robust_f906081e0df9.wasm \
+            --intent IP_GEOLOCATION \
+            --fixtures fixtures/real,fixtures/synth \
+            --workers 2 \
+            --out /tmp/preflight-ci-eval \
+            --quiet
+          report="$(find /tmp/preflight-ci-eval -name 'report-*.json' -print -quit)"
+          jq --exit-status '
+            .stage1.pass == true and
+            .gate_proxy.IP_GEOLOCATION.candidate.worst_self_match == 1 and
+            .gate_proxy.IP_GEOLOCATION.candidate.score_stddev > 0.05 and
+            .gate_proxy.IP_GEOLOCATION.candidate.separation >= 0.15 and
+            .gate_proxy.IP_GEOLOCATION.candidate.wins == .gate_proxy.IP_GEOLOCATION.candidate.pairs
+          ' "$report"

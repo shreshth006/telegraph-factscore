@@ -180,6 +180,7 @@ pub fn name_for_code(code: u32) -> Option<u32> {
 /// Is this token a country code we can check? A code we know is a **claim**: it
 /// either matches the ground truth or contradicts it. A two-letter token we do
 /// not know (`IP`, `AS`, `RIR`) is method vocabulary and abstains instead.
+#[cfg(test)]
 pub fn is_country_code(code: u32) -> bool {
     name_for_code(code).is_some()
 }
@@ -357,7 +358,10 @@ mod tests {
 
     #[test]
     fn us_state_codes_resolve_in_both_directions() {
-        assert_eq!(state_code_for_name(hash_str("california")), Some(hash_str("ca")));
+        assert_eq!(
+            state_code_for_name(hash_str("california")),
+            Some(hash_str("ca"))
+        );
         assert_eq!(state_name_for_code(hash_str("TX")), Some(hash_str("texas")));
         // Multi-word states are reached by the initials rule, not this table.
         assert_eq!(state_name_for_code(hash_str("ny")), None);
@@ -368,7 +372,10 @@ mod tests {
         // CA is Canada and California; DE is Germany and Delaware. Losing
         // either reading is what made "Mountain View, CA" score as a claim
         // that the country was Canada.
-        for (code, country, state) in [("ca", "canada", "california"), ("de", "germany", "delaware")] {
+        for (code, country, state) in [
+            ("ca", "canada", "california"),
+            ("de", "germany", "delaware"),
+        ] {
             assert_eq!(name_for_code(hash_str(code)), Some(hash_str(country)));
             assert_eq!(state_name_for_code(hash_str(code)), Some(hash_str(state)));
             assert!(is_place_code(hash_str(code)));
@@ -384,11 +391,20 @@ mod tests {
 
     #[test]
     fn canadian_provinces_resolve_too() {
-        assert_eq!(state_code_for_name(hash_str("ontario")), Some(hash_str("on")));
-        assert_eq!(state_name_for_code(hash_str("QC")), Some(hash_str("quebec")));
+        assert_eq!(
+            state_code_for_name(hash_str("ontario")),
+            Some(hash_str("on"))
+        );
+        assert_eq!(
+            state_name_for_code(hash_str("QC")),
+            Some(hash_str("quebec"))
+        );
         // SK is Slovakia as well as Saskatchewan; both readings stay available.
         assert_eq!(name_for_code(hash_str("sk")), Some(hash_str("slovakia")));
-        assert_eq!(state_name_for_code(hash_str("sk")), Some(hash_str("saskatchewan")));
+        assert_eq!(
+            state_name_for_code(hash_str("sk")),
+            Some(hash_str("saskatchewan"))
+        );
     }
 
     #[test]
@@ -398,7 +414,10 @@ mod tests {
         }
         // Ambiguous forms stay out: Co is Colorado, AS is the ASN marker.
         for w in ["co", "as", "sa", "ag", "google"] {
-            assert!(!is_corporate_suffix(hash_str(w)), "{w} wrongly treated as a suffix");
+            assert!(
+                !is_corporate_suffix(hash_str(w)),
+                "{w} wrongly treated as a suffix"
+            );
         }
     }
 

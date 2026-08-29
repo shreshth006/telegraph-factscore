@@ -1,5 +1,7 @@
 # scorer — a fact-aware Telegraph scoring module
 
+[![Scorer CI](https://github.com/shreshth006/telegraph-factscore/actions/workflows/ci.yml/badge.svg)](https://github.com/shreshth006/telegraph-factscore/actions/workflows/ci.yml)
+
 A freestanding `wasm32-unknown-unknown` scoring module, ~19.6 KB, **zero imports**, no allocator,
 no clock, no randomness, no transcendental maths. One Rust source tree compiled once per intent
 via constant profiles, the same shape the incumbent uses.
@@ -159,6 +161,12 @@ wasm-tools print target/wasm32-unknown-unknown/release/scorer.wasm | grep -c '(i
 wasm-tools validate target/wasm32-unknown-unknown/release/scorer.wasm
 node verify.mjs dist/ip_geolocation.wasm
 ```
+
+GitHub Actions independently repeats formatting, clippy, three profile test
+suites, a freestanding WASM build, the tracked hybrid artifact's SHA-256 and
+adversarial verifier, and the public IP fixture gate. The workflow fails if
+self-match, score spread, absolute separation, or any ordered public pair
+regresses.
 
 The crate is `#![no_std]` on wasm and links `std` on the host, so `cargo test` runs normally while
 the shipped artefact stays freestanding. `wasm-tools print | grep -c '(import'` is the check that

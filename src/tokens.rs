@@ -363,8 +363,7 @@ pub fn tokenize(src: &[u8], t: &mut Toks) {
         let hemi = used > 0 && rest.len() == 1 && is_hemisphere(rest[0]);
         let kind = if used > 0 && (rest.is_empty() || suffix_unit != U_NONE || hemi) {
             K_NUMBER
-        } else if (has_alpha && has_digit && (digits >= 2 || seps >= 1))
-            || (has_digit && seps >= 2)
+        } else if (has_alpha && has_digit && (digits >= 2 || seps >= 1)) || (has_digit && seps >= 2)
         {
             // A lone digit embedded in a word is part of a name, not an
             // identifier: `IPv4`, `IP2Location` and `S3` are vocabulary, while

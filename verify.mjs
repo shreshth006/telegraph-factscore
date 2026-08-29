@@ -44,7 +44,9 @@ const enc = new TextEncoder();
 // Mirrors telegraph-examples/wasm-scoring-module/go-tester/main.go: for an empty
 // string the host does NOT call alloc, it passes ptr=0, len=0.
 function put(s) {
-  const b = enc.encode(s);
+  return putBytes(enc.encode(s));
+}
+function putBytes(b) {
   if (b.length === 0) return [0, 0];
   const ptr = ex.alloc(b.length);
   if (ptr === 0) throw new Error("alloc returned 0");
@@ -52,6 +54,7 @@ function put(s) {
   return [ptr, b.length];
 }
 const score = (q, gt, ma) => ex.rank_answer(...put(q), ...put(gt), ...put(ma));
+const scoreRawAnswer = (q, gt, ma) => ex.rank_answer(...put(q), ...put(gt), ...putBytes(ma));
 
 console.log("");
 console.log("--- Stage 1: traps ---");
@@ -63,6 +66,15 @@ check(Object.is(empty, 0), "empty answer is EXACTLY 0.0", `got ${empty}`);
 for (const [label, ws] of [["spaces", "   "], ["tab/CR/LF", " \t\r\n "], ["single tab", "\t"]]) {
   const v = score(Q, GT, ws);
   check(Object.is(v, 0), `whitespace-only (${label}) is EXACTLY 0.0`, `got ${v}`);
+}
+for (const [label, ws] of [
+  ["non-breaking space", "\u00a0"],
+  ["zero-width space", "\u200b"],
+  ["word joiner", "\u2060"],
+  ["byte-order mark", "\ufeff"],
+]) {
+  const v = score(Q, GT, ws);
+  check(Object.is(v, 0), `Unicode-empty (${label}) is EXACTLY 0.0`, `got ${v}`);
 }
 
 const selfMatch = score(Q, GT, GT);
@@ -77,6 +89,13 @@ check(Number.isFinite(bigScore) && bigScore >= 0 && bigScore <= 1, "~54 KB repea
 const uni = "\u{1F5FC}中文 café ☃ 23.1°C مرحبا";
 const uniScore = score("weather?", "It is 23.1C.", uni);
 check(Number.isFinite(uniScore) && uniScore >= 0 && uniScore <= 1, "emoji/CJK/accents do not trap", `${uniScore}`);
+
+const invalidUtf8Score = scoreRawAnswer(Q, GT, Uint8Array.from([0xff, 0xfe, 0x80, 0x61]));
+check(
+  Number.isFinite(invalidUtf8Score) && invalidUtf8Score >= 0 && invalidUtf8Score <= 1,
+  "invalid UTF-8 does not trap",
+  `${invalidUtf8Score}`,
+);
 
 // The gate makes thousands of calls and never calls dealloc.
 let allocOk = true;
