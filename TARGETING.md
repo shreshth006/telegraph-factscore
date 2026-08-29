@@ -172,3 +172,27 @@ pairs split. The next build is that step, at 0.71.
 The in-band tie-break also drops back to the embedding score alone. It was half
 the fact channel, and the fact channel's ranking is exactly what cost 1820 its
 ordering; on this intent no Spearman stage runs, so nothing else depends on it.
+
+## Registration 1823 — the pairs are correlated, and that decides the instrument
+
+A hard step at 0.71 scored **0.3992**, *below* the ramp's 0.5031 at the same
+ordering (14/15). A step cannot lose to a ramp when the two clusters are cleanly
+separated, so they are not: per-fixture difficulty moves the good and the bad
+answer together, and a fixed threshold then finds both on the same side.
+
+Fitting both measurements to that model — a fixture level `d ~ N(m, s)` with the
+pair straddling it — gives level **0.64**, per-fixture spread **0.05**, and a
+within-pair gap of **0.11**. It reproduces the ramp at 0.4924 against the
+observed 0.5031 and the step at 0.3823 against 0.3992. Note the ramp's own
+arithmetic is a direct read of the gap: `0.101 / 0.20 = 0.505`, which is the
+measurement, so essentially every pair sat inside that window.
+
+The instrument that suits correlated pairs is a ramp narrow enough to amplify
+the within-pair gap and wide enough to cover the fixture spread. Optimising over
+the fitted model puts it at centre **0.64**, half-width **0.02**, predicting
+margin **0.694** against the bar of 0.6586 — and the residual on the fit is
+0.031, so this is a narrow prediction, not a comfortable one.
+
+The remaining headroom is not in the calibration. Margin is capped near 0.69 by
+the ratio of the gap (0.11) to the fixture spread (0.05), and both are properties
+of the underlying blend, not of the transform applied to it.

@@ -184,13 +184,13 @@ const FAST_HI: f32 = 0.93;
 /// *good* answer, so the embedding verdict decides the band and the fact signal
 /// is kept as a tie-break inside it -- the same division of labour the champion
 /// documents at its own `STEP_B`.
-const CAL_CENTER: f32 = 0.71;
+const CAL_CENTER: f32 = 0.64;
 
 /// Half-width of the calibration ramp. A hard step buys the most separation once
 /// the threshold is known to sit between the two clusters; this blend's scale has
 /// not been measured against these fixtures, and a ramp across the plateau loses
 /// little where a step placed off it loses everything.
-const CAL_WIDTH: f32 = 0.0;
+const CAL_WIDTH: f32 = 0.02;
 const CAL_TIE_BREAK: f32 = 0.004;
 
 /// `factual` is the fact channel's verdict in [0, 1]; it never moves the band,
