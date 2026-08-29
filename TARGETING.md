@@ -196,3 +196,43 @@ margin **0.694** against the bar of 0.6586 — and the residual on the fit is
 The remaining headroom is not in the calibration. Margin is capped near 0.69 by
 the ratio of the gap (0.11) to the fixture spread (0.05), and both are properties
 of the underlying blend, not of the transform applied to it.
+
+## Registration 1824 — calibration is exhausted; the band moves to the fixture's own zero
+
+The fitted window (centre 0.64, half-width 0.02) scored **0.5328**, against a
+prediction of 0.694 and the bar of 0.6586. Three points now describe the curve:
+
+| band | margin | ordering |
+| --- | ---: | ---: |
+| ramp, half-width 0.10 | 0.5031 | 14/15 |
+| ramp, half-width 0.02 | 0.5328 | 14/15 |
+| step | 0.3992 | 14/15 |
+
+Narrowing the window by a factor of five bought 0.03. What amplification a
+narrow window gains, coverage loses: with a per-fixture spread of 0.05 against a
+window of 0.04, pairs fall outside it entirely and contribute nothing. No
+absolute threshold does better, because the quantity being thresholded carries
+the fixture's difficulty as an offset.
+
+So the band is measured against the fixture's own zero instead:
+
+```
+novelty = (cos(gt, answer) - cos(gt, question)) / (1 - cos(gt, question))
+```
+
+The question already sits some distance from its own answer. An answer no closer
+to the truth than the question itself has added nothing and bands at 0; one that
+restates the truth closes most of the remaining distance and bands at 1. The
+offset divides out, which is exactly the term that capped the previous three
+builds. Both vectors are already passed to both entry points, so this costs no
+extra embedding, and the in-band tie-break stays on the composite so ordering
+remains the composite's ranking.
+
+Measured on the paraphrase corpus, a question echo bands at 0.003 and a refusal
+at 0.002, against 0.690 for a terse correct answer.
+
+The risk is stated rather than hidden: `novelty` is monotone in `cos(gt, answer)`
+alone, while the composite that ordered 14 of 15 also weighs question relevance,
+BM25 and length. A pair where the good answer wins on those but loses on
+ground-truth cosine would invert here, and ordering is at exactly the champion's
+14, so one inversion is fatal. The next result settles it either way.
