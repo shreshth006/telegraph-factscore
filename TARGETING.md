@@ -258,3 +258,20 @@ The byte-level change is deliberately auditable: 14 bytes differ from
 identical at **98/110** while increasing margin from **0.4391 to 0.4434**
 (+0.00424), increases score standard deviation from 0.4655 to 0.4702, and
 projects to 206 seconds of the node's 600-second budget.
+
+## Registration 1832 — promoted
+
+The fork cleared the live gate and replaced registration 850 as the canonical
+script for `TEXT_AUTHENTICITY_CHECK`:
+
+| metric | candidate 1832 | champion 850 |
+| --- | ---: | ---: |
+| ordering | **14 / 15** | **14 / 15** |
+| margin | **0.6650557** | 0.65861213 |
+| worst self-match | **1.0** | 1.0 |
+| score standard deviation | **0.4956812** | — |
+| historical rows | **0** | 0 |
+
+The live improvement (+0.00644357) was slightly larger than the proxy's
++0.004244. Registration 1832 is active and `is_champion: true`; no rejection
+reason or historical-ranking stage applies.
