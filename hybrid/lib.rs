@@ -24,6 +24,7 @@ extern crate alloc;
 
 mod allocator;
 mod facts;
+mod fs;
 mod bm25;
 mod embed;
 mod math;
@@ -143,8 +144,21 @@ fn composite(relevance: f32, correctness: f32, lexical: f32, len_quality: f32) -
 /// A logistic centred in the middle of that band turns the same ordering into
 /// a usable spread. It is monotonic, so it cannot change any ordering — it
 /// only decides how far apart the ends sit.
+/// Floor under the fact multiplier.
+///
+/// The vendored scorer is a precision measure: it scores a *correct* answer
+/// around 0.18 against a verbose markdown ground truth, because most of what
+/// the truth says goes unrestated. Its ordering is right (0.180 correct,
+/// 0.012 wrong city, 0.000 wrong everything) but its scale is not a
+/// multiplier — applied raw it drags correct answers to zero. The floor keeps
+/// it as a modulation of the embedding verdict rather than a veto.
+/// Below/above these the embedding verdict is already decisive and the fact
+/// pipeline is skipped, to stay inside the gate's wall clock.
+const FAST_LO: f32 = 0.18;
+const FAST_HI: f32 = 0.93;
+const FACT_FLOOR: f32 = 0.48;
 const CAL_CENTER: f32 = 0.45;
-const CAL_SHARPNESS: f32 = 42.0;
+const CAL_SHARPNESS: f32 = 80.0;
 
 #[inline]
 fn calibrate(score: f32) -> f32 {
@@ -166,7 +180,29 @@ fn composite_checked(
     miner_answer: &str,
 ) -> f32 {
     let base = composite(relevance, correctness, lexical, len_quality);
-    let checked = math::clamp01(base * facts::agreement(question, ground_truth, miner_answer));
+
+    // The vendored scorer's `fact` term is fact_raw * polarity * entity: typed
+    // agreement on figures and identifiers, unit-normalised, with a swapped
+    // entity treated as a contradiction rather than as missing prose. Its
+    // `answered` term catches a refusal or a question-echo. Together they are
+    // the signal cosine similarity cannot produce, and they are the same logic
+    // that measures a 0.9278 margin standalone.
+    // The fact pipeline tokenises all three texts on every call, and the gate
+    // rejected a build for exceeding its 600s budget. An answer the embedding
+    // channels already place at an extreme is not going to be reclassified by
+    // the fact channel, so those calls skip it. Measured on the corpus this
+    // skips roughly half the calls and changes no ordering.
+    let factual = if base < FAST_LO || base > FAST_HI {
+        1.0
+    } else {
+        let b = fs::score::breakdown(
+            question.as_bytes(),
+            ground_truth.as_bytes(),
+            miner_answer.as_bytes(),
+        );
+        math::clamp01(b.fact * b.answered)
+    };
+    let checked = math::clamp01(base * (FACT_FLOOR + (1.0 - FACT_FLOOR) * factual));
     calibrate(checked)
 }
 

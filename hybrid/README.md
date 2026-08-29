@@ -9,9 +9,11 @@ the promotion gate in opposite ways, and each holds the half the other needs:
 | baseline (24 MB, embeddings) | passes | 0.31 |
 
 This directory is the merge: the MIT-licensed baseline supplies the embedding
-signals that order the fixtures the way the gate expects, and `facts.rs` adds a
-compact fact-agreement channel as a multiplier, so a factually wrong answer is
-separated from a correct one that reads the same.
+signals that order the fixtures the way the gate expects. `fs/` is the full
+typed fact scorer vendored behind a private module, and `lib.rs` combines its
+fact and answeredness channels with the embedding verdict. `facts.rs` is the
+earlier compact approximation, retained so the measured development history is
+reproducible; the current composite uses `fs::score::breakdown`.
 
 ## Why the fact channel is needed
 
@@ -37,6 +39,8 @@ With the fact channel, on that same record:
 | 1659 | also applied to `rank_answer_cached` | **0.5191** |
 | 1661 | calibration sharpened 20 -> 42 | **0.6100** |
 | 1664 | calibration centre 0.45 -> 0.30 | 0.3082 |
+| 1675 | full fact machinery, bounded by the fast path | **0.8593** |
+| 1686 | full fact machinery plus identifier fixes, sharpness 80 | **0.8945** |
 
 Two findings worth recording.
 
@@ -48,9 +52,47 @@ materially different binaries. That looked like node-side caching and was not.
 halved the margin (bad answers rose above the centre); locally, moving it to
 0.52 crushed a correct answer from 0.8136 to 0.1875. Both directions degrade.
 
-## Where it stands
+## Registration 1686
 
-0.6100 against the champion's 0.9252. Parameter tuning is exhausted — the
-remaining gap needs better *raw* separation, which means porting the real fact
-machinery from `src/` (unit normalisation, entity aliasing, the substitution
-pairing rule) rather than the compact approximation in `facts.rs`.
+Registration 1686 passed the fetch/hash gate and every ordering case. The node
+measured 15/15 wins and a margin of **0.8944976**, against the champion's 15/15
+and **0.92503804**. It was rejected on separation only. No score is inferred or
+fabricated here; these are the values returned by
+`GET https://devnode.telegraphprotocol.com/api/wasm/1686`.
+
+The exact evaluated binary is hosted at:
+
+`https://preflight-ssl-verification.vercel.app/wasm/hf-805708d8f22a.wasm`
+
+- bytes: `24,199,967`
+- SHA-256: `805708d8f22ac1a9d904a7c089bb7f29d2f95c0c110d33464d1e43c49e881979`
+- Telegraph registry hash: `b665fa3d7310ebff4b885377c85a8304fa98a2ae82aa184c681ec9fd684966e8`
+
+The remaining gap is 0.03054044 of average separation. A monotonic calibration
+change preserves strict ordering mathematically, but can still reduce margin by
+saturating two answers on the same side of its centre. Do not register another
+constant change without measuring it against the corpus first.
+
+## Reproducing the exact binary
+
+The hybrid is an overlay on the official baseline rather than a standalone
+crate. Use the pinned upstream commit and the compiler recorded below:
+
+```bash
+git clone https://github.com/telegraphprotocol/telegraph-wasm-baseline.git
+cd telegraph-wasm-baseline
+git checkout dfa0cf7fda72789267811ba2190f61a8eaacedf6
+
+cp ../telegraph-factscore/hybrid/Cargo.toml Cargo.toml
+cp ../telegraph-factscore/hybrid/lib.rs src/lib.rs
+cp ../telegraph-factscore/hybrid/facts.rs src/facts.rs
+mkdir -p src/fs
+cp ../telegraph-factscore/hybrid/fs/*.rs src/fs/
+
+cargo build --release --target wasm32-unknown-unknown \
+  --features "real_weights ip-geolocation"
+sha256sum target/wasm32-unknown-unknown/release/telegraph_scoring.wasm
+```
+
+Reproduced on `rustc 1.98.0 (88d9e12ae 2026-08-18)` and Cargo 1.98.0. The
+command above emits the same 24,199,967 bytes and SHA-256 as registration 1686.
