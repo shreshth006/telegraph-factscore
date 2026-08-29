@@ -12,8 +12,8 @@ DIAMOND='0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8'
 RPC_URL="${RPC_URL:-https://sepolia.base.org}"
 INTENT='TEXT_AUTHENTICITY_CHECK'
 WASM_URL="${WASM_URL:?set WASM_URL to the immutable raw.githubusercontent URL of dist/text_authenticity_slot_d01ad85d11d8.wasm}"
-EXPECTED_SHA256='d01ad85d11d8fb756ab5d0c7ad35b1e939e611494e4e8a368620e0f746de7bc2'
-EXPECTED_KECCAK='0x9958269b323cf62cd1c489a201113e6c80d76bd708a52274bbd861e4a5a572af'
+EXPECTED_SHA256='6de1c2d0edbcb3616c939927ded8b1a0a640f841576c790abd3a6313633ab423'
+EXPECTED_KECCAK='0xa2019c31adbcd6cc74beae42f553aa153658a781cba66ad2c41febf2a9a1f5f5'
 CAST_BIN="${CAST_BIN:-${HOME}/.foundry/bin/cast}"
 
 if [[ ! -x "$CAST_BIN" ]]; then

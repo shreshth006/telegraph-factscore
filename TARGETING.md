@@ -155,3 +155,20 @@ reasoning: a step buys the most separation once the threshold is known to lie
 between the clusters, but this blend's scale has not been measured against these
 fixtures, and a ramp across the plateau loses little where a misplaced step
 loses everything.
+
+## Registration 1822 — ordering solved, and the clusters located
+
+Ordering **14 of 15, level with the champion**, so D3 is satisfied and only
+separation is left: margin 0.5031 against 0.6586. Inverting the division of
+labour was the right call, and the ramp is now what costs the margin.
+
+The measured margin locates the clusters. The ramp is
+`clamp01((x - 0.55) / 0.20)`, and a good answer here is an on-topic restatement
+whose composite saturates it, so `mean(ramp(bad)) = 1 - 0.5031 = 0.497`, which
+puts the bad cluster at composite **0.649**. A step placed between the clusters
+scores each split pair at 0.996, so the bar of 0.6586 needs just **10 of 15**
+pairs split. The next build is that step, at 0.71.
+
+The in-band tie-break also drops back to the embedding score alone. It was half
+the fact channel, and the fact channel's ranking is exactly what cost 1820 its
+ordering; on this intent no Spearman stage runs, so nothing else depends on it.

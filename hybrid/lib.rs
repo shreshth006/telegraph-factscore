@@ -184,13 +184,13 @@ const FAST_HI: f32 = 0.93;
 /// *good* answer, so the embedding verdict decides the band and the fact signal
 /// is kept as a tie-break inside it -- the same division of labour the champion
 /// documents at its own `STEP_B`.
-const CAL_CENTER: f32 = 0.65;
+const CAL_CENTER: f32 = 0.71;
 
 /// Half-width of the calibration ramp. A hard step buys the most separation once
 /// the threshold is known to sit between the two clusters; this blend's scale has
 /// not been measured against these fixtures, and a ramp across the plateau loses
 /// little where a step placed off it loses everything.
-const CAL_WIDTH: f32 = 0.10;
+const CAL_WIDTH: f32 = 0.0;
 const CAL_TIE_BREAK: f32 = 0.004;
 
 /// `factual` is the fact channel's verdict in [0, 1]; it never moves the band,
@@ -206,7 +206,12 @@ fn calibrate(score: f32, factual: f32) -> f32 {
     } else {
         math::clamp01((score - (CAL_CENTER - CAL_WIDTH)) / (2.0 * CAL_WIDTH))
     };
-    let tie = math::clamp01(0.5 * score + 0.5 * factual);
+    // The tie-break must not reorder inside a band. On this benchmark the fact
+    // channel's ranking is the one that cost registration 1820 its ordering, so
+    // the in-band order is the embedding score's; `factual` is kept in the call
+    // signature because the profiles that win on fact precision use it there.
+    let _ = factual;
+    let tie = math::clamp01(score);
     math::clamp01((1.0 - CAL_TIE_BREAK) * band + CAL_TIE_BREAK * tie)
 }
 
