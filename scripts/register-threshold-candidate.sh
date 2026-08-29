@@ -4,9 +4,9 @@ set -euo pipefail
 DIAMOND='0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8'
 RPC_URL="${RPC_URL:-https://sepolia.base.org}"
 INTENT='IP_GEOLOCATION'
-WASM_URL='https://raw.githubusercontent.com/shreshth006/Preflight/33f2402489b1281f9104bd10ed1077396e000c6f/public/wasm/hs-a06a9f98ee60.wasm'
-EXPECTED_SHA256='a06a9f98ee607e85e3b6922cc114407de01c647f24a1a122959651657beb10be'
-EXPECTED_KECCAK='0x18c53b2e4438020eb0d5287a18fc257095fb4a0f2417dda32be05ec7eda72eba'
+WASM_URL='https://raw.githubusercontent.com/shreshth006/telegraph-factscore/5eafd73ce8052f144216b5a7681c2e29014c9c5b/dist/hybrid_threshold_robust_f906081e0df9.wasm'
+EXPECTED_SHA256='f906081e0df92f1e9c4e7ff318cc2cd25cd809815336e393491a4c6af07878de'
+EXPECTED_KECCAK='0x3543fcb80073425d99eb4329135214361d466dbc0deeda02b5eedf7da7e83407'
 CAST_BIN="${CAST_BIN:-${HOME}/.foundry/bin/cast}"
 
 if [[ ! -x "$CAST_BIN" ]]; then
