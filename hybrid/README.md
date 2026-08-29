@@ -125,3 +125,16 @@ current source emits 24,200,062 bytes with SHA-256
 To reproduce registration 1686 instead, check this repository out at commit
 `fde78bc` before applying the overlay; that source emits the registered
 `805708d8...e881979` artifact documented above.
+
+## Registration dry run
+
+From the repository root, verify the immutable hosted bytes and print the exact
+Base Sepolia transaction without spending gas:
+
+```bash
+bash scripts/register-threshold-candidate.sh
+```
+
+The script defaults to dry-run mode. `EXECUTE_ONCHAIN=YES` enables the
+wallet-spending `registerWasm` call and must only be used after explicit
+operator authorization.
