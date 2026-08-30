@@ -11,7 +11,7 @@ set -euo pipefail
 DIAMOND='0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8'
 RPC_URL="${RPC_URL:-https://sepolia.base.org}"
 INTENT='TEXT_AUTHENTICITY_CHECK'
-WASM_URL="${WASM_URL:?set WASM_URL to the immutable raw.githubusercontent URL of dist/fork_ta_b0005_241c14f95ba2.wasm}"
+WASM_URL="${WASM_URL:-https://raw.githubusercontent.com/shreshth006/telegraph-factscore/27d945fc22a95a0e280a6545cd97c86ed1158a38/dist/fork_ta_b0005_241c14f95ba2.wasm}"
 EXPECTED_SHA256='241c14f95ba2741189cd7d4e0580f07af4989557cd76a1609afd6968ab3fb4b6'
 EXPECTED_KECCAK='0x94e0130863f5430ef20896012f7ae958685f21a05521f1a4f1c8cd496dc8a6fb'
 CAST_BIN="${CAST_BIN:-${HOME}/.foundry/bin/cast}"
