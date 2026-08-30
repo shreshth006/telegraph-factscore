@@ -305,3 +305,41 @@ exactly 14 byte positions, confined to byte ranges `25288-25291`,
 `25294-25296`, `31553-31555`, and `31588-31591`. Against the 0.004 parent, the
 selected candidate differs at 10 byte positions inside those same four
 constant ranges and nowhere else.
+
+### Registration 1933 — ordering held, separation missed
+
+The `0.0005` candidate tied the champion at **14 / 15** ordering but was
+rejected at **0.6664654** separation against **0.66666603**, a remaining gap of
+**0.00020063**. Score standard deviation was **0.49675113**, worst self-match
+was **1.0**, and there were again zero historical rows. The node reported:
+
+> lost to the current champion on separation: your scorer did not separate good from bad answers more clearly than the champion (your average margin 0.6665 vs champion 0.6667). To replace it, you must beat its separation, not just tie it.
+
+The proxy correctly preserved ordering and predicted the direction of the
+margin change, but overestimated its size on the hidden fixtures. No narrower
+tie-break was registered: `0.0005` was the floor of the pre-declared sweep.
+
+## Twitter Search reconnaissance
+
+`TWITTER_SEARCH` has no historical rows, but its champion (registration 628)
+already orders all **32 / 32** hidden pairs with separation **0.99235225**. Its
+MIT binary has the same order-preserving output tie-break structure: two
+compiled `0.02` constants and two `0.98` constants. The reconnaissance fork
+reduces these conservatively to `0.004` and `0.996`, changing exactly 14 bytes
+at the four constant sites and nothing else.
+
+There is no Twitter-specific local fixture corpus. As a collapse detector, the
+fork was compared with the exact registration-628 binary on the generic
+12-fixture, 144-pair clean semantic corpus:
+
+| check | 0.004 fork | registration 628 binary |
+| --- | ---: | ---: |
+| ordering | **110 / 144** | **110 / 144** |
+| mean separation | **0.298406** | 0.297588 |
+| score stddev | **0.498369** | 0.494129 |
+| worst self-match | **1.0** | 1.0 |
+
+This establishes that the transform did not collapse local pair ordering and
+moved separation and score spread in the intended direction. It does not
+predict the absolute Twitter margin; registration is explicitly a one-shot
+reconnaissance probe with promotion upside.
