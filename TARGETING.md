@@ -275,3 +275,33 @@ script for `TEXT_AUTHENTICITY_CHECK`:
 The live improvement (+0.00644357) was slightly larger than the proxy's
 +0.004244. Registration 1832 is active and `is_champion: true`; no rejection
 reason or historical-ranking stage applies.
+
+## Reclaim sweep after registration 1882
+
+Registration 1882 superseded 1832 with the same ordering, **14 / 15**, and a
+margin of **0.66666603** against 1832's re-measured **0.66633480**. The live
+deficit was therefore **0.00033123**, entirely on separation.
+
+Starting from `dist/fork_ta_b004_2dbf8097e14b.wasm`, the in-band tie-break was
+reduced again without changing the model, threshold, intent marker, or scoring
+logic. Each candidate changed only the same four compiled `f32` immediates (two
+low-band and two high-band sites). The 20-fixture, 110-pair proxy sweep was:
+
+| tie-break | high band | ordering | margin | delta vs 0.004 | stddev | projected gate |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0.0040 | 0.9960 | 98 / 110 | 0.443383 | — | 0.470219 | ~206 s prior run |
+| 0.0020 | 0.9980 | 98 / 110 | 0.443914 | +0.000531 | 0.470812 | ~221 s |
+| 0.0010 | 0.9990 | 98 / 110 | 0.444179 | +0.000796 | 0.471108 | ~204 s |
+| **0.0005** | **0.9995** | **98 / 110** | **0.444312** | **+0.000929** | **0.471256** | **~231 s** |
+
+The `0.0005` candidate is the narrowest tested band that preserves all 98 proxy
+wins. Its proxy improvement is 2.8 times the live deficit while its projected
+runtime remains well inside the 600-second budget, so it is the selected
+candidate. Its smallest self-versus-cross gap is still positive at 0.000077.
+
+The byte audit also reproduces the original fork's shape: both the selected
+candidate and the 0.004 parent differ from registration 850's `tn_t70.wasm` at
+exactly 14 byte positions, confined to byte ranges `25288-25291`,
+`25294-25296`, `31553-31555`, and `31588-31591`. Against the 0.004 parent, the
+selected candidate differs at 10 byte positions inside those same four
+constant ranges and nowhere else.
