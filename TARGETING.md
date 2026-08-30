@@ -343,3 +343,14 @@ This establishes that the transform did not collapse local pair ordering and
 moved separation and score spread in the intended direction. It does not
 predict the absolute Twitter margin; registration is explicitly a one-shot
 reconnaissance probe with promotion upside.
+
+Registration 1935 used the `0.004` artifact but remained pending while newer
+registrations settled. The registry prohibits reusing a WASM hash, so a second
+submission of the same artifact was rejected during gas estimation with
+`IntentRegistryFacet: duplicate wasm hash`; no transaction was broadcast.
+
+For the new registration, the same four constants were moved one conservative
+step further to `0.003` and `0.997`. The unique artifact again changes exactly
+14 bytes and nothing outside the four constant sites. On the same collapse
+proxy it preserved **110 / 144** ordering, raised separation to **0.298458**
+from the parent's 0.297588, and raised score standard deviation to **0.498635**.
