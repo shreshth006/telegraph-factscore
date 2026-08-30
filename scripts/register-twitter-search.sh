@@ -7,9 +7,9 @@ set -euo pipefail
 DIAMOND='0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8'
 RPC_URL="${RPC_URL:-https://sepolia.base.org}"
 INTENT='TWITTER_SEARCH'
-WASM_URL="${WASM_URL:-https://raw.githubusercontent.com/shreshth006/telegraph-factscore/9bf0161186586f5630d121346a4496181e397597/dist/fork_tw_b004_56e2ba767a46.wasm}"
-EXPECTED_SHA256='56e2ba767a46057a6b09770740522a77387ffb7801ee00cb524103b569be33a6'
-EXPECTED_KECCAK='0x0529de1803a23da65281b0db545a48933ba5a538ed5ed9a87d6b68708901a13e'
+WASM_URL="${WASM_URL:-https://raw.githubusercontent.com/shreshth006/telegraph-factscore/ec3d0e47fc47481d456acdd7cd4476159b9ef171/dist/fork_tw_b003_ce65dd2cc0e9.wasm}"
+EXPECTED_SHA256='ce65dd2cc0e90471d0ae785cb2e5c9d110ecd5130dc5361895acc8c0744c2af7'
+EXPECTED_KECCAK='0x2cabd37b5ae7d9b509d0ac40105e57721c2353a66335e58d0c36ce13d30b5d5d'
 CAST_BIN="${CAST_BIN:-${HOME}/.foundry/bin/cast}"
 
 if [[ ! -x "$CAST_BIN" ]]; then
