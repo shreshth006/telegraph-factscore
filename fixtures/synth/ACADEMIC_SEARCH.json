@@ -1,0 +1,743 @@
+{
+  "intent": "ACADEMIC_SEARCH",
+  "provenance": {
+    "source": "synthetic",
+    "generator": "track2/harness/gen-synth.mjs",
+    "seed": 20260827,
+    "schema_file": "track2/harness/synth-schemas.mjs"
+  },
+  "fixtures": [
+    {
+      "id": "academic_search-synth-01",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "FACT-SWAP",
+      "rationale": "one decisive fact (citations, numeric) changed and nothing else; lexical overlap barely moves, so a vocabulary-matching baseline keeps the wrong answer at the same score",
+      "question": "Find the most cited paper on causal inference led by Okonkwo: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on causal inference was authored by Okonkwo and Haddad and published at SIGGRAPH in 2021. It has 133 citations and appears at pages 206-443 under DOI 10.2317/emnlp.2021.842.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the causal inference paper led by Okonkwo. The authors are Okonkwo and Haddad. It was published in 2021. It appeared at SIGGRAPH. It has 133 citations. The DOI is 10.2317/emnlp.2021.842.",
+          "quality": 1,
+          "note": "all decisive facts right"
+        },
+        {
+          "id": "fact-swap-citations",
+          "text": "The data covers the causal inference paper led by Okonkwo. The authors are Okonkwo and Haddad. It was published in 2021. It appeared at SIGGRAPH. It has 2033 citations. The DOI is 10.2317/emnlp.2021.842.",
+          "quality": 0,
+          "note": "citations (numeric) wrong, everything else identical"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "fact-swap-citations"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 1
+      }
+    },
+    {
+      "id": "academic_search-synth-02",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "FACT-SWAP",
+      "rationale": "one decisive fact (venue, categorical) changed and nothing else; lexical overlap barely moves, so a vocabulary-matching baseline keeps the wrong answer at the same score",
+      "question": "Find the most cited paper on causal inference led by Haddad: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on causal inference was authored by Haddad and Novakova and published at ICLR in 2022. It has 1791 citations and appears at pages 55-747 under DOI 10.3365/siggraph.2022.346.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the causal inference paper led by Haddad. The authors are Haddad and Novakova. It was published in 2022. It appeared at ICLR. It has 1791 citations. The DOI is 10.3365/siggraph.2022.346.",
+          "quality": 1,
+          "note": "all decisive facts right"
+        },
+        {
+          "id": "fact-swap-venue",
+          "text": "The data covers the causal inference paper led by Haddad. The authors are Haddad and Novakova. It was published in 2022. It appeared at CVPR. It has 1791 citations. The DOI is 10.3365/siggraph.2022.346.",
+          "quality": 0,
+          "note": "venue (categorical) wrong, everything else identical"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "fact-swap-venue"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 2
+      }
+    },
+    {
+      "id": "academic_search-synth-03",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "FACT-SWAP",
+      "rationale": "one decisive fact (coauthor, identifier) changed and nothing else; lexical overlap barely moves, so a vocabulary-matching baseline keeps the wrong answer at the same score",
+      "question": "Find the most cited paper on graph neural networks led by Beaulieu: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on graph neural networks was authored by Beaulieu and Ferreira and published at NeurIPS in 2022. It has 268 citations and appears at pages 100-724 under DOI 10.2985/iclr.2022.483.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the graph neural networks paper led by Beaulieu. The authors are Beaulieu and Ferreira. It was published in 2022. It appeared at NeurIPS. It has 268 citations. The DOI is 10.2985/iclr.2022.483.",
+          "quality": 1,
+          "note": "all decisive facts right"
+        },
+        {
+          "id": "fact-swap-coauthor",
+          "text": "The data covers the graph neural networks paper led by Beaulieu. The authors are Beaulieu and Nakagawa. It was published in 2022. It appeared at NeurIPS. It has 268 citations. The DOI is 10.2985/iclr.2022.483.",
+          "quality": 0,
+          "note": "coauthor (identifier) wrong, everything else identical"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "fact-swap-coauthor"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 3
+      }
+    },
+    {
+      "id": "academic_search-synth-04",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "FACT-SWAP",
+      "rationale": "one decisive fact (year, temporal) changed and nothing else; lexical overlap barely moves, so a vocabulary-matching baseline keeps the wrong answer at the same score",
+      "question": "Find the most cited paper on federated learning led by Ferreira: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on federated learning was authored by Ferreira and Nakagawa and published at EMNLP in 2021. It has 3851 citations and appears at pages 94-507 under DOI 10.7581/icml.2021.762.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the federated learning paper led by Ferreira. The authors are Ferreira and Nakagawa. It was published in 2021. It appeared at EMNLP. It has 3851 citations. The DOI is 10.7581/icml.2021.762.",
+          "quality": 1,
+          "note": "all decisive facts right"
+        },
+        {
+          "id": "fact-swap-year",
+          "text": "The data covers the federated learning paper led by Ferreira. The authors are Ferreira and Nakagawa. It was published in 2017. It appeared at EMNLP. It has 3851 citations. The DOI is 10.7581/icml.2021.762.",
+          "quality": 0,
+          "note": "year (temporal) wrong, everything else identical"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "fact-swap-year"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 4
+      }
+    },
+    {
+      "id": "academic_search-synth-05",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "FACT-SWAP",
+      "rationale": "one decisive fact (doi, identifier) changed and nothing else; lexical overlap barely moves, so a vocabulary-matching baseline keeps the wrong answer at the same score",
+      "question": "Find the most cited paper on federated learning led by Ramaswamy: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on federated learning was authored by Ramaswamy and Lindqvist and published at VLDB in 2024. It has 997 citations and appears at pages 241-743 under DOI 10.8871/iclr.2024.672.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the federated learning paper led by Ramaswamy. The authors are Ramaswamy and Lindqvist. It was published in 2024. It appeared at VLDB. It has 997 citations. The DOI is 10.8871/iclr.2024.672.",
+          "quality": 1,
+          "note": "all decisive facts right"
+        },
+        {
+          "id": "fact-swap-doi",
+          "text": "The data covers the federated learning paper led by Ramaswamy. The authors are Ramaswamy and Lindqvist. It was published in 2024. It appeared at VLDB. It has 997 citations. The DOI is 10.2999/misc.433.",
+          "quality": 0,
+          "note": "doi (identifier) wrong, everything else identical"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "fact-swap-doi"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 5
+      }
+    },
+    {
+      "id": "academic_search-synth-06",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "REFUSAL",
+      "rationale": "a plain refusal in ground-truth-adjacent boilerplate; must score near zero whenever the ground truth contains an answer",
+      "question": "Find the most cited paper on federated learning led by Ferreira: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on federated learning was authored by Ferreira and Haddad and published at EMNLP in 2024. It has 1885 citations and appears at pages 135-739 under DOI 10.1450/acl.2024.148.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the federated learning paper led by Ferreira. The authors are Ferreira and Haddad. It was published in 2024. It appeared at EMNLP. It has 1885 citations. The DOI is 10.1450/acl.2024.148.",
+          "quality": 1,
+          "note": "all decisive facts right"
+        },
+        {
+          "id": "refusal-plain",
+          "text": "The data does not include the exact paper, authors, published requested. The available sources do not contain a complete breakdown for the period and fields named, and the specific values needed to fulfil the request are unavailable. For precise figures a dedicated provider should be consulted closer to the time in question.",
+          "quality": 0,
+          "note": "no decisive facts; refusal boilerplate only"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "refusal-plain"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 6
+      }
+    },
+    {
+      "id": "academic_search-synth-07",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "REFUSAL",
+      "rationale": "a refusal that opens by restating the question's own wording; the archetype of the recorded epoch where a refusal scored 0.99 and a correct forecast 0.007",
+      "question": "Find the most cited paper on protein folding led by Novakova: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on protein folding was authored by Novakova and Haddad and published at VLDB in 2025. It has 2659 citations and appears at pages 334-509 under DOI 10.3219/siggraph.2025.757.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the protein folding paper led by Novakova. The authors are Novakova and Haddad. It was published in 2025. It appeared at VLDB. It has 2659 citations. The DOI is 10.3219/siggraph.2025.757.",
+          "quality": 1,
+          "note": "all decisive facts right"
+        },
+        {
+          "id": "refusal-echo",
+          "text": "Find the most cited paper on protein folding led by Novakova: who are the — The data does not include the exact paper, authors, published requested. The available sources do not contain a complete breakdown for the period and fields named, and the specific values needed to fulfil the request are unavailable. For precise figures a dedicated provider should be consulted closer to the time in question.",
+          "quality": 0,
+          "note": "no decisive facts; refusal boilerplate only"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "refusal-echo"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 7
+      }
+    },
+    {
+      "id": "academic_search-synth-08",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "STUFFING",
+      "rationale": "question vocabulary plus intent keywords with no decisive facts and a hedge covering every outcome; must lose to any factually correct answer",
+      "question": "Find the most cited paper on speech separation led by Beaulieu: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on speech separation was authored by Beaulieu and Novakova and published at EMNLP in 2025. It has 286 citations and appears at pages 259-402 under DOI 10.3552/iclr.2025.769.",
+      "answers": [
+        {
+          "id": "correct-terse",
+          "text": "The data shows the speech separation paper led by Beaulieu: the authors are Beaulieu and Novakova; it was published in 2025; it appeared at EMNLP; it has 286 citations; the DOI is 10.3552/iclr.2025.769.",
+          "quality": 1,
+          "note": "all decisive facts right, one sentence"
+        },
+        {
+          "id": "stuffing-keywords",
+          "text": "The data covers paper, authors, published, venue, citations, abstract, DOI, study. find most cited paper speech separation beaulieu authors which year venue published many citations does have. paper authors published venue citations abstract DOI study. Any of the possible outcomes is covered here: the value may be high, low, or anywhere in between, and either condition may or may not hold.",
+          "quality": 0,
+          "note": "keyword salad, no decisive facts, hedged both ways"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-terse",
+          "stuffing-keywords"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 8
+      }
+    },
+    {
+      "id": "academic_search-synth-09",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "STUFFING",
+      "rationale": "PREFIX-PARROT: the question's own opening ~17 words restated, carrying zero data — the measured champion hole (contentless echo 0.993 vs data-carrying non-echo 0.004 on WEATHER_FORECAST)",
+      "question": "Find the most cited paper on sparse attention led by Okonkwo: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on sparse attention was authored by Okonkwo and Haddad and published at CVPR in 2020. It has 1042 citations and appears at pages 12-446 under DOI 10.4768/icml.2020.979.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the sparse attention paper led by Okonkwo. The authors are Okonkwo and Haddad. It was published in 2020. It appeared at CVPR. It has 1042 citations. The DOI is 10.4768/icml.2020.979.",
+          "quality": 1,
+          "note": "echoes the question AND carries the data"
+        },
+        {
+          "id": "correct-nonecho",
+          "text": "The data reports the following. The DOI is 10.4768/icml.2020.979. It has 1042 citations. It appeared at CVPR. It was published in 2020. The authors are Okonkwo and Haddad.",
+          "quality": 1,
+          "note": "carries every decisive fact but never restates the question"
+        },
+        {
+          "id": "prefix-parrot",
+          "text": "Find the most cited paper on sparse attention led by Okonkwo: who are the authors, in which — that is exactly what is addressed here, in the same terms, at the same scope, covering each dimension the request named, in the order the request named them.",
+          "quality": 0,
+          "note": "restates the question's opening words; contains no data at all"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "prefix-parrot"
+        ],
+        [
+          "correct-nonecho",
+          "prefix-parrot"
+        ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-prose",
+            "correct-nonecho"
+          ],
+          "tolerance": 0.15,
+          "note": "both carry every decisive fact; only the framing differs, so scores must not diverge by framing alone"
+        }
+      ],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 9
+      }
+    },
+    {
+      "id": "academic_search-synth-10",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "EMPTY-ANSWER",
+      "rationale": "an empty scored text — ~47% of live converted_answers are empty; must score exactly 0.0, and whitespace-only must too (a 0.0007 was a recorded Stage-1 rejection)",
+      "question": "Find the most cited paper on differential privacy led by Ferreira: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on differential privacy was authored by Ferreira and Beaulieu and published at SIGGRAPH in 2026. It has 2775 citations and appears at pages 337-519 under DOI 10.6533/siggraph.2026.186.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the differential privacy paper led by Ferreira. The authors are Ferreira and Beaulieu. It was published in 2026. It appeared at SIGGRAPH. It has 2775 citations. The DOI is 10.6533/siggraph.2026.186.",
+          "quality": 1,
+          "note": "all decisive facts right"
+        },
+        {
+          "id": "empty",
+          "text": "",
+          "quality": 0,
+          "note": "empty converted_answer, the single commonest live row"
+        },
+        {
+          "id": "whitespace-only",
+          "text": "   \t  ",
+          "quality": 0,
+          "note": "whitespace-only converted_answer"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "empty"
+        ],
+        [
+          "correct-prose",
+          "whitespace-only"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 10
+      }
+    },
+    {
+      "id": "academic_search-synth-11",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "CONTENT-FILTER",
+      "rationale": "the platform's own content-filter placeholder, verbatim from live traffic; it carries no answer and must score ~0",
+      "question": "Find the most cited paper on causal inference led by Okonkwo: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on causal inference was authored by Okonkwo and Novakova and published at VLDB in 2021. It has 2982 citations and appears at pages 74-412 under DOI 10.9738/siggraph.2021.390.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the causal inference paper led by Okonkwo. The authors are Okonkwo and Novakova. It was published in 2021. It appeared at VLDB. It has 2982 citations. The DOI is 10.9738/siggraph.2021.390.",
+          "quality": 1,
+          "note": "all decisive facts right"
+        },
+        {
+          "id": "content-filter-block",
+          "text": "- The generated text has been blocked by our content filters.",
+          "quality": 0,
+          "note": "verbatim platform placeholder, no decisive facts"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "content-filter-block"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 11
+      }
+    },
+    {
+      "id": "academic_search-synth-12",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "CONTRADICTION",
+      "rationale": "asserts the right and a wrong value for the same fact; hedging both sides is not knowledge and must not beat a clean correct answer",
+      "question": "Find the most cited paper on sparse attention led by Okonkwo: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on sparse attention was authored by Okonkwo and Ramaswamy and published at ICML in 2020. It has 1423 citations and appears at pages 249-701 under DOI 10.1351/icml.2020.248.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the sparse attention paper led by Okonkwo. The authors are Okonkwo and Ramaswamy. It was published in 2020. It appeared at ICML. It has 1423 citations. The DOI is 10.1351/icml.2020.248.",
+          "quality": 1,
+          "note": "all decisive facts right"
+        },
+        {
+          "id": "contradiction-both",
+          "text": "The data covers the sparse attention paper led by Okonkwo. The authors are Okonkwo and Ramaswamy. It was published in 2020. It appeared at ICML. It has 1423 citations, although other sources indicate it has 3323 citations. The DOI is 10.1351/icml.2020.248.",
+          "quality": 0,
+          "note": "states both the right and a wrong citations"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "contradiction-both"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 12
+      }
+    },
+    {
+      "id": "academic_search-synth-13",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "FORMAT-EQUIVALENCE",
+      "rationale": "the same facts as JSON, full prose and one terse sentence; scores must be near-equal — the fairness/legitimacy exhibit (ARCHITECTURE A4)",
+      "question": "Find the most cited paper on protein folding led by Ferreira: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on protein folding was authored by Ferreira and Novakova and published at NeurIPS in 2024. It has 3749 citations and appears at pages 367-525 under DOI 10.8533/siggraph.2024.692.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the protein folding paper led by Ferreira. The authors are Ferreira and Novakova. It was published in 2024. It appeared at NeurIPS. It has 3749 citations. The DOI is 10.8533/siggraph.2024.692.",
+          "quality": 1,
+          "note": "full prose"
+        },
+        {
+          "id": "correct-terse",
+          "text": "The data shows the protein folding paper led by Ferreira: the authors are Ferreira and Novakova; it was published in 2024; it appeared at NeurIPS; it has 3749 citations; the DOI is 10.8533/siggraph.2024.692.",
+          "quality": 1,
+          "note": "one terse sentence"
+        },
+        {
+          "id": "correct-json",
+          "text": "{\"field\":\"protein folding\",\"authors\":[\"Ferreira\",\"Novakova\"],\"year\":2024,\"venue\":\"NeurIPS\",\"citations\":3749,\"doi\":\"10.8533/siggraph.2024.692\",\"pages\":\"367-525\"}",
+          "quality": 1,
+          "note": "the same facts as a JSON record"
+        }
+      ],
+      "pairs": [],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-prose",
+            "correct-terse",
+            "correct-json"
+          ],
+          "tolerance": 0.1,
+          "note": "identical facts, three surfaces; a format-sensitive scorer punishes correctness for its shape"
+        }
+      ],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 13
+      }
+    },
+    {
+      "id": "academic_search-synth-14",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "UNIT/FORM",
+      "rationale": "the same facts in other units and notations (km/h vs m/s, percent vs 0-1, ISO vs prose dates, DMS vs signed decimals); must still count as correct and must still beat a wrong number",
+      "question": "Find the most cited paper on speech separation led by Nakagawa: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on speech separation was authored by Nakagawa and Lindqvist and published at NeurIPS in 2022. It has 440 citations and appears at pages 107-789 under DOI 10.7239/iclr.2022.206.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the speech separation paper led by Nakagawa. The authors are Nakagawa and Lindqvist. It was published in 2022. It appeared at NeurIPS. It has 440 citations. The DOI is 10.7239/iclr.2022.206.",
+          "quality": 1,
+          "note": "canonical units"
+        },
+        {
+          "id": "unitform-alt",
+          "text": "The data covers Nakagawa et al. on speech separation. Authorship: Nakagawa, Lindqvist. Year of publication 2022. Venue NeurIPS (proceedings). Cited 440 times to date. Doi:10.7239/iclr.2022.206.",
+          "quality": 1,
+          "note": "same facts, converted units and notations"
+        },
+        {
+          "id": "fact-swap-citations",
+          "text": "The data covers the speech separation paper led by Nakagawa. The authors are Nakagawa and Lindqvist. It was published in 2022. It appeared at NeurIPS. It has 2340 citations. The DOI is 10.7239/iclr.2022.206.",
+          "quality": 0,
+          "note": "citations wrong, canonical units"
+        }
+      ],
+      "pairs": [
+        [
+          "unitform-alt",
+          "fact-swap-citations"
+        ],
+        [
+          "correct-prose",
+          "fact-swap-citations"
+        ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-prose",
+            "unitform-alt"
+          ],
+          "tolerance": 0.1,
+          "note": "unit normalisation before comparison; a surface-matching scorer marks the converted answer wrong"
+        }
+      ],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 14
+      }
+    },
+    {
+      "id": "academic_search-synth-15",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "UNIT/FORM",
+      "rationale": "the same facts in other units and notations (km/h vs m/s, percent vs 0-1, ISO vs prose dates, DMS vs signed decimals); must still count as correct and must still beat a wrong number",
+      "question": "Find the most cited paper on differential privacy led by Nakagawa: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on differential privacy was authored by Nakagawa and Okonkwo and published at SIGGRAPH in 2025. It has 2093 citations and appears at pages 254-484 under DOI 10.8161/neurips.2025.254.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the differential privacy paper led by Nakagawa. The authors are Nakagawa and Okonkwo. It was published in 2025. It appeared at SIGGRAPH. It has 2093 citations. The DOI is 10.8161/neurips.2025.254.",
+          "quality": 1,
+          "note": "canonical units"
+        },
+        {
+          "id": "unitform-alt",
+          "text": "The data covers Nakagawa et al. on differential privacy. Authorship: Nakagawa, Okonkwo. Year of publication 2025. Venue SIGGRAPH (proceedings). Cited 2093 times to date. Doi:10.8161/neurips.2025.254.",
+          "quality": 1,
+          "note": "same facts, converted units and notations"
+        },
+        {
+          "id": "fact-swap-citations",
+          "text": "The data covers the differential privacy paper led by Nakagawa. The authors are Nakagawa and Okonkwo. It was published in 2025. It appeared at SIGGRAPH. It has 193 citations. The DOI is 10.8161/neurips.2025.254.",
+          "quality": 0,
+          "note": "citations wrong, canonical units"
+        }
+      ],
+      "pairs": [
+        [
+          "unitform-alt",
+          "fact-swap-citations"
+        ],
+        [
+          "correct-prose",
+          "fact-swap-citations"
+        ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-prose",
+            "unitform-alt"
+          ],
+          "tolerance": 0.1,
+          "note": "unit normalisation before comparison; a surface-matching scorer marks the converted answer wrong"
+        }
+      ],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 15
+      }
+    },
+    {
+      "id": "academic_search-synth-16",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "TEMPORAL",
+      "rationale": "the right value asserted for the wrong time (point-vs-window, or a shifted window); a right value for the wrong time is a wrong answer",
+      "question": "Find the most cited paper on federated learning led by Ferreira: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on federated learning was authored by Ferreira and Haddad and published at SIGGRAPH in 2026. It has 2938 citations and appears at pages 182-449 under DOI 10.3796/siggraph.2026.874.",
+      "answers": [
+        {
+          "id": "correct-prose",
+          "text": "The data covers the federated learning paper led by Ferreira. The authors are Ferreira and Haddad. It was published in 2026. It appeared at SIGGRAPH. It has 2938 citations. The DOI is 10.3796/siggraph.2026.874.",
+          "quality": 1,
+          "note": "right value, right time"
+        },
+        {
+          "id": "temporal-shift",
+          "text": "The data covers the federated learning paper led by Ferreira. The authors are Ferreira and Haddad. It was published in 2022, and the 2026 entry is a later reprint. It has 2938 citations.",
+          "quality": 0,
+          "note": "same figures, wrong time semantics"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-prose",
+          "temporal-shift"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 16
+      }
+    },
+    {
+      "id": "academic_search-synth-17",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "LENGTH",
+      "rationale": "correct-terse vs correct-verbose must be near-equal, and a correct verbose answer must beat a wrong terse one; probes a length penalty that rewards brevity over truth",
+      "question": "Find the most cited paper on sparse attention led by Nakagawa: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on sparse attention was authored by Nakagawa and Lindqvist and published at NeurIPS in 2024. It has 3009 citations and appears at pages 59-709 under DOI 10.1247/iclr.2024.607.",
+      "answers": [
+        {
+          "id": "correct-verbose",
+          "text": "The data covers the sparse attention paper led by Nakagawa. The authors are Nakagawa and Lindqvist. It was published in 2024. It appeared at NeurIPS. It has 3009 citations. The DOI is 10.1247/iclr.2024.607. The values above were taken directly from the upstream provider and are reported without rounding or interpolation. Each field named in the request is answered exactly once, in the order it was asked. No other fields were inferred, and nothing was substituted where a value was unavailable.",
+          "quality": 1,
+          "note": "correct, padded with fact-free method prose"
+        },
+        {
+          "id": "correct-terse",
+          "text": "The data shows the sparse attention paper led by Nakagawa: the authors are Nakagawa and Lindqvist; it was published in 2024; it appeared at NeurIPS; it has 3009 citations; the DOI is 10.1247/iclr.2024.607.",
+          "quality": 1,
+          "note": "correct, one sentence"
+        },
+        {
+          "id": "wrong-terse",
+          "text": "The data shows the sparse attention paper led by Nakagawa: the authors are Nakagawa and Lindqvist; it was published in 2024; it appeared at VLDB; it has 3009 citations; the DOI is 10.1247/iclr.2024.607.",
+          "quality": 0,
+          "note": "venue wrong, one sentence"
+        }
+      ],
+      "pairs": [
+        [
+          "correct-verbose",
+          "wrong-terse"
+        ],
+        [
+          "correct-terse",
+          "wrong-terse"
+        ]
+      ],
+      "constraints": [
+        {
+          "type": "near_equal",
+          "ids": [
+            "correct-verbose",
+            "correct-terse"
+          ],
+          "tolerance": 0.15,
+          "note": "same facts, different length; at most a mild style delta is defensible"
+        }
+      ],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 17
+      }
+    },
+    {
+      "id": "academic_search-synth-18",
+      "intent": "ACADEMIC_SEARCH",
+      "class": "OUR-STYLE-WRONG",
+      "rationale": "a livecert-shaped answer (verdict/confidence/reason) with WRONG facts against a competitor-shaped bare record with right facts; the anti-fingerprint proof — our own style must lose when it is wrong",
+      "question": "Find the most cited paper on protein folding led by Nakagawa: who are the authors, in which year and venue was it published, and how many citations does it have?",
+      "ground_truth": "The paper on protein folding was authored by Nakagawa and Ramaswamy and published at CVPR in 2018. It has 165 citations and appears at pages 215-607 under DOI 10.8541/icml.2018.852.",
+      "answers": [
+        {
+          "id": "competitor-right",
+          "text": "field=protein folding authors=Nakagawa|Ramaswamy year=2018 venue=CVPR citations=165 doi=10.8541/icml.2018.852 pages=215-607 grade=A",
+          "quality": 1,
+          "note": "bare key=value record, grade-report style, facts right"
+        },
+        {
+          "id": "livecert-wrong",
+          "text": "verdict: the authors are Nakagawa and Ramaswamy | confidence: 0.94 | subject: the protein folding paper led by Nakagawa | reason: it was published in 2018; it appeared at ICLR; it has 165 citations; the DOI is 10.8541/icml.2018.852 | checked_at: recorded",
+          "quality": 0,
+          "note": "our miner's own answer shape, venue wrong"
+        }
+      ],
+      "pairs": [
+        [
+          "competitor-right",
+          "livecert-wrong"
+        ]
+      ],
+      "constraints": [],
+      "provenance": {
+        "source": "synthetic",
+        "generator": "track2/harness/gen-synth.mjs",
+        "schema": "ACADEMIC_SEARCH",
+        "fact_seed": 18
+      }
+    }
+  ]
+}

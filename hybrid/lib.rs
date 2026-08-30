@@ -109,11 +109,7 @@ unsafe fn read_f32s<'a>(ptr: i32, len: i32) -> &'a [f32] {
 /// Called by both `rank_answer` and `breakdown_answer` so the formula is
 /// defined in exactly one place.
 #[inline]
-unsafe fn compute_signals(
-    question: &str,
-    ground_truth: &str,
-    miner_answer: &str,
-) -> (f32, f32, f32, f32, f32) {
+unsafe fn compute_signals(question: &str, ground_truth: &str, miner_answer: &str) -> (f32, f32, f32, f32) {
     let q_enc  = tokenizer::tokenize(question);
     let gt_enc = tokenizer::tokenize(ground_truth);
     let ma_enc = tokenizer::tokenize(miner_answer);
@@ -136,15 +132,13 @@ unsafe fn signals_from_vecs(
     ground_truth: &str,
     miner_answer: &str,
     ma_vec: &[f32],
-) -> (f32, f32, f32, f32, f32) {
+) -> (f32, f32, f32, f32) {
     let relevance   = math::cosine(q_vec, ma_vec);
     let correctness = math::cosine(gt_vec, ma_vec);
     let lexical     = bm25::score(ground_truth, miner_answer);
     let len_quality = math::sigmoid((miner_answer.len() as f32 - 50.0) / 20.0);
-    // The fixture's own zero: how close the question already sits to its answer.
-    let q_to_gt     = math::cosine(q_vec, gt_vec);
 
-    (relevance, correctness, lexical, len_quality, q_to_gt)
+    (relevance, correctness, lexical, len_quality)
 }
 
 #[inline]
@@ -179,72 +173,14 @@ fn composite(relevance: f32, correctness: f32, lexical: f32, len_quality: f32) -
 /// pipeline is skipped, to stay inside the gate's wall clock.
 const FAST_LO: f32 = 0.18;
 const FAST_HI: f32 = 0.93;
-
-/// How far the fact channel may move the embedding verdict.
-///
-/// Measured on the node's own fixtures, not inferred: registration 1815 applied
-/// the fact channel as a floored multiplier and ordered 12 of 15 pairs; 1820
-/// let the fact scorer decide outright and ordered 8. The champion, pure
-/// embeddings, orders 14. On this intent's benchmark the bad answer is
-/// semantically distant and the fact channel's precision measure demotes the
-/// *good* answer, so the embedding verdict decides the band and the fact signal
-/// is kept as a tie-break inside it -- the same division of labour the champion
-/// documents at its own `STEP_B`.
-const CAL_CENTER: f32 = 0.20;
-
-/// Half-width of the calibration ramp. A hard step buys the most separation once
-/// the threshold is known to sit between the two clusters; this blend's scale has
-/// not been measured against these fixtures, and a ramp across the plateau loses
-/// little where a step placed off it loses everything.
-const CAL_WIDTH: f32 = 0.20;
+const FACT_FLOOR: f32 = 0.48;
+const CAL_CENTER: f32 = 0.75;
 const CAL_TIE_BREAK: f32 = 0.004;
 
-/// How far past the question this answer moves toward the ground truth.
-///
-/// Absolute score never worked as a band, and the node's own numbers say why.
-/// A hard step at 0.71 scored 0.3992 where a wide ramp scored 0.5031 at the same
-/// 14/15 ordering, which cannot happen when the two clusters are cleanly
-/// separated: per-fixture difficulty moves the good and the bad answer together,
-/// so a fixed threshold keeps finding both on one side of it. Fitting both
-/// measurements put the fixture level at 0.64 with spread 0.05 against a
-/// within-pair gap of 0.11, and narrowing the ramp to that gap gained only 0.03
-/// (0.5031 -> 0.5328) because what the narrow window gains in amplification it
-/// loses in coverage.
-///
-/// So the band is measured against the fixture's own zero instead. The question
-/// already sits some distance from its answer, and an answer no closer to the
-/// truth than the question itself has added nothing; one that restates the truth
-/// closes most of the remaining distance. Both vectors are available on both
-/// entry points, so this costs no extra embedding.
 #[inline]
-fn novelty(correctness: f32, q_to_gt: f32) -> f32 {
-    let headroom = 1.0 - q_to_gt;
-    if headroom < 0.05 {
-        // The question all but states its own answer; there is no room to
-        // measure in, so fall back to the raw closeness.
-        return correctness;
-    }
-    math::clamp01((correctness - q_to_gt) / headroom)
-}
-
-/// `band_input` is what decides the band; `rank` keeps every answer in its own
-/// place inside it, so ordering stays the composite's however the band lands.
-/// `factual` is the fact channel's verdict in [0, 1]; on this benchmark it never
-/// moves the band -- see the note at CAL_CENTER.
-#[inline]
-fn calibrate(band_input: f32, rank: f32, factual: f32) -> f32 {
-    let band = if CAL_WIDTH <= 0.0 {
-        if band_input >= CAL_CENTER {
-            1.0
-        } else {
-            0.0
-        }
-    } else {
-        math::clamp01((band_input - (CAL_CENTER - CAL_WIDTH)) / (2.0 * CAL_WIDTH))
-    };
-    let _ = factual;
-    let tie = math::clamp01(rank);
-    math::clamp01((1.0 - CAL_TIE_BREAK) * band + CAL_TIE_BREAK * tie)
+fn calibrate(score: f32) -> f32 {
+    let band = if score >= CAL_CENTER { 1.0 } else { 0.0 };
+    math::clamp01((1.0 - CAL_TIE_BREAK) * band + CAL_TIE_BREAK * score)
 }
 
 /// The four embedding/lexical signals decide whether an answer is *about* the
@@ -257,7 +193,6 @@ fn composite_checked(
     correctness: f32,
     lexical: f32,
     len_quality: f32,
-    q_to_gt: f32,
     question: &str,
     ground_truth: &str,
     miner_answer: &str,
@@ -285,7 +220,8 @@ fn composite_checked(
         );
         math::clamp01(b.fact * b.answered)
     };
-    calibrate(novelty(correctness, q_to_gt), base, factual)
+    let checked = math::clamp01(base * (FACT_FLOOR + (1.0 - FACT_FLOOR) * factual));
+    calibrate(checked)
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -319,7 +255,7 @@ pub unsafe extern "C" fn rank_answer(
         return 1.0;
     }
 
-    let (relevance, correctness, lexical, len_quality, q_to_gt) =
+    let (relevance, correctness, lexical, len_quality) =
         compute_signals(question.as_ref(), ground_truth.as_ref(), miner_answer.as_ref());
 
     composite_checked(
@@ -327,7 +263,6 @@ pub unsafe extern "C" fn rank_answer(
         correctness,
         lexical,
         len_quality,
-        q_to_gt,
         question.as_ref(),
         ground_truth.as_ref(),
         miner_answer.as_ref(),
@@ -383,7 +318,7 @@ pub unsafe extern "C" fn rank_answer_cached(
     let ma_enc = tokenizer::tokenize(miner_answer.as_ref());
     let ma_vec = embed::run(&ma_enc);
 
-    let (relevance, correctness, lexical, len_quality, q_to_gt) =
+    let (relevance, correctness, lexical, len_quality) =
         signals_from_vecs(
             q_vec,
             gt_vec,
@@ -401,7 +336,6 @@ pub unsafe extern "C" fn rank_answer_cached(
         correctness,
         lexical,
         len_quality,
-        q_to_gt,
         "",
         ground_truth.as_ref(),
         miner_answer.as_ref(),
@@ -437,7 +371,7 @@ pub unsafe extern "C" fn breakdown_answer(
         return BREAKDOWN_BUF.as_ptr() as i32;
     }
 
-    let (relevance, correctness, lexical, len_quality, _q_to_gt) =
+    let (relevance, correctness, lexical, len_quality) =
         compute_signals(question.as_ref(), ground_truth.as_ref(), miner_answer.as_ref());
 
     let composite_score = composite(relevance, correctness, lexical, len_quality);

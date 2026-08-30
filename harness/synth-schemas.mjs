@@ -449,6 +449,89 @@ export const STORM_ALERT = {
   ],
 };
 
+const VENUES = ["NeurIPS", "ICML", "ACL", "CVPR", "ICLR", "EMNLP", "SIGGRAPH", "VLDB"];
+const FIELDS = ["protein folding", "sparse attention", "differential privacy", "graph neural networks",
+  "speech separation", "causal inference", "federated learning", "program synthesis"];
+const SURNAMES = ["Okonkwo", "Lindqvist", "Ramaswamy", "Beaulieu", "Nakagawa", "Ferreira", "Haddad", "Novakova"];
+
+/**
+ * ACADEMIC_SEARCH. The champion for this intent orders only 9 of 13 hidden
+ * pairs, so ordering -- not separation -- is the reachable gate. The mutations
+ * below are therefore weighted toward the distinctions a citation-shaped answer
+ * must get right: which year, which venue, whose paper, and how many citations.
+ */
+export const ACADEMIC_SEARCH = {
+  intent: "ACADEMIC_SEARCH",
+  keywords: ["paper", "authors", "published", "venue", "citations", "abstract", "DOI", "study"],
+  make(rng) {
+    const first = pick(rng, SURNAMES);
+    let second = pick(rng, SURNAMES);
+    while (second === first) second = pick(rng, SURNAMES);
+    const year = int(rng, 2018, 2026);
+    return {
+      field: pick(rng, FIELDS),
+      lead: first,
+      coauthor: second,
+      year,
+      venue: pick(rng, VENUES),
+      citations: int(rng, 40, 4200),
+      doi: `10.${int(rng, 1000, 9999)}/${pick(rng, VENUES).toLowerCase()}.${year}.${int(rng, 100, 999)}`,
+      pages: `${int(rng, 1, 400)}-${int(rng, 401, 800)}`,
+    };
+  },
+  question: (f) =>
+    `Find the most cited paper on ${f.field} led by ${f.lead}: who are the authors, in which year and venue ` +
+    `was it published, and how many citations does it have?`,
+  groundTruth: (f) =>
+    `The paper on ${f.field} was authored by ${f.lead} and ${f.coauthor} and published at ${f.venue} in ` +
+    `${f.year}. It has ${f.citations} citations and appears at pages ${f.pages} under DOI ${f.doi}.`,
+  surface: (f) => ({
+    lead: `the ${f.field} paper led by ${f.lead}`,
+    parts: [
+      ["authors", `the authors are ${f.lead} and ${f.coauthor}`],
+      ["year", `it was published in ${f.year}`],
+      ["venue", `it appeared at ${f.venue}`],
+      ["citations", `it has ${f.citations} citations`],
+      ["doi", `the DOI is ${f.doi}`],
+    ],
+  }),
+  altSurface: (f) => ({
+    lead: `${f.lead} et al. on ${f.field}`,
+    parts: [
+      ["authors", `authorship: ${f.lead}, ${f.coauthor}`],
+      ["year", `year of publication ${f.year}`],
+      ["venue", `venue ${f.venue} (proceedings)`],
+      ["citations", `cited ${f.citations} times to date`],
+      ["doi", `doi:${f.doi}`],
+    ],
+  }),
+  temporalWrong: (f) => ({
+    lead: `the ${f.field} paper led by ${f.lead}`,
+    parts: [
+      ["authors", `the authors are ${f.lead} and ${f.coauthor}`],
+      ["year", `it was published in ${f.year - 4}, and the ${f.year} entry is a later reprint`],
+      ["citations", `it has ${f.citations} citations`],
+    ],
+  }),
+  jsonFacts: (f) => ({
+    field: f.field, authors: [f.lead, f.coauthor], year: f.year, venue: f.venue,
+    citations: f.citations, doi: f.doi, pages: f.pages,
+  }),
+  mutations: [
+    { name: "citations", kind: "numeric", part: "citations",
+      apply: (f) => ({ ...f, citations: f.citations > 2000 ? f.citations - 1900 : f.citations + 1900 }) },
+    { name: "venue", kind: "categorical", part: "venue",
+      apply: (f, rng) => ({ ...f, venue: pick(rng, VENUES.filter((v) => v !== f.venue)) }) },
+    { name: "coauthor", kind: "identifier", part: "authors",
+      apply: (f, rng) => ({ ...f, coauthor: pick(rng, SURNAMES.filter((n) => n !== f.lead && n !== f.coauthor)) }) },
+    { name: "year", kind: "temporal", part: "year",
+      apply: (f, rng) => ({ ...f, year: f.year - int(rng, 3, 6) }) },
+    { name: "doi", kind: "identifier", part: "doi",
+      apply: (f, rng) => ({ ...f, doi: `10.${int(rng, 1000, 9999)}/misc.${int(rng, 100, 999)}` }) },
+  ],
+};
+
 export const SCHEMAS = {
+  ACADEMIC_SEARCH,
   WEATHER_FORECAST, SSL_VERIFICATION, STORM_ALERT, CVE_LOOKUP, IP_GEOLOCATION, CRYPTO_PRICE, STOCK_PRICE,
 };
